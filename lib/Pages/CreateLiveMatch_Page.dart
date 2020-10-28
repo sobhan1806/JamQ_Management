@@ -1,14 +1,7 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_material_pickers/helpers/show_radio_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:jaam_q/Pages/CreateLiveQuestions_Page.dart';
-import 'package:jaam_q/Pages/PanelUsersInfo_Page.dart';
-import 'package:jaam_q/Pages/QuestionsTypes_Page.dart';
-import 'package:jaam_q/Pages/Questions_Page.dart';
-import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,7 +12,6 @@ import 'Discount_Page.dart';
 import 'Home_Page.dart';
 import 'InviteLog_Page.dart';
 import 'LiveType_Page.dart';
-import 'LoginToAppLog_Page.dart';
 import 'Login_Page.dart';
 import 'Register_Page.dart';
 import 'Transactions_Page.dart';
@@ -31,6 +23,10 @@ import 'UnauthorizedWords_Page.dart';
 import 'AbouteUs_Page.dart';
 
 class CreateLiveMatch extends StatefulWidget {
+  var nameResponse, questioncountResponse, playercountResponse, answeringtimeResponse;
+  CreateLiveMatch(this.nameResponse, this.questioncountResponse, this.playercountResponse, this.answeringtimeResponse);
+  CreateLiveMatch.none();
+
   @override
   State<StatefulWidget> createState() {
     return CreateLiveMatchState();
@@ -57,7 +53,6 @@ class CreateLiveMatchState extends State<CreateLiveMatch> {
   final QuestionCountTextBox = TextEditingController();
   final PlayerCountTextBox = TextEditingController();
   final AnsweringTimeTextBox = TextEditingController();
-  int questioncount, playercount;
 
   @override
   void initState() {
@@ -488,7 +483,9 @@ class CreateLiveMatchState extends State<CreateLiveMatch> {
                     ),
                   ),
                   onTap: (){
-                    CreateLiveMatch();
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) =>
+                        new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions(NameTextBox.text, int.parse(QuestionCountTextBox.text), int.parse(PlayerCountTextBox.text), int.parse(AnsweringTimeTextBox.text)))),(Route<dynamic> route) => false);
                   },
                 ),
               ), // ادامه
@@ -517,105 +514,10 @@ class CreateLiveMatchState extends State<CreateLiveMatch> {
       ),
     ), onWillPop: () => Future(() => false));
   }
-  CreateLiveMatch() async {
-    print('CreateLiveMatch Run...');
-    questioncount = int.parse(QuestionCountTextBox.text);
-    playercount = int.parse(PlayerCountTextBox.text);
-    if(NameTextBox.text == '' || QuestionCountTextBox.text == '' || PlayerCountTextBox.text == ''){
-      Alert(
-        context: context,
-        type: AlertType.none,
-        title: "پیغام",
-        desc: "!!!لطفا فیلد های خالی را پر کنید",
-        buttons: [
-          DialogButton(
-            child: Text(
-              "تایید",
-              style: TextStyle(color: Colors.black, fontSize: 18),
-            ),
-            onPressed: () => Navigator.pop(context),
-            color: Color(0xffD3D3D3),
-          )
-        ],
-      ).show(); // Message
-    }else{
-      try {
-        FormData formData = FormData.fromMap({
-          "LmName":NameTextBox.text,
-          "LmQuestionsCount":questioncount,
-          "LmPlayerNumbers":playercount,
-          "LmAnsweringTime":int.parse(AnsweringTimeTextBox.text),
-        });
-        //_openLoadingDialog(context);
-        Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/CreateMatch",options: Options(contentType: 'multipart/form-data'),data:formData);
-        print(response.data.toString());
-        if(response.data.toString() == "Created Match!") {
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) =>
-              new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions(NameTextBox.text, questioncount, AnsweringTimeTextBox.text))),(Route<dynamic> route) => false);
-        }
-        else
-        {
-          //Navigator.pop(context);
-          Alert(
-            context: context,
-            type: AlertType.none,
-            title: "پیغام",
-            desc: "!!!برنامه با خطا مواجه شده است",
-            buttons: [
-              DialogButton(
-                child: Text(
-                  "تایید",
-                  style: TextStyle(color: Colors.black, fontSize: 18),
-                ),
-                onPressed: () => Navigator.pop(context),
-                color: Color(0xffD3D3D3),
-              )
-            ],
-          ).show(); // Message
-        }
-        return true;
-      } catch (e) {
-        //Navigator.pop(context);
-        Alert(
-          context: context,
-          type: AlertType.none,
-          title: "پیغام",
-          desc: "!!!ارتباط با سرور برقرار نیست",
-          buttons: [
-            DialogButton(
-              child: Text(
-                "تایید",
-                style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
-              ),
-              onPressed: () => Navigator.pop(context),
-              color: Color(0xffD3D3D3),
-            )
-          ],
-        ).show(); // Message
-        print(e);
-      }
-    }
-  }
-  void _openLoadingDialog(BuildContext context) {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  CircularProgressIndicator(),
-                  Padding(padding: EdgeInsets.only(top: 20,left: 10),child:  Text('...لطفا صبر کنید',style: TextStyle(fontSize: 20,color: Colors.black,fontFamily: 'IRANSans'),),)
-                ],
-              )
-          ),
-        );
-      },
-    );
+  FillInfo(){
+    NameTextBox.text = widget.nameResponse;
+    QuestionCountTextBox.text = widget.questioncountResponse;
+    PlayerCountTextBox.text = widget.playercountResponse;
+    AnsweringTimeTextBox.text = widget.answeringtimeResponse;
   }
 }

@@ -355,7 +355,7 @@ class LiveTypesState extends State<LiveTypes> {
                     onTap: (){
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(builder: (context) =>
-                          new Directionality(textDirection: TextDirection.rtl, child: CreateLiveMatch())),(Route<dynamic> route) => false);
+                          new Directionality(textDirection: TextDirection.rtl, child: CreateLiveMatch.none())),(Route<dynamic> route) => false);
                     },
                   ),
                 ), // لیست سوالات
@@ -376,9 +376,9 @@ class LiveTypesState extends State<LiveTypes> {
                       ),
                     ),
                     onTap: (){
-                      /*Navigator.of(context).pushAndRemoveUntil(
+                      Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(builder: (context) =>
-                          new Directionality(textDirection: TextDirection.rtl, child: LiveTournament())),(Route<dynamic> route) => false);*/
+                          new Directionality(textDirection: TextDirection.rtl, child: LiveTournament())),(Route<dynamic> route) => false);
                     },
                   ),
                 ), // ایجاد سوالات به صورت تکی

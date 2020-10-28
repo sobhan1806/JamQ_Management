@@ -64,7 +64,7 @@ class MainApp extends StatelessWidget {
         primaryIconTheme: IconThemeData(color: Colors.white),
         primaryTextTheme: TextTheme(title: TextStyle(color: Colors.white)),
       ),
-      initialRoute: "/LiveTournament_Page",
+      initialRoute: "/CreateLiveMatch_Page",
       routes: {
         "/Home_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Home()),
         "/Login_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Login()),
@@ -112,7 +112,7 @@ class MainApp extends StatelessWidget {
         "/EditAward_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditAward.none()),
         "/LiveTournament_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveTournament()),
         "/LiveType_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveTypes()),
-        "/CreateLiveMatch_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateLiveMatch()),
+        "/CreateLiveMatch_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateLiveMatch.none()),
         "/CreateLiveQuestions_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions.none()),
         "/LiveManagement_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveManagement.none()),
       },

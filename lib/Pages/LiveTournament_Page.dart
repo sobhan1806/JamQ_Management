@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:jaam_q/Pages/ApplicationUsersInfo_Page.dart';
+import 'package:jaam_q/Pages/LiveType_Page.dart';
 import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,17 +55,17 @@ class LiveTournamentState extends State<LiveTournament>{
             body: Center(
               child: Stack(
                   children: [
-                    Padding(padding: EdgeInsets.only(right: 950),
+                    Padding(padding: EdgeInsets.only(left: 10),
                       child: Row(
                         children: [
-                          Padding(padding: EdgeInsets.only(right: 980, top: 85),
+                          Padding(padding: EdgeInsets.only(right: 1230, top: 85),
                             child: InkWell(
                               child: Container(
-                                width: 130,
+                                width: 100,
                                 height: 30,
                                 child: Padding(
-                                  padding: EdgeInsets.only(right: 22, top: 2),
-                                  child: new Text("بارگذاری مجدد", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                                  padding: EdgeInsets.only(right: 28, top: 2),
+                                  child: new Text("بازگشت", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
                                 ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
@@ -74,13 +75,13 @@ class LiveTournamentState extends State<LiveTournament>{
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: LiveTournament())),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: LiveTypes())),(Route<dynamic> route) => false);
                               },
                             ),
-                          ), // بارگذاری مجدد
+                          ), // ازگشت
                         ],
                       ),
-                    ),// بارگذاری مجدد
+                    ),// بازگشت نوار بالا
                     Container(
                       height: 60,
                       color: Color(0xff24026E),
@@ -370,7 +371,7 @@ class LiveTournamentState extends State<LiveTournament>{
                         ),
                       ),
                     ),// سمت راست
-                    Padding(padding: EdgeInsets.only(right: 730, top: 80),
+                    Padding(padding: EdgeInsets.only(right: 740, top: 80),
                       child: new Text("مسابقات Live", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
                     ),// عنوان صفحه
                     Padding(padding: EdgeInsets.only(left: 26, right: 295, top: 230),
@@ -490,7 +491,6 @@ class LiveTournamentState extends State<LiveTournament>{
                                           child: Container(
                                             width: 90,
                                             height: 20,
-                                            color: Colors.white,
                                             child: Center(
                                               child: Text(livematchInformation[index]["LmPlayerNumbers"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
@@ -500,7 +500,6 @@ class LiveTournamentState extends State<LiveTournament>{
                                           child: Container(
                                             width: 70,
                                             height: 20,
-                                            color: Colors.white,
                                             child: Center(
                                               child: Text(livematchInformation[index]["LmAnsweringTime"].toString() + " " + "ثانیه", style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
@@ -537,7 +536,7 @@ class LiveTournamentState extends State<LiveTournament>{
           context: context,
           type: AlertType.none,
           title: "پیغام",
-          desc: "!!!مسابقه ای به اتمام",
+          desc: "!!!مسابقه ای به اتمام نرسیده است",
           buttons: [
             DialogButton(
               child: Text(
@@ -546,13 +545,14 @@ class LiveTournamentState extends State<LiveTournament>{
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: LiveTypes())),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
         ).show(); // Message
       }
     } catch (e) {
+      Navigator.pop(context);
       Alert(
         context: context,
         type: AlertType.none,
@@ -566,7 +566,7 @@ class LiveTournamentState extends State<LiveTournament>{
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: LiveTypes())),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -580,5 +580,26 @@ class LiveTournamentState extends State<LiveTournament>{
     //print('DADD');
     //print(DateForConvert);
     return DateForConvert;
+  }
+  void _openLoadingDialog(BuildContext context) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  CircularProgressIndicator(),
+                  Padding(padding: EdgeInsets.only(top: 20,left: 10),child:  Text('...لطفا صبر کنید',style: TextStyle(fontSize: 20,color: Colors.black,fontFamily: 'IRANSans'),),)
+                ],
+              )
+          ),
+        );
+      },
+    );
   }
 }

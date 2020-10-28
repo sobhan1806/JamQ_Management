@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:jaam_q/Pages/ApplicationUsersInfo_Page.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:slide_popup_dialog/slide_popup_dialog.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 import 'AbouteUs_Page.dart';
 import 'Advertises_Page.dart';
 import 'Discount_Page.dart';
@@ -39,11 +41,16 @@ class LiveManagementState extends State<LiveManagement>{
   var appscaffold;
   Future loadfuture;
   List playerInformation, questionsInformation;
-  var MatchId;
+  bool Start = false;
+  bool Close = false;
+  bool End = false;
+  var MatchId, QuestionId;
+  Socket socket;
 
   @override
   void initState() {
     super.initState();
+    connectsocket();
     loadfuture =  FillInfo();
   }
   @override
@@ -463,8 +470,8 @@ class LiveManagementState extends State<LiveManagement>{
                       width: 130,
                       height: 30,
                       child: Padding(
-                        padding: EdgeInsets.only(right: 26, top: 2),
-                        child: new Text("شروع مسابقه", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                        padding: EdgeInsets.only(right: 30, top: 2),
+                        child: new Text("آغاز مسابقه", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
@@ -472,11 +479,30 @@ class LiveManagementState extends State<LiveManagement>{
                       ),
                     ),
                     onTap: (){
-                      StartMatch();
+                      if(Start == true){
+                        Alert(
+                          context: context,
+                          type: AlertType.none,
+                          title: "پیغام",
+                          desc: "!!!مسابقه در حال اجراست",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "تایید",
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              color: Color(0xffD3D3D3),
+                            )
+                          ],
+                        ).show();
+                      }else{
+                        StartMatch();
+                      }
                     },
                   ),
                 ), // شروع مسابقه
-              ),// شروع مسابقه
+              ),// آغاز مسابقه
               new Align(alignment: Alignment.bottomRight,
                 child: Padding(padding: EdgeInsets.only(right: 650, bottom: 110),
                   child: InkWell(
@@ -493,7 +519,26 @@ class LiveManagementState extends State<LiveManagement>{
                       ),
                     ),
                     onTap: (){
-                      CloseMatch();
+                      if(Close == true){
+                        Alert(
+                          context: context,
+                          type: AlertType.none,
+                          title: "پیغام",
+                          desc: "!!!مسابقه قبلا بسته شده است",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "تایید",
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              color: Color(0xffD3D3D3),
+                            )
+                          ],
+                        ).show(); // Message
+                      }else{
+                        CloseMatch();
+                      }
                     },
                   ),
                 ), // پایان مسابقه
@@ -514,19 +559,38 @@ class LiveManagementState extends State<LiveManagement>{
                       ),
                     ),
                     onTap: (){
-                      EndMatch();
+                      if(End == true){
+                        Alert(
+                          context: context,
+                          type: AlertType.none,
+                          title: "پیغام",
+                          desc: "!!!مسابقه قبلا پایان یافته است",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "تایید",
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              color: Color(0xffD3D3D3),
+                            )
+                          ],
+                        ).show();
+                      }else{
+                        EndMatch();
+                      }
                     },
                   ),
                 ), // پایان مسابقه
               ),// پایان مسابقه
               new Align(alignment: Alignment.bottomLeft,
-                child: Padding(padding: EdgeInsets.only(left: 400, bottom: 150),
+                child: Padding(padding: EdgeInsets.only(left: 330, bottom: 150),
                   child: InkWell(
                     child: Container(
-                      width: 130,
+                      width: 200,
                       height: 30,
                       child: Padding(
-                        padding: EdgeInsets.only(right: 32, top: 2),
+                        padding: EdgeInsets.only(right: 67, top: 2),
                         child: new Text("ارسال سوال", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
                       ),
                       decoration: BoxDecoration(
@@ -541,14 +605,14 @@ class LiveManagementState extends State<LiveManagement>{
                 ), // پایان مسابقه
               ),// ارسال سوال
               new Align(alignment: Alignment.bottomLeft,
-                child: Padding(padding: EdgeInsets.only(left: 400, bottom: 110),
+                child: Padding(padding: EdgeInsets.only(left: 330, bottom: 110),
                   child: InkWell(
                     child: Container(
-                      width: 130,
+                      width: 200,
                       height: 30,
                       child: Padding(
-                        padding: EdgeInsets.only(right: 32, top: 2),
-                        child: new Text("زمان سوال", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                        padding: EdgeInsets.only(right: 40, top: 2),
+                        child: new Text("تغییر زمانبندی پاسخ", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
@@ -560,9 +624,9 @@ class LiveManagementState extends State<LiveManagement>{
                     },
                   ),
                 ), // پایان مسابقه
-              ),// زمان سوال
+              ),// تغییر زمانبندی پاسخ
               new Align(alignment: Alignment.bottomLeft,
-                child: Padding(padding: EdgeInsets.only(left: 330,right: 970, bottom: 105),
+                child: Padding(padding: EdgeInsets.only(left: 250,right: 1040, bottom: 105),
                   child: Card(
                     color: Color(0xff9370DB),
                     child: Container(
@@ -609,6 +673,16 @@ class LiveManagementState extends State<LiveManagement>{
       ),
     ), onWillPop: () => Future(() => false));
   }
+  connectsocket() async {
+    socket = io('http://jamq.ir:3000/', <String, dynamic>{
+      'transports': ['websocket'],
+      'autoConnect': false, // optional
+    });
+    socket.connect();
+    socket.on('connect', (_) {
+      print('Connected');
+    });
+  }
   StartMatch() async {
     print('StartMatch Run...');
     MatchId = widget.MatchIdResponse;
@@ -622,12 +696,13 @@ class LiveManagementState extends State<LiveManagement>{
       Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/StartMatch",options: Options(contentType: 'multipart/form-data'),data:formData);
       print(response.data.toString());
       if(response.data.toString() == "StartMatch Done!") {
+        Start = true;
         Navigator.pop(context);
         Alert(
           context: context,
           type: AlertType.none,
           title: "پیغام",
-          desc: ".مسابقه با موفقیت بسته شد",
+          desc: ".مسابقه با موفقیت آغاز شد",
           buttons: [
             DialogButton(
               child: Text(
@@ -695,6 +770,7 @@ class LiveManagementState extends State<LiveManagement>{
       Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/CloseMatch",options: Options(contentType: 'multipart/form-data'),data:formData);
       print(response.data.toString());
       if(response.data.toString() == "CloseMatch Done!") {
+        Close = true;
         Navigator.pop(context);
         Alert(
           context: context,
@@ -757,76 +833,53 @@ class LiveManagementState extends State<LiveManagement>{
   }
   EndMatch() async {
     print('EndMatch Run...');
+    _openLoadingDialog(context);
     MatchId = widget.MatchIdResponse;
     print('MatchId = '+MatchId);
-
-    try {
-      FormData formData = FormData.fromMap({
-        "id":MatchId,
-      });
-      _openLoadingDialog(context);
-      Response response = await Dio().post("http://jamq.ir:3000/Hq/EndMatch",options: Options(contentType: 'multipart/form-data'),data:formData);
-      print(response.data.toString());
-      if(response.data.toString() == "Live Ended!") {
-        Navigator.pop(context);
-        Alert(
-          context: context,
-          type: AlertType.none,
-          title: "پیغام",
-          desc: ".مسابقه با موفقیت بسته شد",
-          buttons: [
-            DialogButton(
-              child: Text(
-                "تایید",
-                style: TextStyle(color: Colors.black, fontSize: 18),
-              ),
-              onPressed: () => Navigator.pop(context),
-              color: Color(0xffD3D3D3),
-            )
-          ],
-        ).show(); // Message
-      }
-      else
-      {
-        Navigator.pop(context);
-        Alert(
-          context: context,
-          type: AlertType.none,
-          title: "پیغام",
-          desc: "!!!برنامه با خطا مواجه شده است",
-          buttons: [
-            DialogButton(
-              child: Text(
-                "تایید",
-                style: TextStyle(color: Colors.black, fontSize: 18),
-              ),
-              onPressed: () => Navigator.pop(context),
-              color: Color(0xffD3D3D3),
-            )
-          ],
-        ).show(); // Message
-      }
-      return true;
-    } catch (e) {
-      Navigator.pop(context);
-      Alert(
-        context: context,
-        type: AlertType.none,
-        title: "پیغام",
-        desc: "!!!ارتباط با سرور برقرار نیست",
-        buttons: [
-          DialogButton(
-            child: Text(
-              "تایید",
-              style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
-            ),
-            onPressed: () => Navigator.pop(context),
-            color: Color(0xffD3D3D3),
-          )
-        ],
-      ).show(); // Message
-      print(e);
-    }
+    socket.emit('EndMatch',MatchId);
+    Navigator.pop(context);
+    End = true;
+    Alert(
+      context: context,
+      type: AlertType.none,
+      title: "پیغام",
+      desc: ".مسابقه با موفقیت پایان یافت",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "تایید",
+            style: TextStyle(color: Colors.black, fontSize: 18),
+          ),
+          onPressed: () => Navigator.pop(context),
+          color: Color(0xffD3D3D3),
+        )
+      ],
+    ).show();
+  }
+  SendQuestion() async {
+    print('EndMatch Run...');
+    _openLoadingDialog(context);
+    MatchId = widget.MatchIdResponse;
+    print('MatchId = '+MatchId);
+    socket.emit(QuestionId, MatchId);
+    Navigator.pop(context);
+    End = true;
+    Alert(
+      context: context,
+      type: AlertType.none,
+      title: "پیغام",
+      desc: ".سوال با موفقیت ارسال شد",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "تایید",
+            style: TextStyle(color: Colors.black, fontSize: 18),
+          ),
+          onPressed: () => Navigator.pop(context),
+          color: Color(0xffD3D3D3),
+        )
+      ],
+    ).show();
   }
   ChangeQuestionAnsweringTime() async {
     print('ChangeQuestionAnsweringTime Run...');
@@ -989,6 +1042,7 @@ class LiveManagementState extends State<LiveManagement>{
         ).show(); // Message
       }
     } catch (e) {
+      Navigator.pop(context);
       Alert(
         context: context,
         type: AlertType.none,
@@ -1035,7 +1089,7 @@ class LiveManagementState extends State<LiveManagement>{
                 child: new ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: questionsInformation.length,
+                    itemCount: 3,
                     itemBuilder: (BuildContext context,int index){
                       return Card(
                         child:
@@ -1057,6 +1111,8 @@ class LiveManagementState extends State<LiveManagement>{
                                       ),
                                     ),
                                     onTap: (){
+                                      QuestionId = questionsInformation[index]["_id"].toString();
+                                      SendQuestion();
                                     },
                                   ),
                                 ),
@@ -1069,7 +1125,7 @@ class LiveManagementState extends State<LiveManagement>{
                                     child: Text(questionsInformation[index]["LMQ_Question"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                   ),
                                 ),
-                              ),
+                              ),// متن سوال
                             ],
                           ),
                         ),
