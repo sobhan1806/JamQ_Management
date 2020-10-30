@@ -6,6 +6,7 @@ import 'package:image_picker_web/image_picker_web.dart';
 import 'package:jaam_q/Pages/CreateCategory_Page.dart';
 import 'package:jaam_q/Pages/CreateLiveMatch_Page.dart';
 import 'package:jaam_q/Pages/CreateQuestion_Page.dart';
+import 'package:jaam_q/Pages/LiveTournamentActive_Page.dart';
 import 'package:jaam_q/Pages/LiveTournament_Page.dart';
 import 'package:jaam_q/Pages/OneVsOneTournament_Page.dart';
 import 'package:jaam_q/Pages/PanelUsersInfo_Page.dart';
@@ -341,10 +342,10 @@ class LiveTypesState extends State<LiveTypes> {
                 child: Padding(padding: EdgeInsets.only(right: 250, bottom: 100),
                   child: InkWell(
                     child: Container(
-                      width: 200,
+                      width: 230,
                       height: 30,
                       child: Padding(
-                        padding: EdgeInsets.only(right: 57, top: 2),
+                        padding: EdgeInsets.only(right: 73, top: 2),
                         child: new Text("ساخت مسابقه", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
                       ),
                       decoration: BoxDecoration(
@@ -355,7 +356,7 @@ class LiveTypesState extends State<LiveTypes> {
                     onTap: (){
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(builder: (context) =>
-                          new Directionality(textDirection: TextDirection.rtl, child: CreateLiveMatch.none())),(Route<dynamic> route) => false);
+                          new Directionality(textDirection: TextDirection.rtl, child: CreateLiveMatch('', '', '', ''))),(Route<dynamic> route) => false);
                     },
                   ),
                 ), // لیست سوالات
@@ -364,11 +365,11 @@ class LiveTypesState extends State<LiveTypes> {
                 child: Padding(padding: EdgeInsets.only(right: 250, bottom: 20),
                   child: InkWell(
                     child: Container(
-                      width: 200,
+                      width: 230,
                       height: 30,
                       child: Padding(
-                        padding: EdgeInsets.only(right: 22, top: 2),
-                        child: new Text("مشاهده مسابقه های قبلی", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                        padding: EdgeInsets.only(right: 20, top: 2),
+                        child: new Text("مشاهده مسابقه های انجام شده", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
@@ -382,7 +383,30 @@ class LiveTypesState extends State<LiveTypes> {
                     },
                   ),
                 ), // ایجاد سوالات به صورت تکی
-              ),// مشاهده مسابقه های قبلی
+              ),// مشاهده مسابقه های انجام شده
+              new Align(alignment: Alignment.center,
+                child: Padding(padding: EdgeInsets.only(right: 250, top: 60),
+                  child: InkWell(
+                    child: Container(
+                      width: 230,
+                      height: 30,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 33, top: 2),
+                        child: new Text("مشاهده مسابقه های ناتمام", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Color(0xff483D8B),
+                      ),
+                    ),
+                    onTap: (){
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) =>
+                          new Directionality(textDirection: TextDirection.rtl, child: LiveTournamentActive())),(Route<dynamic> route) => false);
+                    },
+                  ),
+                ), // ایجاد سوالات به صورت تکی
+              ),// مشاهده مسابقه های ناتمام
             ]),
       ),
     ), onWillPop: () => Future(() => false));

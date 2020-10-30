@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:jaam_q/Pages/LiveManagement_Page.dart';
 import 'package:jaam_q/Pages/LiveType_Page.dart';
 import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,15 +20,15 @@ import 'Tickets_Page.dart';
 import 'Transactions_Page.dart';
 import 'UnauthorizedWords_Page.dart';
 
-class LiveTournament extends StatefulWidget{
+class LiveTournamentActive extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return LiveTournamentState();
+    return LiveTournamentActiveState();
   }
 
 }
-class LiveTournamentState extends State<LiveTournament>{
+class LiveTournamentActiveState extends State<LiveTournamentActive>{
   final SearchTextBox = TextEditingController();
   var appscaffold;
   Future loadfuture;
@@ -37,7 +38,7 @@ class LiveTournamentState extends State<LiveTournament>{
   void initState() {
     // TODO: implement initState
     super.initState();
-    loadfuture =  GetLiveMatchByState();
+    loadfuture =  GetLiveMatchActive();
   }
   @override
   Widget build(BuildContext context) {
@@ -522,19 +523,20 @@ class LiveTournamentState extends State<LiveTournament>{
       },
     ), onWillPop: () => Future(() => false));
   }
-  GetLiveMatchByState() async{
-    print('GetLiveMatchByState Run...');
+  GetLiveMatchActive() async{
+    print('GetLiveMatchActive Run...');
     try {
-      Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/GetLiveMatchByState");
+      Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/GetLiveMatchActive");
       if(response.data.toString() != 'LiveMatch Does Not Exist!!!'){
         livematchInformation = response.data;
+        print('GetLiveMatchActive = '+livematchInformation.toString());
         return livematchInformation;
       }else{
         Alert(
           context: context,
           type: AlertType.none,
           title: "پیغام",
-          desc: "!!!مسابقه ای به اتمام نرسیده است",
+          desc: "!!!مسابقه ای در حال اجرا نیست",
           buttons: [
             DialogButton(
               child: Text(
@@ -549,6 +551,7 @@ class LiveTournamentState extends State<LiveTournament>{
           ],
         ).show(); // Message
       }
+
     } catch (e) {
       Alert(
         context: context,

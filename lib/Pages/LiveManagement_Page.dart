@@ -1,7 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:jaam_q/Pages/ApplicationUsersInfo_Page.dart';
 import 'package:jaam_q/Pages/CreateLiveQuestions_Page.dart';
 import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,11 +40,8 @@ class LiveManagementState extends State<LiveManagement>{
   final QTimeTextBox = TextEditingController();
   var appscaffold;
   Future loadfuture;
-  List playerInformation, questionsInformation;
-  bool Start = false;
-  bool Close = false;
-  bool End = false;
-  var MatchId, QuestionId;
+  List playerInformation, questionsInformation, livematchInformation;
+  var MatchId, QuestionId, Sended, State, Close, SendQ;
   Socket socket;
 
   @override
@@ -479,7 +476,8 @@ class LiveManagementState extends State<LiveManagement>{
                       ),
                     ),
                     onTap: (){
-                      if(Start == true){
+                      print('StateStart = '+State);
+                      if(State == '1'){
                         Alert(
                           context: context,
                           type: AlertType.none,
@@ -496,7 +494,7 @@ class LiveManagementState extends State<LiveManagement>{
                             )
                           ],
                         ).show();
-                      }else{
+                      }else if(State == '0'){
                         StartMatch();
                       }
                     },
@@ -519,7 +517,8 @@ class LiveManagementState extends State<LiveManagement>{
                       ),
                     ),
                     onTap: (){
-                      if(Close == true){
+                      print('Close = '+Close.toString());
+                      if(Close == false){
                         Alert(
                           context: context,
                           type: AlertType.none,
@@ -559,7 +558,8 @@ class LiveManagementState extends State<LiveManagement>{
                       ),
                     ),
                     onTap: (){
-                      if(End == true){
+                      print('StateEnd = '+State);
+                      if(State == '2'){
                         Alert(
                           context: context,
                           type: AlertType.none,
@@ -576,7 +576,7 @@ class LiveManagementState extends State<LiveManagement>{
                             )
                           ],
                         ).show();
-                      }else{
+                      }else if(State == '1'){
                         EndMatch();
                       }
                     },
@@ -599,7 +599,7 @@ class LiveManagementState extends State<LiveManagement>{
                       ),
                     ),
                     onTap: (){
-                      _showDialog(context);
+                      SendQuestionPopup(context);
                     },
                   ),
                 ), // پایان مسابقه
@@ -696,7 +696,6 @@ class LiveManagementState extends State<LiveManagement>{
       Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/StartMatch",options: Options(contentType: 'multipart/form-data'),data:formData);
       print(response.data.toString());
       if(response.data.toString() == "StartMatch Done!") {
-        Start = true;
         Navigator.pop(context);
         Alert(
           context: context,
@@ -709,7 +708,9 @@ class LiveManagementState extends State<LiveManagement>{
                 "تایید",
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) =>
+                  new Directionality(textDirection: TextDirection.rtl, child: LiveManagement(MatchId, QTimeTextBox.text))),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -770,7 +771,6 @@ class LiveManagementState extends State<LiveManagement>{
       Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/CloseMatch",options: Options(contentType: 'multipart/form-data'),data:formData);
       print(response.data.toString());
       if(response.data.toString() == "CloseMatch Done!") {
-        Close = true;
         Navigator.pop(context);
         Alert(
           context: context,
@@ -783,7 +783,9 @@ class LiveManagementState extends State<LiveManagement>{
                 "تایید",
                 style: TextStyle(color: Colors.black, fontSize: 18),
               ),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) =>
+                  new Directionality(textDirection: TextDirection.rtl, child: LiveManagement(MatchId, QTimeTextBox.text))),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -833,12 +835,16 @@ class LiveManagementState extends State<LiveManagement>{
   }
   EndMatch() async {
     print('EndMatch Run...');
+
     _openLoadingDialog(context);
     MatchId = widget.MatchIdResponse;
     print('MatchId = '+MatchId);
-    socket.emit('EndMatch',MatchId);
+
+    Map<String, dynamic> Endmatch = new Map();
+    Endmatch['Matchid'] = MatchId;
+    socket.emit('EndMatch', [jsonEncode(Endmatch)]);
+
     Navigator.pop(context);
-    End = true;
     Alert(
       context: context,
       type: AlertType.none,
@@ -850,7 +856,9 @@ class LiveManagementState extends State<LiveManagement>{
             "تایید",
             style: TextStyle(color: Colors.black, fontSize: 18),
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) =>
+              new Directionality(textDirection: TextDirection.rtl, child: LiveManagement(MatchId, QTimeTextBox.text))),(Route<dynamic> route) => false),
           color: Color(0xffD3D3D3),
         )
       ],
@@ -858,12 +866,19 @@ class LiveManagementState extends State<LiveManagement>{
   }
   SendQuestion() async {
     print('EndMatch Run...');
+
     _openLoadingDialog(context);
+
     MatchId = widget.MatchIdResponse;
     print('MatchId = '+MatchId);
-    socket.emit(QuestionId, MatchId);
+
+    Map<String, dynamic> Sendq = new Map();
+    Sendq['LMQ_QuestionID'] = QuestionId;
+    Sendq['LMQ_Matchid'] = MatchId;
+    socket.emit('SendQuestiontoUser', [jsonEncode(Sendq)]);
+
+    GetQuestionsByMatchId();
     Navigator.pop(context);
-    End = true;
     Alert(
       context: context,
       type: AlertType.none,
@@ -900,7 +915,7 @@ class LiveManagementState extends State<LiveManagement>{
           context: context,
           type: AlertType.none,
           title: "پیغام",
-          desc: ".مسابقه با موفقیت بسته شد",
+          desc: ".عملیات با موفقیت انجام شد",
           buttons: [
             DialogButton(
               child: Text(
@@ -1021,7 +1036,6 @@ class LiveManagementState extends State<LiveManagement>{
         print('GetQuestionsByMatchId = '+questionsInformation.toString());
         return questionsInformation;
       }else{
-        Navigator.pop(context);
         Alert(
           context: context,
           type: AlertType.none,
@@ -1042,7 +1056,63 @@ class LiveManagementState extends State<LiveManagement>{
         ).show(); // Message
       }
     } catch (e) {
-      Navigator.pop(context);
+      Alert(
+        context: context,
+        type: AlertType.none,
+        title: "پیغام",
+        desc: "!!!ارتباط با سرور برقرار نیست",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "تایید",
+              style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+            ),
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) =>
+                new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions.none())),(Route<dynamic> route) => false),
+            color: Color(0xffD3D3D3),
+          )
+        ],
+      ).show(); // Message
+      print(e);
+    }
+  }
+  GetLiveMatchByMId() async{
+    print('GetLiveMatchByMId Run...');
+    MatchId = widget.MatchIdResponse;
+    print('MatchId = '+MatchId);
+    try {
+      FormData formData = FormData.fromMap({
+        "Id":MatchId,
+      });
+      Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/GetLiveMatchByMId",options: Options(contentType: 'multipart/form-data'),data:formData);
+      if(response.data.toString() != 'LiveMatch Does Not Exist!!!'){
+        livematchInformation = response.data;
+        print('GetQuestionsByMatchId = '+livematchInformation.toString());
+        State = livematchInformation[0]["LmState"].toString();
+        Close = livematchInformation[0]["LmIsOpend"];
+        return livematchInformation;
+      }else{
+        Alert(
+          context: context,
+          type: AlertType.none,
+          title: "پیغام",
+          desc: "!!!برنامه با مشکل مواجه شده است",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "تایید",
+                style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+              ),
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) =>
+                  new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions.none())),(Route<dynamic> route) => false),
+              color: Color(0xffD3D3D3),
+            )
+          ],
+        ).show(); // Message
+      }
+    } catch (e) {
       Alert(
         context: context,
         type: AlertType.none,
@@ -1067,8 +1137,9 @@ class LiveManagementState extends State<LiveManagement>{
   FillInfo(){
     QTimeTextBox.text = widget.QTimeResponse;
     GetQuestionsByMatchId();
+    GetLiveMatchByMId();
   }
-  void _showDialog(BuildContext context) {
+  void SendQuestionPopup(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
@@ -1089,7 +1160,7 @@ class LiveManagementState extends State<LiveManagement>{
                 child: new ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: 3,
+                    itemCount: questionsInformation.length,
                     itemBuilder: (BuildContext context,int index){
                       return Card(
                         child:
@@ -1111,8 +1182,28 @@ class LiveManagementState extends State<LiveManagement>{
                                       ),
                                     ),
                                     onTap: (){
-                                      QuestionId = questionsInformation[index]["_id"].toString();
-                                      SendQuestion();
+                                      Sended = questionsInformation[index]["LMQ_Sended"].toString();
+                                      if(Sended == true){
+                                        Alert(
+                                          context: context,
+                                          type: AlertType.none,
+                                          title: "پیغام",
+                                          desc: "!!!این سوال قبلا ارسال شده است",
+                                          buttons: [
+                                            DialogButton(
+                                              child: Text(
+                                                "تایید",
+                                                style: TextStyle(color: Colors.black, fontSize: 18),
+                                              ),
+                                              onPressed: () => Navigator.pop(context),
+                                              color: Color(0xffD3D3D3),
+                                            )
+                                          ],
+                                        ).show();
+                                      }else{
+                                        QuestionId = questionsInformation[index]["_id"].toString();
+                                        SendQuestion();
+                                      }
                                     },
                                   ),
                                 ),

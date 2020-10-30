@@ -18,6 +18,7 @@ import 'package:jaam_q/Pages/EditQuestion_Page.dart';
 import 'package:jaam_q/Pages/InAppItems.dart';
 import 'package:jaam_q/Pages/InviteLog_Page.dart';
 import 'package:jaam_q/Pages/LiveManagement_Page.dart';
+import 'package:jaam_q/Pages/LiveTournamentActive_Page.dart';
 import 'package:jaam_q/Pages/LiveType_Page.dart';
 import 'package:jaam_q/Pages/Login_Page.dart';
 import 'package:jaam_q/Pages/OneVsOneTournament_Page.dart';
@@ -111,6 +112,7 @@ class MainApp extends StatelessWidget {
         "/CreateAward_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateAward()),
         "/EditAward_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditAward.none()),
         "/LiveTournament_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveTournament()),
+        "/LiveTournamentActive_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveTournamentActive()),
         "/LiveType_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveTypes()),
         "/CreateLiveMatch_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateLiveMatch.none()),
         "/CreateLiveQuestions_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions.none()),

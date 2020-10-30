@@ -53,10 +53,12 @@ class CreateLiveMatchState extends State<CreateLiveMatch> {
   final QuestionCountTextBox = TextEditingController();
   final PlayerCountTextBox = TextEditingController();
   final AnsweringTimeTextBox = TextEditingController();
+  var MName, QCount, PCount, ATime;
 
   @override
   void initState() {
     super.initState();
+    FillInfo();
   }
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -483,9 +485,28 @@ class CreateLiveMatchState extends State<CreateLiveMatch> {
                     ),
                   ),
                   onTap: (){
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) =>
-                        new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions(NameTextBox.text, int.parse(QuestionCountTextBox.text), int.parse(PlayerCountTextBox.text), int.parse(AnsweringTimeTextBox.text)))),(Route<dynamic> route) => false);
+                    if(NameTextBox.text == '' || QuestionCountTextBox == '' || PlayerCountTextBox.text == '' || AnsweringTimeTextBox.text == ''){
+                      Alert(
+                        context: context,
+                        type: AlertType.none,
+                        title: "پیغام",
+                        desc: "!!!لطفا فیلد های خالی را پر کنید",
+                        buttons: [
+                          DialogButton(
+                            child: Text(
+                              "تایید",
+                              style: TextStyle(color: Colors.black, fontSize: 18),
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                            color: Color(0xffD3D3D3),
+                          )
+                        ],
+                      ).show(); // Message
+                    }else{
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) =>
+                          new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions(NameTextBox.text, int.parse(QuestionCountTextBox.text), int.parse(PlayerCountTextBox.text), int.parse(AnsweringTimeTextBox.text)))),(Route<dynamic> route) => false);
+                    }
                   },
                 ),
               ), // ادامه
@@ -515,9 +536,30 @@ class CreateLiveMatchState extends State<CreateLiveMatch> {
     ), onWillPop: () => Future(() => false));
   }
   FillInfo(){
-    NameTextBox.text = widget.nameResponse;
-    QuestionCountTextBox.text = widget.questioncountResponse;
-    PlayerCountTextBox.text = widget.playercountResponse;
-    AnsweringTimeTextBox.text = widget.answeringtimeResponse;
+    MName = widget.nameResponse;
+    QCount = widget.questioncountResponse;
+    PCount = widget.playercountResponse;
+    ATime = widget.answeringtimeResponse;
+
+    if(MName == null){
+      NameTextBox.text = '';
+    }else{
+      NameTextBox.text = MName.toString();
+    }
+    if(QCount == null){
+      QuestionCountTextBox.text = '';
+    }else{
+      QuestionCountTextBox.text = QCount.toString();
+    }
+    if(PCount == null){
+      PlayerCountTextBox.text = '';
+    }else{
+      PlayerCountTextBox.text = PCount.toString();
+    }
+    if(ATime == null){
+      AnsweringTimeTextBox.text = '';
+    }else{
+      AnsweringTimeTextBox.text = ATime.toString();
+    }
   }
 }
