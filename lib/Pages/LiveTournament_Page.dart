@@ -28,14 +28,12 @@ class LiveTournament extends StatefulWidget{
 
 }
 class LiveTournamentState extends State<LiveTournament>{
-  final SearchTextBox = TextEditingController();
   var appscaffold;
   Future loadfuture;
   List livematchInformation;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     loadfuture =  GetLiveMatchByState();
   }
@@ -433,34 +431,36 @@ class LiveTournamentState extends State<LiveTournament>{
                                     color: Color(0xff9370DB),
                                     child: Row(
                                       children: [
-                                        Padding(padding:EdgeInsets.only(right: 20),
+                                        Padding(padding:EdgeInsets.only(right: 15),
                                           child: Container(
                                             width: 90,
                                             height: 20,
-                                            child: new Text(livematchInformation[index]["_id"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
-                                          ),
-                                        ),
-                                        Padding(padding:EdgeInsets.only(right: 20),
-                                          child: Container(
-                                            width: 150,
-                                            height: 20,
                                             child: Center(
-                                              child: new Text(livematchInformation[index]["LmName"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                              child: Text(livematchInformation[index]["_id"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
-                                        Padding(padding:EdgeInsets.only(right: 6),
+                                        Padding(padding:EdgeInsets.only(right: 10),
                                           child: Container(
-                                            width: 100,
+                                            width: 180,
                                             height: 20,
                                             child: Center(
-                                              child: new Text(livematchInformation[index]["LmType"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                              child: Text(livematchInformation[index]["LmName"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
-                                        Padding(padding:EdgeInsets.only(right: 28),
+                                        Padding(padding:EdgeInsets.only(right: 7),
                                           child: Container(
-                                            width: 70,
+                                            width: 60,
+                                            height: 20,
+                                            child: Center(
+                                              child: Text(livematchInformation[index]["LmType"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(padding:EdgeInsets.only(right: 45),
+                                          child: Container(
+                                            width: 75,
                                             height: 20,
                                             child: Center(
                                               child: Text(PersianDate.fromGregorianString(Convertdate(livematchInformation[index]["LmStartDate"])).toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
@@ -469,37 +469,37 @@ class LiveTournamentState extends State<LiveTournament>{
                                         ),
                                         Padding(padding:EdgeInsets.only(right: 65),
                                           child: Container(
-                                            width: 70,
+                                            width: 75,
                                             height: 20,
                                             child: Center(
                                               child: Text(PersianDate.fromGregorianString(Convertdate(livematchInformation[index]["LmEndDate"])).toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
-                                        Padding(padding:EdgeInsets.only(right: 82),
+                                        Padding(padding:EdgeInsets.only(right: 70),
                                           child: Container(
-                                            width: 40,
+                                            width: 50,
                                             height: 20,
                                             child: Center(
                                               child: Text(livematchInformation[index]["LmQuestionsCount"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
-                                        Padding(padding:EdgeInsets.only(right: 70),
+                                        Padding(padding:EdgeInsets.only(right: 80),
                                           child: Container(
-                                            width: 90,
+                                            width: 75,
                                             height: 20,
                                             child: Center(
                                               child: Text(livematchInformation[index]["LmPlayerNumbers"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
-                                        Padding(padding:EdgeInsets.only(right: 60),
+                                        Padding(padding:EdgeInsets.only(right: 65),
                                           child: Container(
-                                            width: 70,
+                                            width: 50,
                                             height: 20,
                                             child: Center(
-                                              child: Text(livematchInformation[index]["LmAnsweringTime"].toString() + " " + "ثانیه", style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                              child: Text(livematchInformation[index]["LmAnsweringTime"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
@@ -528,6 +528,7 @@ class LiveTournamentState extends State<LiveTournament>{
       Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/GetLiveMatchByState");
       if(response.data.toString() != 'LiveMatch Does Not Exist!!!'){
         livematchInformation = response.data;
+        print('GetLiveMatchByState = '+livematchInformation.toString());
         return livematchInformation;
       }else{
         Alert(

@@ -1,46 +1,47 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:jaam_q/Pages/LiveManagement_Page.dart';
-import 'package:jaam_q/Pages/LiveType_Page.dart';
+import 'AdvertisesInfo_Page.dart';
+import 'CreateAdvertises_Page.dart';
 import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'AbouteUs_Page.dart';
 import 'Advertises_Page.dart';
+import 'ApplicationUsers_Page.dart';
 import 'Discount_Page.dart';
 import 'Home_Page.dart';
 import 'InviteLog_Page.dart';
+import 'LiveType_Page.dart';
 import 'LoginToAppLog_Page.dart';
 import 'Login_Page.dart';
-import 'Notification_Page.dart';
-import 'PanelUsers_Page.dart';
 import 'Register_Page.dart';
-import 'Tickets_Page.dart';
 import 'Transactions_Page.dart';
+import 'Notification_Page.dart';
+import 'OtherApps_Page.dart';
+import 'PanelUsers_Page.dart';
+import 'Tickets_Page.dart';
 import 'UnauthorizedWords_Page.dart';
+import 'AbouteUs_Page.dart';
 
-class LiveTournamentActive extends StatefulWidget{
+class LiveTournamentActive extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return LiveTournamentActiveState();
   }
-
 }
-class LiveTournamentActiveState extends State<LiveTournamentActive>{
-  final SearchTextBox = TextEditingController();
+
+class LiveTournamentActiveState extends State<LiveTournamentActive> {
   var appscaffold;
   Future loadfuture;
   List livematchInformation;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    loadfuture =  GetLiveMatchActive();
+    loadfuture = GetLiveMatchActive();
   }
-  @override
   Widget build(BuildContext context) {
 
     return WillPopScope(child: FutureBuilder(
@@ -370,8 +371,8 @@ class LiveTournamentActiveState extends State<LiveTournamentActive>{
                         ),
                       ),
                     ),// سمت راست
-                    Padding(padding: EdgeInsets.only(right: 740, top: 80),
-                      child: new Text("مسابقات Live", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                    Padding(padding: EdgeInsets.only(right: 690, top: 80),
+                      child: new Text("مسابقات ناتمام Live", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
                     ),// عنوان صفحه
                     Padding(padding: EdgeInsets.only(left: 26, right: 295, top: 230),
                       child:
@@ -407,7 +408,7 @@ class LiveTournamentActiveState extends State<LiveTournamentActive>{
                                       child: new Text("تعداد بازیکن ها", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
                                     ),
                                     Padding(padding: EdgeInsets.only(right: 50, top: 5),
-                                      child: new Text("زمان پاسخ", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
+                                      child: new Text("مشاهده", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
                                     ),
                                   ]),
                                 ]),
@@ -434,34 +435,36 @@ class LiveTournamentActiveState extends State<LiveTournamentActive>{
                                     color: Color(0xff9370DB),
                                     child: Row(
                                       children: [
-                                        Padding(padding:EdgeInsets.only(right: 20),
+                                        Padding(padding:EdgeInsets.only(right: 15),
                                           child: Container(
                                             width: 90,
                                             height: 20,
-                                            child: new Text(livematchInformation[index]["_id"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
-                                          ),
-                                        ),
-                                        Padding(padding:EdgeInsets.only(right: 20),
-                                          child: Container(
-                                            width: 150,
-                                            height: 20,
                                             child: Center(
-                                              child: new Text(livematchInformation[index]["LmName"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                              child: Text(livematchInformation[index]["_id"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
-                                        Padding(padding:EdgeInsets.only(right: 6),
+                                        Padding(padding:EdgeInsets.only(right: 10),
                                           child: Container(
-                                            width: 100,
+                                            width: 180,
                                             height: 20,
                                             child: Center(
-                                              child: new Text(livematchInformation[index]["LmType"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                              child: Text(livematchInformation[index]["LmName"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
-                                        Padding(padding:EdgeInsets.only(right: 28),
+                                        Padding(padding:EdgeInsets.only(right: 7),
                                           child: Container(
-                                            width: 70,
+                                            width: 60,
+                                            height: 20,
+                                            child: Center(
+                                              child: Text(livematchInformation[index]["LmType"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(padding:EdgeInsets.only(right: 45),
+                                          child: Container(
+                                            width: 75,
                                             height: 20,
                                             child: Center(
                                               child: Text(PersianDate.fromGregorianString(Convertdate(livematchInformation[index]["LmStartDate"])).toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
@@ -470,38 +473,48 @@ class LiveTournamentActiveState extends State<LiveTournamentActive>{
                                         ),
                                         Padding(padding:EdgeInsets.only(right: 65),
                                           child: Container(
-                                            width: 70,
+                                            width: 75,
                                             height: 20,
                                             child: Center(
-                                              child: Text(PersianDate.fromGregorianString(Convertdate(livematchInformation[index]["LmEndDate"])).toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                              child: Text(Def(livematchInformation[index]["LmEndDate"]).toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
-                                        Padding(padding:EdgeInsets.only(right: 82),
+                                        Padding(padding:EdgeInsets.only(right: 70),
                                           child: Container(
-                                            width: 40,
+                                            width: 50,
                                             height: 20,
                                             child: Center(
                                               child: Text(livematchInformation[index]["LmQuestionsCount"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
-                                        Padding(padding:EdgeInsets.only(right: 70),
+                                        Padding(padding:EdgeInsets.only(right: 80),
                                           child: Container(
-                                            width: 90,
+                                            width: 75,
                                             height: 20,
                                             child: Center(
                                               child: Text(livematchInformation[index]["LmPlayerNumbers"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
-                                        Padding(padding:EdgeInsets.only(right: 60),
-                                          child: Container(
-                                            width: 70,
-                                            height: 20,
-                                            child: Center(
-                                              child: Text(livematchInformation[index]["LmAnsweringTime"].toString() + " " + "ثانیه", style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                        Padding(padding: EdgeInsets.only(right: 27),
+                                          child: InkWell(
+                                            child: Container(
+                                              width: 100,
+                                              height: 30,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(right: 30, top: 4),
+                                                child: new Text("مشاهده", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 13)),
+                                              ),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(5),
+                                                color: Color(0xff483D8B),
+                                              ),
                                             ),
+                                            onTap: (){
+                                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveManagement(livematchInformation[index]["_id"].toString(), livematchInformation[index]["LmAnsweringTime"].toString()))),(Route<dynamic> route) => false);
+                                            },
                                           ),
                                         ),
                                       ],
@@ -580,5 +593,10 @@ class LiveTournamentActiveState extends State<LiveTournamentActive>{
     //print('DADD');
     //print(DateForConvert);
     return DateForConvert;
+  }
+  Def(var state){
+    if(state == "Def"){
+      return "ناتمام";
+    }
   }
 }

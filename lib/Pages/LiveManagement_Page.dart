@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:jaam_q/Pages/CreateLiveQuestions_Page.dart';
+import 'package:jaam_q/Pages/LiveType_Page.dart';
 import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -599,7 +600,44 @@ class LiveManagementState extends State<LiveManagement>{
                       ),
                     ),
                     onTap: (){
-                      SendQuestionPopup(context);
+                      State = livematchInformation[0]["LmState"].toString();
+                      if(State == '0'){
+                        Alert(
+                          context: context,
+                          type: AlertType.none,
+                          title: "پیغام",
+                          desc: "!!!مسابقه آغاز نشده است",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "تایید",
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              color: Color(0xffD3D3D3),
+                            )
+                          ],
+                        ).show();
+                      }else if(State == '2'){
+                        Alert(
+                          context: context,
+                          type: AlertType.none,
+                          title: "پیغام",
+                          desc: "!!!مسابقه پایان یافته است",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "تایید",
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              color: Color(0xffD3D3D3),
+                            )
+                          ],
+                        ).show();
+                      }else{
+                        SendQuestionPopup(context);
+                      }
                     },
                   ),
                 ), // پایان مسابقه
@@ -875,7 +913,7 @@ class LiveManagementState extends State<LiveManagement>{
     Map<String, dynamic> Sendq = new Map();
     Sendq['LMQ_QuestionID'] = QuestionId;
     Sendq['LMQ_Matchid'] = MatchId;
-    socket.emit('SendQuestiontoUser', [jsonEncode(Sendq)]);
+    socket.emit('SendQuestiontoUser',[jsonEncode(Sendq)]);
 
     GetQuestionsByMatchId();
     Navigator.pop(context);
@@ -1047,9 +1085,7 @@ class LiveManagementState extends State<LiveManagement>{
                 "تایید",
                 style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
               ),
-              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions.none())),(Route<dynamic> route) => false),
+              onPressed: () => Navigator.pop(context),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -1067,9 +1103,7 @@ class LiveManagementState extends State<LiveManagement>{
               "تایید",
               style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
             ),
-            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions.none())),(Route<dynamic> route) => false),
+            onPressed: () => Navigator.pop(context),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -1106,7 +1140,7 @@ class LiveManagementState extends State<LiveManagement>{
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions.none())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: LiveTypes())),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -1126,7 +1160,7 @@ class LiveManagementState extends State<LiveManagement>{
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions.none())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: LiveTypes())),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -1182,7 +1216,11 @@ class LiveManagementState extends State<LiveManagement>{
                                       ),
                                     ),
                                     onTap: (){
-                                      Sended = questionsInformation[index]["LMQ_Sended"].toString();
+                                      setState(() {
+                                        GetQuestionsByMatchId();
+                                      });
+                                      Sended = questionsInformation[index]["LMQ_Sended"];
+                                      print('Sended = '+Sended.toString());
                                       if(Sended == true){
                                         Alert(
                                           context: context,

@@ -65,7 +65,7 @@ class MainApp extends StatelessWidget {
         primaryIconTheme: IconThemeData(color: Colors.white),
         primaryTextTheme: TextTheme(title: TextStyle(color: Colors.white)),
       ),
-      initialRoute: "/CreateLiveMatch_Page",
+      initialRoute: "/LiveType_Page",
       routes: {
         "/Home_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Home()),
         "/Login_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Login()),

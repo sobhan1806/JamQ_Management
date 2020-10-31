@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:jaam_q/Pages/AdvertisesInfo_Page.dart';
-import 'package:jaam_q/Pages/CreateAdvertises_Page.dart';
-import 'package:jaam_q/Pages/PanelUsersInfo_Page.dart';
+import 'AdvertisesInfo_Page.dart';
+import 'CreateAdvertises_Page.dart';
 import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
