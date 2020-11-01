@@ -13,6 +13,7 @@ import 'package:jaam_q/Pages/CreateCategory_Page.dart';
 import 'package:jaam_q/Pages/CreateLiveQuestions_Page.dart';
 import 'package:jaam_q/Pages/CreateQuestion_Page.dart';
 import 'package:jaam_q/Pages/EditAward_Page.dart';
+import 'package:jaam_q/Pages/EditLiveQuestion_Page.dart';
 import 'package:jaam_q/Pages/EditOtherApps_Page.dart';
 import 'package:jaam_q/Pages/EditQuestion_Page.dart';
 import 'package:jaam_q/Pages/InAppItems.dart';
@@ -40,6 +41,7 @@ import 'Pages/EditAbouteUs_Page.dart';
 import 'Pages/EditDiscount_Page.dart';
 import 'Pages/FullTextTicket_Page.dart';
 import 'Pages/Home_Page.dart';
+import 'Pages/LiveQuestions_Page.dart';
 import 'Pages/LiveTournament_Page.dart';
 import 'Pages/LoginToAppLog_Page.dart';
 import 'Pages/Notification_Page.dart';
@@ -117,6 +119,8 @@ class MainApp extends StatelessWidget {
         "/CreateLiveMatch_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateLiveMatch.none()),
         "/CreateLiveQuestions_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions.none()),
         "/LiveManagement_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveManagement.none()),
+        "/LiveQuestions_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveQuestions.none()),
+        "/EditLiveQuestions_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditLiveQuestions.none()),
       },
       debugShowCheckedModeBanner: false,
     );

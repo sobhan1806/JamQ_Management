@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:jaam_q/Pages/LiveManagement_Page.dart';
+import 'package:jaam_q/Pages/LiveQuestions_Page.dart';
 import 'AdvertisesInfo_Page.dart';
 import 'CreateAdvertises_Page.dart';
 import 'package:jalali_date/jalali_date.dart';
@@ -36,6 +37,7 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
   var appscaffold;
   Future loadfuture;
   List livematchInformation;
+  bool Type;
 
   @override
   void initState() {
@@ -372,7 +374,7 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
                       ),
                     ),// سمت راست
                     Padding(padding: EdgeInsets.only(right: 690, top: 80),
-                      child: new Text("مسابقات ناتمام Live", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                      child: new Text("مسابقات زنده ناتمام", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
                     ),// عنوان صفحه
                     Padding(padding: EdgeInsets.only(left: 26, right: 295, top: 230),
                       child:
@@ -404,10 +406,10 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
                                     Padding(padding: EdgeInsets.only(right: 60, top: 5),
                                       child: new Text("تعداد سوالات", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
                                     ),
-                                    Padding(padding: EdgeInsets.only(right: 50, top: 5),
-                                      child: new Text("تعداد بازیکن ها", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
+                                    Padding(padding: EdgeInsets.only(right: 60, top: 5),
+                                      child: new Text("سوالات", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
                                     ),
-                                    Padding(padding: EdgeInsets.only(right: 50, top: 5),
+                                    Padding(padding: EdgeInsets.only(right: 78, top: 5),
                                       child: new Text("مشاهده", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
                                     ),
                                   ]),
@@ -489,13 +491,24 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
                                             ),
                                           ),
                                         ),
-                                        Padding(padding:EdgeInsets.only(right: 80),
-                                          child: Container(
-                                            width: 75,
-                                            height: 20,
-                                            child: Center(
-                                              child: Text(livematchInformation[index]["LmPlayerNumbers"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                        Padding(padding: EdgeInsets.only(right: 50),
+                                          child: InkWell(
+                                            child: Container(
+                                              width: 100,
+                                              height: 30,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(right: 32, top: 4),
+                                                child: new Text("سوالات", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 13)),
+                                              ),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(5),
+                                                color: Color(0xff483D8B),
+                                              ),
                                             ),
+                                            onTap: (){
+                                              Type = true;
+                                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveQuestions(livematchInformation[index]["_id"].toString(), Type))),(Route<dynamic> route) => false);
+                                            },
                                           ),
                                         ),
                                         Padding(padding: EdgeInsets.only(right: 27),

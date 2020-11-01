@@ -1216,9 +1216,6 @@ class LiveManagementState extends State<LiveManagement>{
                                       ),
                                     ),
                                     onTap: (){
-                                      setState(() {
-                                        GetQuestionsByMatchId();
-                                      });
                                       Sended = questionsInformation[index]["LMQ_Sended"];
                                       print('Sended = '+Sended.toString());
                                       if(Sended == true){

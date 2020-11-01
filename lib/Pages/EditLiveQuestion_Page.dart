@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_material_pickers/helpers/show_radio_picker.dart';
+import 'package:jaam_q/Pages/LiveQuestions_Page.dart';
 import 'CreateLiveMatch_Page.dart';
 import 'LiveManagement_Page.dart';
 import 'LiveType_Page.dart';
@@ -23,25 +24,24 @@ import 'Tickets_Page.dart';
 import 'UnauthorizedWords_Page.dart';
 import 'AbouteUs_Page.dart';
 
-class CreateLiveQuestions extends StatefulWidget {
-  var NameResponse, QuestionCountResponse, PlayerCountResponse, AnsweringTimeResponse;
-  CreateLiveQuestions(this.NameResponse, this.QuestionCountResponse, this.PlayerCountResponse, this.AnsweringTimeResponse);
-  CreateLiveQuestions.none();
+class EditLiveQuestions extends StatefulWidget {
+  var QIdResponse;
+  EditLiveQuestions(this.QIdResponse);
+  EditLiveQuestions.none();
 
   @override
   State<StatefulWidget> createState() {
-    return CreateLiveQuestionsState();
+    return EditLiveQuestionsState();
   }
 }
 
-class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
+class EditLiveQuestionsState extends State<EditLiveQuestions> {
   var selectedUsState;
   List<String> TrueAnswer = <String>[
     'گزینه اول',
     'گزینه دوم',
     'گزینه سوم',
   ];
-  final QuestionsCountTextBox = TextEditingController();
   final QuestionTextBox = TextEditingController();
   final TrueAnswerTextBox = TextEditingController();
   final Choice1TextBox = TextEditingController();
@@ -51,20 +51,12 @@ class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
   Future loadfuture;
   var livequestioninfo;
   var Trueanswer;
-  int QuestionCount;
-  int Counter = 0;
-  int co = 0;
-  bool create = false;
-  bool Qcreate = false;
-  var MatchId;
-  var name;
-  int playercount, questioncount, answeringtime;
+  var QId;
+  var question, choice1, choice2, choice3, trueanswer;
 
   @override
   void initState() {
     super.initState();
-    questioncount = widget.QuestionCountResponse;
-    QuestionsCountTextBox.text = questioncount.toString();
   }
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -357,33 +349,8 @@ class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
                 ),
               ),// سمت راست
               Padding(padding: EdgeInsets.only(right: 750, top: 80),
-                child: new Text("ایجاد سوال زنده", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                child: new Text("ویرایش سوال زنده", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
               ),// عنوان صفحه
-              Padding(padding: EdgeInsets.only(right: 340, top: 232),
-                child: new Text("تعداد سوالات", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
-              ),// تعداد سوالات
-              Padding(padding: EdgeInsets.only(left: 260,right: 455, top: 229),
-                child: Card(
-                  color: Color(0xff9370DB),
-                  child: Container(
-                    width: width,
-                    height: 35,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        new Flexible(
-                            fit: FlexFit.loose,
-                            child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
-                                child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(50)], style: TextStyle(color: Colors.white),controller: QuestionsCountTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
-                                  decoration: new InputDecoration(border: InputBorder.none, hintText: "", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
-                                  keyboardType: TextInputType.multiline,
-                                  autofocus: true,
-                                  enabled: false,
-                                ))),
-                      ],),
-                  ),
-                ),
-              ), // کادر تعداد سوالات
               Padding(padding: EdgeInsets.only(right: 410, top: 272),
                 child: new Text("سوال", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
               ),// سوال
@@ -523,126 +490,6 @@ class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
                   ),
                 ),
               ), // کادر گزینه صحیح
-              Padding(padding: EdgeInsets.only(right: 530, top: 580),
-                child: InkWell(
-                  child: Container(
-                    width: 100,
-                    height: 30,
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 11, top: 2),
-                      child: new Text("ایجاد مسابقه", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Color(0xff483D8B),
-                    ),
-                  ),
-                  onTap: (){
-                    if(create == false){
-                      CreateMatch();
-                    }else{
-                      Alert(
-                        context: context,
-                        type: AlertType.none,
-                        title: "پیغام",
-                        desc: "!!!مسابقه قبلا ساخته شده است",
-                        buttons: [
-                          DialogButton(
-                            child: Text(
-                              "تایید",
-                              style: TextStyle(color: Colors.black, fontSize: 18),
-                            ),
-                            onPressed: () => Navigator.pop(context),
-                            color: Color(0xffD3D3D3),
-                          )
-                        ],
-                      ).show(); // Message
-                    }
-                  },
-                ),
-              ), // ایجاد مسابقه
-              Padding(padding: EdgeInsets.only(right: 640, top: 580),
-                child: InkWell(
-                  child: Container(
-                    width: 100,
-                    height: 30,
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 18, top: 2),
-                      child: new Text("ایجاد سوال", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Color(0xff483D8B),
-                    ),
-                  ),
-                  onTap: (){
-                    if(QuestionTextBox.text == '' || TrueAnswerTextBox.text == '' || Choice1TextBox.text == '' || Choice2TextBox.text == '' || Choice3TextBox.text == ''){
-                      Alert(
-                        context: context,
-                        type: AlertType.none,
-                        title: "پیغام",
-                        desc: "!!!لطفا فیلد های خالی را پر کنید",
-                        buttons: [
-                          DialogButton(
-                            child: Text(
-                              "تایید",
-                              style: TextStyle(color: Colors.black, fontSize: 18),
-                            ),
-                            onPressed: () => Navigator.pop(context),
-                            color: Color(0xffD3D3D3),
-                          )
-                        ],
-                      ).show(); // Message
-                    }else{
-                      if (create == true) {
-                        QuestionCount = widget.QuestionCountResponse;
-                        if (Counter != QuestionCount) {
-                          setState(() {
-                            Counter++;
-                          });
-                          CreateLiveQuestions();
-                        } else {
-                          Alert(
-                            context: context,
-                            type: AlertType.none,
-                            title: "پیغام",
-                            desc: "!!!درج سوال بیش از حد تعیین شده می باشد",
-                            buttons: [
-                              DialogButton(
-                                child: Text(
-                                  "تایید",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 18),
-                                ),
-                                onPressed: () => Navigator.pop(context),
-                                color: Color(0xffD3D3D3),
-                              )
-                            ],
-                          ).show();
-                        }
-                      }else if(create == false) {
-                        Alert(
-                          context: context,
-                          type: AlertType.none,
-                          title: "پیغام",
-                          desc: "!!!ابتدا مسابقه را ایجاد کنید",
-                          buttons: [
-                            DialogButton(
-                              child: Text(
-                                "تایید",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
-                              onPressed: () => Navigator.pop(context),
-                              color: Color(0xffD3D3D3),
-                            )
-                          ],
-                        ).show();
-                      }
-                    }
-                  },
-                ),
-              ), // ایجاد سوال
               Padding(padding: EdgeInsets.only(right: 750, top: 580),
                 child: InkWell(
                   child: Container(
@@ -650,7 +497,7 @@ class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
                     height: 30,
                     child: Padding(
                       padding: EdgeInsets.only(right: 35, top: 2),
-                      child: new Text("ادامه", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                      child: new Text("ویرایش", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
@@ -658,35 +505,10 @@ class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
                     ),
                   ),
                   onTap: (){
-                    if(Counter == QuestionCount){
-                      co = Counter;
-                    }
-                    if(co == QuestionCount){
-                      answeringtime = widget.AnsweringTimeResponse;
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) =>
-                          new Directionality(textDirection: TextDirection.rtl, child: LiveManagement(MatchId, answeringtime.toString()))),(Route<dynamic> route) => false);
-                    }else{
-                      Alert(
-                        context: context,
-                        type: AlertType.none,
-                        title: Counter.toString() + " : تعداد سوال ساخته شده",
-                        desc: "!!!تعداد سوال های ساخته شده کمتر از حد مجاز است",
-                        buttons: [
-                          DialogButton(
-                            child: Text(
-                              "تایید",
-                              style: TextStyle(color: Colors.black, fontSize: 18),
-                            ),
-                            onPressed: () => Navigator.pop(context),
-                            color: Color(0xffD3D3D3),
-                          )
-                        ],
-                      ).show(); // Message
-                    }
+                    EditLiveQuestion();
                   },
                 ),
-              ), // ادامه
+              ), // ویرایش
               Padding(padding: EdgeInsets.only(right: 860, top: 580),
                 child: InkWell(
                   child: Container(
@@ -702,13 +524,9 @@ class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
                     ),
                   ),
                   onTap: (){
-                    name = widget.NameResponse;
-                    questioncount = widget.QuestionCountResponse;
-                    playercount = widget.PlayerCountResponse;
-                    answeringtime = widget.AnsweringTimeResponse;
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (context) =>
-                        new Directionality(textDirection: TextDirection.rtl, child: CreateLiveMatch(name, questioncount, playercount, answeringtime))),(Route<dynamic> route) => false);
+                        new Directionality(textDirection: TextDirection.rtl, child: LiveManagement.none())),(Route<dynamic> route) => false);
                   },
                 ),
               ), // بازگشت
@@ -716,31 +534,44 @@ class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
       ),
     ), onWillPop: () => Future(() => false));
   }
-  CreateMatch() async {
-    print('CreateLiveMatch Run...');
-    name = widget.NameResponse;
-    questioncount = widget.QuestionCountResponse;
-    playercount = widget.PlayerCountResponse;
-    answeringtime = widget.AnsweringTimeResponse;
+  EditLiveQuestion() async {
+    print('EditLiveQuestion Run...');
+    QId = widget.QIdResponse;
+    print('QID = '+QId);
+
+    if(TrueAnswerTextBox.text == 'گزینه اول'){
+      Trueanswer = '1';
+    }else if(TrueAnswerTextBox.text == 'گزینه دوم'){
+      Trueanswer = '2';
+    }else if(TrueAnswerTextBox.text == 'گزینه سوم'){
+      Trueanswer = '3';
+    }
 
       try {
+        print('Trueanswer = ' + Trueanswer);
         FormData formData = FormData.fromMap({
-          "LmName": name,
-          "LmQuestionsCount": questioncount,
-          "LmPlayerNumbers": playercount,
-          "LmAnsweringTime": answeringtime,
+          "id": QId,
+          "Question": QuestionTextBox.text,
+          "Choice1": Choice1TextBox.text,
+          "Choice2": Choice2TextBox.text,
+          "Choice3": Choice3TextBox.text,
+          "TrueAnswer": Trueanswer,
         });
         _openLoadingDialog(context);
-        Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/CreateMatch", options: Options(contentType: 'multipart/form-data'), data: formData);
+        Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/EditLiveQuestion", options: Options(contentType: 'multipart/form-data'), data: formData);
         print(response.data.toString());
-        if (response.data.toString() == "Created Match!") {
-          create = true;
+        if (response.data.toString() == "EditLiveQuestion Done!") {
+          QuestionTextBox.text = '';
+          Choice1TextBox.text = '';
+          Choice2TextBox.text = '';
+          Choice3TextBox.text = '';
+          TrueAnswerTextBox.text = '';
           Navigator.pop(context);
           Alert(
             context: context,
             type: AlertType.none,
             title: "پیغام",
-            desc: ".مسابقه با موفقیت ایجاد شد",
+            desc: ".ویرایش سوال با موفقیت انجام شد",
             buttons: [
               DialogButton(
                 child: Text(
@@ -752,7 +583,6 @@ class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
               )
             ],
           ).show();
-          GetLiveMatchByName();
         }
         else {
           Navigator.pop(context);
@@ -786,7 +616,9 @@ class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
               child: Text(
                 "تایید",
                 style: TextStyle(
-                    color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontFamily: 'IRANSans'),
               ),
               onPressed: () => Navigator.pop(context),
               color: Color(0xffD3D3D3),
@@ -796,140 +628,18 @@ class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
         print(e);
       }
   }
-  CreateLiveQuestions() async {
-    print('CreateQuestions Run...');
-
-    if(TrueAnswerTextBox.text == 'گزینه اول'){
-      Trueanswer = '1';
-    }else if(TrueAnswerTextBox.text == 'گزینه دوم'){
-      Trueanswer = '2';
-    }else if(TrueAnswerTextBox.text == 'گزینه سوم'){
-      Trueanswer = '3';
-    }
-
-      if(create == false){
-        Alert(
-          context: context,
-          type: AlertType.none,
-          title: "پیغام",
-          desc: "!!!ابتدا مسابقه را ایجاد کنید",
-          buttons: [
-            DialogButton(
-              child: Text(
-                "تایید",
-                style: TextStyle(color: Colors.black, fontSize: 18),
-              ),
-              onPressed: () => Navigator.pop(context),
-              color: Color(0xffD3D3D3),
-            )
-          ],
-        ).show();
-      }else{
-        try {
-          print('Trueanswer = ' + Trueanswer);
-          FormData formData = FormData.fromMap({
-            "LMQ_Matchid": MatchId,
-            "LMQ_Question": QuestionTextBox.text,
-            "LMQ_Choice1": Choice1TextBox.text,
-            "LMQ_Choice2": Choice2TextBox.text,
-            "LMQ_Choice3": Choice3TextBox.text,
-            "LMQ_TrueAnswer": Trueanswer,
-          });
-          _openLoadingDialog(context);
-          Response response = await Dio().post(
-              "http://jamq.ir:3000/LiveMatch/AddQuestionToMatch",
-              options: Options(contentType: 'multipart/form-data'),
-              data: formData);
-          print(response.data.toString());
-          if (response.data.toString() == "Question Added!") {
-            //Qcreate = true;
-            Navigator.pop(context);
-            Alert(
-              context: context,
-              type: AlertType.none,
-              title: "پیغام",
-              desc: ".سوال با موفقیت ایجاد شد",
-              buttons: [
-                DialogButton(
-                  child: Text(
-                    "تایید",
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                  color: Color(0xffD3D3D3),
-                )
-              ],
-            ).show();
-            QuestionTextBox.text = '';
-            Choice1TextBox.text = '';
-            Choice2TextBox.text = '';
-            Choice3TextBox.text = '';
-            TrueAnswerTextBox.text = '';
-          }
-          else {
-            Navigator.pop(context);
-            Alert(
-              context: context,
-              type: AlertType.none,
-              title: "پیغام",
-              desc: "!!!برنامه با خطا مواجه شده است",
-              buttons: [
-                DialogButton(
-                  child: Text(
-                    "تایید",
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                  color: Color(0xffD3D3D3),
-                )
-              ],
-            ).show(); // Message
-          }
-          return true;
-        } catch (e) {
-          Navigator.pop(context);
-          Alert(
-            context: context,
-            type: AlertType.none,
-            title: "پیغام",
-            desc: "!!!ارتباط با سرور برقرار نیست",
-            buttons: [
-              DialogButton(
-                child: Text(
-                  "تایید",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontFamily: 'IRANSans'),
-                ),
-                onPressed: () => Navigator.pop(context),
-                color: Color(0xffD3D3D3),
-              )
-            ],
-          ).show(); // Message
-          print(e);
-        }
-      }
-  }
-  GetLiveMatchByName() async{
-    print('GetLiveMatchByName Run...');
-    name = widget.NameResponse;
-    questioncount = widget.QuestionCountResponse;
-    playercount = widget.PlayerCountResponse;
-    answeringtime = widget.AnsweringTimeResponse;
-    print('name = '+name);
-
+  GetQuestionsByQId() async{
+    print('GetQuestionsByQId Run...');
+    QId = widget.QIdResponse;
     try {
       FormData formData = FormData.fromMap({
-        "Name":name,
+        "id":QId,
       });
-
-      Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/GetLiveMatchByName",options: Options(contentType: 'multipart/form-data'),data:formData);
-      if(response.data.toString() != 'LiveMatchs Does Not Exist!!!'){
+      Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/GetQuestionsByQId",options: Options(contentType: 'multipart/form-data'),data:formData);
+      if(response.data.toString() != 'Question Does Not Exist!!!'){
         livequestioninfo = response.data;
-        print('GetMatchByName = '+livequestioninfo.toString());
-        MatchId = livequestioninfo[0]["_id"].toString();
-        print('MatchId = '+MatchId);
+        print('GetQuestionsByQId = '+livequestioninfo.toString());
+        FillInfo();
         return livequestioninfo;
       }else{
         Navigator.pop(context);
@@ -946,7 +656,7 @@ class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: CreateLiveMatch.none())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: LiveQuestions.none())),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -965,12 +675,29 @@ class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
               "تایید",
               style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
             ),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) =>
+                new Directionality(textDirection: TextDirection.rtl, child: LiveQuestions.none())),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
       ).show(); // Message
       print(e);
+    }
+  }
+  FillInfo(){
+    QuestionTextBox.text = livequestioninfo[0]["LMQ_Question"];
+    Choice1TextBox.text = livequestioninfo[0]["LMQ_Choice1"];
+    Choice2TextBox.text = livequestioninfo[0]["LMQ_Choice2"];
+    Choice3TextBox.text = livequestioninfo[0]["LMQ_Choice3"];
+    TrueAnswerTextBox.text = livequestioninfo[0]["LMQ_TrueAnswer"];
+
+    if(TrueAnswerTextBox.text == '1'){
+      TrueAnswerTextBox.text = 'گزینه اول';
+    }else if(TrueAnswerTextBox.text == '2'){
+      TrueAnswerTextBox.text = 'گزینه دوم';
+    }else if(TrueAnswerTextBox.text == '3'){
+      TrueAnswerTextBox.text = 'گزینه سوم';
     }
   }
   void _openLoadingDialog(BuildContext context) {

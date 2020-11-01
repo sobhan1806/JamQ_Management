@@ -334,18 +334,18 @@ class TournamentTypesState extends State<TournamentTypes> {
                   ),
                 ),
               ),// سمت راست
-              Padding(padding: EdgeInsets.only(right: 750, top: 80),
+              Padding(padding: EdgeInsets.only(right: 740, top: 80),
                 child: new Text("انواع مسابقات", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
               ),// عنوان صفحه
               new Align(alignment: Alignment.center,
                 child: Padding(padding: EdgeInsets.only(right: 250, bottom: 100),
                   child: InkWell(
                     child: Container(
-                      width: 200,
+                      width: 170,
                       height: 30,
                       child: Padding(
-                        padding: EdgeInsets.only(right: 47, top: 2),
-                        child: new Text("مسابقه یک به یک", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                        padding: EdgeInsets.only(right: 23, top: 2),
+                        child: new Text("مسابقات یک به یک", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
@@ -362,13 +362,29 @@ class TournamentTypesState extends State<TournamentTypes> {
               ),// مسابقه یک به یک
               new Align(alignment: Alignment.center,
                 child: Padding(padding: EdgeInsets.only(right: 250, bottom: 20),
+                  child: Container(
+                    width: 170,
+                    height: 30,
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 30, top: 2),
+                      child: new Text("مسابقات دو به دو", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Color(0xff483D8B),
+                    ),
+                  ),
+                ), // لیست سوالات
+              ),// مسابقه دو به دو
+              new Align(alignment: Alignment.center,
+                child: Padding(padding: EdgeInsets.only(right: 250, top: 60),
                   child: InkWell(
                     child: Container(
-                      width: 200,
+                      width: 170,
                       height: 30,
                       child: Padding(
-                        padding: EdgeInsets.only(right: 42, top: 3),
-                        child: new Text("LIVE Tournament", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                        padding: EdgeInsets.only(right: 45, top: 2),
+                        child: new Text("مسابقات زنده", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),

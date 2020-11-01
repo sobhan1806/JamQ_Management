@@ -335,8 +335,8 @@ class LiveTypesState extends State<LiveTypes> {
                   ),
                 ),
               ),// سمت راست
-              Padding(padding: EdgeInsets.only(right: 760, top: 80),
-                child: new Text("انواع Live", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+              Padding(padding: EdgeInsets.only(right: 740, top: 80),
+                child: new Text("مسابقات زنده", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
               ),// عنوان صفحه
               new Align(alignment: Alignment.center,
                 child: Padding(padding: EdgeInsets.only(right: 250, bottom: 100),
