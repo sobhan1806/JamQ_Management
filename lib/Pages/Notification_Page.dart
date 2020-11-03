@@ -6,7 +6,7 @@ import 'package:jaam_q/Pages/ApplicationUsers_Page.dart';
 import 'package:jaam_q/Pages/Discount_Page.dart';
 import 'package:jaam_q/Pages/Home_Page.dart';
 import 'package:jaam_q/Pages/InviteLog_Page.dart';
-import 'package:jaam_q/Pages/LoginToAppLog_Page.dart';
+
 import 'package:jaam_q/Pages/Login_Page.dart';
 import 'package:jaam_q/Pages/Register_Page.dart';
 import 'package:jaam_q/Pages/Transactions_Page.dart';
@@ -81,7 +81,7 @@ class NotificationsState extends State<Notifications> {
                         onTap: (){
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) =>
-                              new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                              new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                         },
                       ),
                       Container(

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:jaam_q/Pages/EditLiveQuestion_Page.dart';
+import 'package:jaam_q/Pages/LiveTournamentActive_Page.dart';
 import 'AdvertisesInfo_Page.dart';
 import 'CreateAdvertises_Page.dart';
 import 'package:jalali_date/jalali_date.dart';
@@ -13,8 +14,9 @@ import 'ApplicationUsers_Page.dart';
 import 'Discount_Page.dart';
 import 'Home_Page.dart';
 import 'InviteLog_Page.dart';
+import 'LiveTournament_Page.dart';
 import 'LiveType_Page.dart';
-import 'LoginToAppLog_Page.dart';
+
 import 'Login_Page.dart';
 import 'Register_Page.dart';
 import 'Transactions_Page.dart';
@@ -61,6 +63,36 @@ class LiveQuestionsState extends State<LiveQuestions> {
             body: Center(
               child: Stack(
                   children: [
+                    Padding(padding: EdgeInsets.only(left: 10),
+                      child: Row(
+                        children: [
+                          Padding(padding: EdgeInsets.only(right: 1230, top: 85),
+                            child: InkWell(
+                              child: Container(
+                                width: 100,
+                                height: 30,
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: 28, top: 2),
+                                  child: new Text("بازگشت", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Color(0xff483D8B),
+                                ),
+                              ),
+                              onTap: (){
+                                Type = widget.TypeResponse;
+                                if(Type == true){
+                                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveTournamentActive())),(Route<dynamic> route) => false);
+                                }else if(Type == false){
+                                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveTournament())),(Route<dynamic> route) => false);
+                                }
+                              },
+                            ),
+                          ), // ازگشت
+                        ],
+                      ),
+                    ),// بازگشت نوار بالا
                     Container(
                       height: 60,
                       color: Color(0xff24026E),
@@ -85,7 +117,7 @@ class LiveQuestionsState extends State<LiveQuestions> {
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                               },
                             ),
                             Container(
@@ -400,7 +432,6 @@ class LiveQuestionsState extends State<LiveQuestions> {
                                           child: Container(
                                             width: 200,
                                             height: 20,
-                                            color: Colors.white,
                                             child: Center(
                                               child: Text(livequestionInformation[index]["LMQ_Question"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
@@ -410,7 +441,6 @@ class LiveQuestionsState extends State<LiveQuestions> {
                                           child: Container(
                                             width: 150,
                                             height: 20,
-                                            color: Colors.white,
                                             child: Center(
                                               child: Text(livequestionInformation[index]["LMQ_Choice1"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
@@ -420,7 +450,6 @@ class LiveQuestionsState extends State<LiveQuestions> {
                                           child: Container(
                                             width: 150,
                                             height: 20,
-                                            color: Colors.white,
                                             child: Center(
                                               child: Text(livequestionInformation[index]["LMQ_Choice2"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
@@ -430,7 +459,6 @@ class LiveQuestionsState extends State<LiveQuestions> {
                                           child: Container(
                                             width: 150,
                                             height: 20,
-                                            color: Colors.white,
                                             child: Center(
                                               child: Text(livequestionInformation[index]["LMQ_Choice3"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
@@ -440,7 +468,6 @@ class LiveQuestionsState extends State<LiveQuestions> {
                                           child: Container(
                                             width: 60,
                                             height: 20,
-                                            color: Colors.white,
                                             child: Center(
                                               child: Text(livequestionInformation[index]["LMQ_TrueAnswer"].toString() + " " + "گزینه", style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
@@ -463,7 +490,7 @@ class LiveQuestionsState extends State<LiveQuestions> {
                                             onTap: (){
                                               Type = widget.TypeResponse;
                                               if(Type == true){
-                                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditLiveQuestions(livequestionInformation[index]["_id"].toString()))),(Route<dynamic> route) => false);
+                                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditLiveQuestions(livequestionInformation[index]["_id"].toString(), Type))),(Route<dynamic> route) => false);
                                               }else{
                                                 Alert(
                                                   context: context,

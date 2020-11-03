@@ -98,7 +98,7 @@ class CreateLiveQuestionsState extends State<CreateLiveQuestions> {
                         onTap: (){
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) =>
-                              new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                              new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                         },
                       ),
                       Container(

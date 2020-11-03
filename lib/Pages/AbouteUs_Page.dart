@@ -8,7 +8,7 @@ import 'package:jaam_q/Pages/ApplicationUsers_Page.dart';
 import 'package:jaam_q/Pages/Discount_Page.dart';
 import 'package:jaam_q/Pages/Home_Page.dart';
 import 'package:jaam_q/Pages/InviteLog_Page.dart';
-import 'package:jaam_q/Pages/LoginToAppLog_Page.dart';
+
 import 'package:jaam_q/Pages/Login_Page.dart';
 import 'package:jaam_q/Pages/Register_Page.dart';
 import 'package:jaam_q/Pages/Transactions_Page.dart';

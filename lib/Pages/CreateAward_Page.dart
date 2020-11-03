@@ -10,7 +10,7 @@ import 'ApplicationUsers_Page.dart';
 import 'Discount_Page.dart';
 import 'Home_Page.dart';
 import 'InviteLog_Page.dart';
-import 'LoginToAppLog_Page.dart';
+import 'LoginReport_Page.dart';
 import 'Login_Page.dart';
 import 'Register_Page.dart';
 import 'Transactions_Page.dart';
@@ -68,7 +68,7 @@ class CreateAwardState extends State<CreateAward> {
                         onTap: (){
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) =>
-                              new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                              new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                         },
                       ),
                       Container(
@@ -222,7 +222,7 @@ class CreateAwardState extends State<CreateAward> {
                         onTap: (){
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) =>
-                              new Directionality(textDirection: TextDirection.rtl, child: LoginToAppLog())),(Route<dynamic> route) => false);
+                              new Directionality(textDirection: TextDirection.rtl, child: LoginReport())),(Route<dynamic> route) => false);
                         },
                       ),
                       Container(

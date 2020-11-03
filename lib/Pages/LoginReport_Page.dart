@@ -12,7 +12,7 @@ import 'ApplicationUsers_Page.dart';
 import 'Discount_Page.dart';
 import 'Home_Page.dart';
 import 'InviteLog_Page.dart';
-import 'LoginToAppLog_Page.dart';
+
 import 'Login_Page.dart';
 import 'Register_Page.dart';
 import 'Transactions_Page.dart';
@@ -23,14 +23,14 @@ import 'Tickets_Page.dart';
 import 'UnauthorizedWords_Page.dart';
 import 'AbouteUs_Page.dart';
 
-class LoginToAppLog extends StatefulWidget {
+class LoginReport extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return LoginToAppLogState();
+    return LoginReportState();
   }
 }
 
-class LoginToAppLogState extends State<LoginToAppLog> {
+class LoginReportState extends State<LoginReport> {
   final SearchTextBox = TextEditingController();
   var appscaffold;
   Future loadfuture;
@@ -115,7 +115,7 @@ class LoginToAppLogState extends State<LoginToAppLog> {
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                               },
                             ),
                             Container(
@@ -455,7 +455,7 @@ class LoginToAppLogState extends State<LoginToAppLog> {
                                             width: 170,
                                             height: 20,
                                             child: Center(
-                                              child: new Text(PersianDate.fromGregorianString(Convertdate(loginInformation[index]["RlLoginDate"])).toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                              child: new Text(PersianDate.fromGregorianString(Convertdate(loginInformation[index]["RlLoginDate"])).toString() + " " + loginInformation[index]["RlLoginTime"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
@@ -556,7 +556,7 @@ class LoginToAppLogState extends State<LoginToAppLog> {
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                               },
                             ),
                             Container(
@@ -896,7 +896,7 @@ class LoginToAppLogState extends State<LoginToAppLog> {
                                             width: 170,
                                             height: 20,
                                             child: Center(
-                                              child: new Text(PersianDate.fromGregorianString(Convertdate(loginInformation[index]["RlLoginDate"])).toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                              child: new Text(PersianDate.fromGregorianString(Convertdate(loginInformation[index]["RlLoginDate"])).toString() + " " + loginInformation[index]["RlLoginTime"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
@@ -980,7 +980,7 @@ class LoginToAppLogState extends State<LoginToAppLog> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],

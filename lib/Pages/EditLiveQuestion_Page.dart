@@ -25,8 +25,8 @@ import 'UnauthorizedWords_Page.dart';
 import 'AbouteUs_Page.dart';
 
 class EditLiveQuestions extends StatefulWidget {
-  var QIdResponse;
-  EditLiveQuestions(this.QIdResponse);
+  var QIdResponse, TypeResponse;
+  EditLiveQuestions(this.QIdResponse, this.TypeResponse);
   EditLiveQuestions.none();
 
   @override
@@ -51,12 +51,12 @@ class EditLiveQuestionsState extends State<EditLiveQuestions> {
   Future loadfuture;
   var livequestioninfo;
   var Trueanswer;
-  var QId;
-  var question, choice1, choice2, choice3, trueanswer;
+  var QId, MatchId, Type;
 
   @override
   void initState() {
     super.initState();
+    loadfuture = GetQuestionsByQId();
   }
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -90,7 +90,7 @@ class EditLiveQuestionsState extends State<EditLiveQuestions> {
                         onTap: (){
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) =>
-                              new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                              new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                         },
                       ),
                       Container(
@@ -348,7 +348,7 @@ class EditLiveQuestionsState extends State<EditLiveQuestions> {
                   ),
                 ),
               ),// سمت راست
-              Padding(padding: EdgeInsets.only(right: 750, top: 80),
+              Padding(padding: EdgeInsets.only(right: 700, top: 80),
                 child: new Text("ویرایش سوال زنده", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
               ),// عنوان صفحه
               Padding(padding: EdgeInsets.only(right: 410, top: 272),
@@ -490,13 +490,13 @@ class EditLiveQuestionsState extends State<EditLiveQuestions> {
                   ),
                 ),
               ), // کادر گزینه صحیح
-              Padding(padding: EdgeInsets.only(right: 750, top: 580),
+              Padding(padding: EdgeInsets.only(right: 690, top: 580),
                 child: InkWell(
                   child: Container(
                     width: 100,
                     height: 30,
                     child: Padding(
-                      padding: EdgeInsets.only(right: 35, top: 2),
+                      padding: EdgeInsets.only(right: 28, top: 2),
                       child: new Text("ویرایش", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
                     ),
                     decoration: BoxDecoration(
@@ -509,7 +509,7 @@ class EditLiveQuestionsState extends State<EditLiveQuestions> {
                   },
                 ),
               ), // ویرایش
-              Padding(padding: EdgeInsets.only(right: 860, top: 580),
+              Padding(padding: EdgeInsets.only(right: 800, top: 580),
                 child: InkWell(
                   child: Container(
                     width: 100,
@@ -526,7 +526,7 @@ class EditLiveQuestionsState extends State<EditLiveQuestions> {
                   onTap: (){
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (context) =>
-                        new Directionality(textDirection: TextDirection.rtl, child: LiveManagement.none())),(Route<dynamic> route) => false);
+                        new Directionality(textDirection: TextDirection.rtl, child: LiveQuestions(MatchId, Type))),(Route<dynamic> route) => false);
                   },
                 ),
               ), // بازگشت
@@ -578,7 +578,9 @@ class EditLiveQuestionsState extends State<EditLiveQuestions> {
                   "تایید",
                   style: TextStyle(color: Colors.black, fontSize: 18),
                 ),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) =>
+                    new Directionality(textDirection: TextDirection.rtl, child: LiveQuestions(MatchId, Type))),(Route<dynamic> route) => false),
                 color: Color(0xffD3D3D3),
               )
             ],
@@ -630,7 +632,9 @@ class EditLiveQuestionsState extends State<EditLiveQuestions> {
   }
   GetQuestionsByQId() async{
     print('GetQuestionsByQId Run...');
+    Type = widget.TypeResponse;
     QId = widget.QIdResponse;
+    print('QId = '+QId);
     try {
       FormData formData = FormData.fromMap({
         "id":QId,
@@ -639,10 +643,11 @@ class EditLiveQuestionsState extends State<EditLiveQuestions> {
       if(response.data.toString() != 'Question Does Not Exist!!!'){
         livequestioninfo = response.data;
         print('GetQuestionsByQId = '+livequestioninfo.toString());
+        MatchId = livequestioninfo[0]["LMQ_Matchid"].toString();
+        print('MatchId = '+MatchId);
         FillInfo();
         return livequestioninfo;
       }else{
-        Navigator.pop(context);
         Alert(
           context: context,
           type: AlertType.none,
@@ -663,7 +668,6 @@ class EditLiveQuestionsState extends State<EditLiveQuestions> {
         ).show(); // Message
       }
     } catch (e) {
-      Navigator.pop(context);
       Alert(
         context: context,
         type: AlertType.none,

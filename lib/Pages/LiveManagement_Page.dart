@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:jaam_q/Pages/CreateLiveQuestions_Page.dart';
+import 'package:jaam_q/Pages/LiveTournamentActive_Page.dart';
 import 'package:jaam_q/Pages/LiveType_Page.dart';
-import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,7 +16,7 @@ import 'Advertises_Page.dart';
 import 'Discount_Page.dart';
 import 'Home_Page.dart';
 import 'InviteLog_Page.dart';
-import 'LoginToAppLog_Page.dart';
+import 'LoginReport_Page.dart';
 import 'Login_Page.dart';
 import 'Notification_Page.dart';
 import 'PanelUsers_Page.dart';
@@ -60,6 +60,31 @@ class LiveManagementState extends State<LiveManagement>{
       body: Center(
         child: Stack(
             children: [
+              Padding(padding: EdgeInsets.only(left: 10),
+                child: Row(
+                  children: [
+                    Padding(padding: EdgeInsets.only(right: 1230, top: 85),
+                      child: InkWell(
+                        child: Container(
+                          width: 100,
+                          height: 30,
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 28, top: 2),
+                            child: new Text("بازگشت", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Color(0xff483D8B),
+                          ),
+                        ),
+                        onTap: (){
+                          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveTournamentActive())),(Route<dynamic> route) => false);
+                        },
+                      ),
+                    ), // ازگشت
+                  ],
+                ),
+              ),// بازگشت نوار بالا
               Container(
                 height: 60,
                 color: Color(0xff24026E),
@@ -91,7 +116,7 @@ class LiveManagementState extends State<LiveManagement>{
                         onTap: (){
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) =>
-                              new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                              new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                         },
                       ),
                       Container(
@@ -267,7 +292,7 @@ class LiveManagementState extends State<LiveManagement>{
                         onTap: (){
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) =>
-                              new Directionality(textDirection: TextDirection.rtl, child: LoginToAppLog())),(Route<dynamic> route) => false);
+                              new Directionality(textDirection: TextDirection.rtl, child: LoginReport())),(Route<dynamic> route) => false);
                         },
                       ),
                       Container(
@@ -478,7 +503,42 @@ class LiveManagementState extends State<LiveManagement>{
                     ),
                     onTap: (){
                       print('StateStart = '+State);
-                      if(State == '1'){
+                      print('Close = '+Close.toString());
+                      if(State == '2'){
+                        Alert(
+                          context: context,
+                          type: AlertType.none,
+                          title: "پیغام",
+                          desc: "!!!مسابقه مسابقه پایان یافته است",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "تایید",
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              color: Color(0xffD3D3D3),
+                            )
+                          ],
+                        ).show();
+                      }else if(Close == false){
+                        Alert(
+                          context: context,
+                          type: AlertType.none,
+                          title: "پیغام",
+                          desc: "!!!مسابقه بسته است",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "تایید",
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              color: Color(0xffD3D3D3),
+                            )
+                          ],
+                        ).show();
+                      }else if(State == '1'){
                         Alert(
                           context: context,
                           type: AlertType.none,
@@ -560,7 +620,25 @@ class LiveManagementState extends State<LiveManagement>{
                     ),
                     onTap: (){
                       print('StateEnd = '+State);
-                      if(State == '2'){
+                      print('Close = '+Close.toString());
+                      if(Close == true){
+                        Alert(
+                          context: context,
+                          type: AlertType.none,
+                          title: "پیغام",
+                          desc: "!!!ابتدا مسابقه را ببندید",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "تایید",
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              color: Color(0xffD3D3D3),
+                            )
+                          ],
+                        ).show();
+                      }else if(State == '2'){
                         Alert(
                           context: context,
                           type: AlertType.none,
@@ -624,6 +702,23 @@ class LiveManagementState extends State<LiveManagement>{
                           type: AlertType.none,
                           title: "پیغام",
                           desc: "!!!مسابقه پایان یافته است",
+                          buttons: [
+                            DialogButton(
+                              child: Text(
+                                "تایید",
+                                style: TextStyle(color: Colors.black, fontSize: 18),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              color: Color(0xffD3D3D3),
+                            )
+                          ],
+                        ).show();
+                      }else if(Close == false){
+                        Alert(
+                          context: context,
+                          type: AlertType.none,
+                          title: "پیغام",
+                          desc: "!!!مسابقه بسته است",
                           buttons: [
                             DialogButton(
                               child: Text(
@@ -882,6 +977,7 @@ class LiveManagementState extends State<LiveManagement>{
     Endmatch['Matchid'] = MatchId;
     socket.emit('EndMatch', [jsonEncode(Endmatch)]);
 
+    GetQuestionsByMatchId();
     Navigator.pop(context);
     Alert(
       context: context,
@@ -1085,7 +1181,9 @@ class LiveManagementState extends State<LiveManagement>{
                 "تایید",
                 style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
               ),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) =>
+                  new Directionality(textDirection: TextDirection.rtl, child: LiveTypes())),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -1103,7 +1201,9 @@ class LiveManagementState extends State<LiveManagement>{
               "تایید",
               style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
             ),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) =>
+                new Directionality(textDirection: TextDirection.rtl, child: LiveTypes())),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],

@@ -103,7 +103,7 @@ class RegisterState extends State<Register> {
                                   fit: FlexFit.loose,
                                   child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
                                       // ignore: deprecated_member_use
-                                      child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(80), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: UserNameTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
+                                      child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(50), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: UserNameTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
                                         decoration: new InputDecoration(border: InputBorder.none, hintText: "... نام کاربری", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
                                         keyboardType: TextInputType.multiline,
                                         autofocus: true,
@@ -128,7 +128,7 @@ class RegisterState extends State<Register> {
                                   fit: FlexFit.loose,
                                   child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
                                       // ignore: deprecated_member_use
-                                      child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(80), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: PasswordTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
+                                      child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(50), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: PasswordTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
                                         decoration: new InputDecoration(border: InputBorder.none, hintText: "... کلمه عبور", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
                                         keyboardType: TextInputType.multiline,
                                         autofocus: true,
@@ -245,7 +245,7 @@ class RegisterState extends State<Register> {
                           onTap: (){
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(builder: (context) =>
-                                new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                                new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                           },
                         ),
                       ),
@@ -285,7 +285,7 @@ class RegisterState extends State<Register> {
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -305,7 +305,7 @@ class RegisterState extends State<Register> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -375,7 +375,7 @@ class RegisterState extends State<Register> {
                 ),
                 onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) =>
-                    new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false),
+                    new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false),
                 color: Colors.grey,
               )
             ],

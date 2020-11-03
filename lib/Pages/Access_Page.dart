@@ -1,11 +1,6 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:jaam_q/Pages/AccessList_Page.dart';
-import 'package:jaam_q/Pages/PanelUsersInfo_Page.dart';
-import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,7 +10,7 @@ import 'ApplicationUsers_Page.dart';
 import 'Discount_Page.dart';
 import 'Home_Page.dart';
 import 'InviteLog_Page.dart';
-import 'LoginToAppLog_Page.dart';
+import 'LoginReport_Page.dart';
 import 'Login_Page.dart';
 import 'Register_Page.dart';
 import 'Transactions_Page.dart';
@@ -40,8 +35,9 @@ class AccessState extends State<Access> {
   var dio;
   bool applicationusers = false;
   bool panelusers = false;
-  bool transactions = false;
+  bool register = false;
   bool access = false;
+  bool transactions = false;
   bool advertising = false;
   bool tournaments = false;
   bool unauthorizedwords = false;
@@ -51,15 +47,16 @@ class AccessState extends State<Access> {
   bool discounts = false;
   bool applogintoreports = false;
   bool appinvitationtoreports = false;
-  //var otherapps = '0';
+  bool appavilability = false;
   bool aboutus = false;
   bool inappitems = false;
   bool awards = false;
 
   bool applicationusersCheckBoxValue = false;
   bool panelusersCheckBoxValue = false;
-  bool transactionsCheckBoxValue = false;
+  bool registerCheckBoxValue = false;
   bool accessCheckBoxValue = false;
+  bool transactionsCheckBoxValue = false;
   bool advertisingCheckBoxValue = false;
   bool tournamentsCheckBoxValue = false;
   bool unauthorizedwordsCheckBoxValue = false;
@@ -69,7 +66,7 @@ class AccessState extends State<Access> {
   bool discountsCheckBoxValue = false;
   bool applogintoreportsCheckBoxValue = false;
   bool appinvitationtoreportsCheckBoxValue = false;
-  //bool otherappsCheckBoxValue = false;
+  bool appavilabilityCheckBoxValue = false;
   bool aboutusCheckBoxValue = false;
   bool InAppItemsCheckBoxValue = false;
   bool AwardsCheckBoxValue = false;
@@ -117,7 +114,7 @@ class AccessState extends State<Access> {
                         onTap: (){
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) =>
-                              new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                              new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                         },
                       ),
                       Container(
@@ -298,7 +295,7 @@ class AccessState extends State<Access> {
                         onTap: (){
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) =>
-                              new Directionality(textDirection: TextDirection.rtl, child: LoginToAppLog())),(Route<dynamic> route) => false);
+                              new Directionality(textDirection: TextDirection.rtl, child: LoginReport())),(Route<dynamic> route) => false);
                         },
                       ),
                       Container(
@@ -410,10 +407,10 @@ class AccessState extends State<Access> {
               ), // کادر سطح دسترسی
               new Align(alignment: Alignment.center,
                 child: Stack(children: <Widget> [
-                  Padding(padding: EdgeInsets.only(left: 100, right: 390, top: 310),
+                  Padding(padding: EdgeInsets.only(right: 350, top: 290),
                     child: Container(
-                      width: 900,
-                      height: 250,
+                      width: 950,
+                      height: 290,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: Color(0xff9370DB),
@@ -422,7 +419,7 @@ class AccessState extends State<Access> {
                   ),
                   new Align(
                     alignment: Alignment.center,
-                    child: Padding(padding: EdgeInsets.only(right: 400, top: 300),
+                    child: Padding(padding: EdgeInsets.only(right: 330, top: 300),
                       child: Column(children: [
                         Padding(padding: EdgeInsets.only(right: 0, top: 20),
                           child: new CheckboxListTile(title: Text("کاربران اپلیکیشن", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: applicationusersCheckBoxValue, onChanged:(bool applicationusersvalue){
@@ -453,6 +450,41 @@ class AccessState extends State<Access> {
                           ),
                         ),
                         Padding(padding: EdgeInsets.only(right: 0),
+                          child: CheckboxListTile(title: Text("ثبت نام کاربر پنل", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: registerCheckBoxValue, onChanged:(bool registervalue){
+                            setState(() {
+                              registerCheckBoxValue = registervalue;
+                              if(registerCheckBoxValue == true){
+                                register = true;
+                              }else if(registerCheckBoxValue == false){
+                                register = false;
+                              }
+                            });
+                          },
+                            controlAffinity: ListTileControlAffinity.leading,
+                          ),
+                        ),
+                        Padding(padding: EdgeInsets.only(right: 0),
+                          child: CheckboxListTile(title: Text("دسترسی ها", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: accessCheckBoxValue, onChanged:(bool accessvalue){
+                            setState(() {
+                              accessCheckBoxValue = accessvalue;
+                              if(accessCheckBoxValue == true){
+                                access = true;
+                              }else if(accessCheckBoxValue == false){
+                                access = false;
+                              }
+                            });
+                          },
+                            controlAffinity: ListTileControlAffinity.leading,
+                          ),
+                        ),
+                      ],),
+                    ),
+                  ),// سمت راست
+                  new Align(
+                    alignment: Alignment.center,
+                    child: Padding(padding: EdgeInsets.only(right: 500, top: 320),
+                      child: Column(children: [
+                        Padding(padding: EdgeInsets.only(right: 0),
                           child: new CheckboxListTile(title: Text("تراکنش ها", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: transactionsCheckBoxValue, onChanged:(bool transactionsvalue){
                             setState(() {
                               transactionsCheckBoxValue = transactionsvalue;
@@ -480,13 +512,6 @@ class AccessState extends State<Access> {
                             controlAffinity: ListTileControlAffinity.leading,
                           ),
                         ),
-                      ],),
-                    ),
-                  ),// سمت راست
-                  new Align(
-                    alignment: Alignment.center,
-                    child: Padding(padding: EdgeInsets.only(right: 600, top: 320),
-                      child: Column(children: [
                         Padding(padding: EdgeInsets.only(right: 0),
                           child: CheckboxListTile(title: Text("مسابقات", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: tournamentsCheckBoxValue, onChanged:(bool tournamentsvalue){
                             setState(() {
@@ -495,20 +520,6 @@ class AccessState extends State<Access> {
                                 tournaments = true;
                               }else if(tournamentsCheckBoxValue == false){
                                 tournaments = false;
-                              }
-                            });
-                          },
-                            controlAffinity: ListTileControlAffinity.leading,
-                          ),
-                        ),
-                        Padding(padding: EdgeInsets.only(right: 0),
-                          child: new CheckboxListTile(title: Text("کلمات غیر مجاز", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: unauthorizedwordsCheckBoxValue, onChanged:(bool unauthorizedwordsvalue){
-                            setState(() {
-                              unauthorizedwordsCheckBoxValue = unauthorizedwordsvalue;
-                              if(unauthorizedwordsCheckBoxValue == true){
-                                unauthorizedwords = true;
-                              }else if(unauthorizedwordsCheckBoxValue == false){
-                                unauthorizedwords = false;
                               }
                             });
                           },
@@ -529,6 +540,13 @@ class AccessState extends State<Access> {
                             controlAffinity: ListTileControlAffinity.leading,
                           ),
                         ),
+                      ],),
+                    ),
+                  ),// سمت راست
+                  new Align(
+                    alignment: Alignment.center,
+                    child: Padding(padding: EdgeInsets.only(right: 680, top: 320),
+                      child: Column(children: [
                         Padding(padding: EdgeInsets.only(right: 0),
                           child: new CheckboxListTile(title: Text("نوتیفیکیشن", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: notificationCheckBoxValue, onChanged:(bool notificationvalue){
                             setState(() {
@@ -543,14 +561,7 @@ class AccessState extends State<Access> {
                             controlAffinity: ListTileControlAffinity.leading,
                           ),
                         ),
-                      ],),
-                    ),
-                  ),// وسط
-                  new Align(
-                    alignment: Alignment.center,
-                    child: Padding(padding: EdgeInsets.only(right: 800, top: 300),
-                      child: Column(children: [
-                        Padding(padding: EdgeInsets.only(right: 0, top: 20),
+                        Padding(padding: EdgeInsets.only(right: 0, top: 0),
                           child: new CheckboxListTile(title: Text("تیکت های پشتیبانی", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: ticketsCheckBoxValue, onChanged:(bool ticketsvalue){
                             setState(() {
                               ticketsCheckBoxValue = ticketsvalue;
@@ -579,7 +590,7 @@ class AccessState extends State<Access> {
                           ),
                         ),
                         Padding(padding: EdgeInsets.only(right: 0),
-                          child: new CheckboxListTile(title: Text("گزاشات ورود به اپلیکیشن", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: applogintoreportsCheckBoxValue, onChanged:(bool applogintoreportsvalue){
+                          child: new CheckboxListTile(title: Text("گزاشات ورود به پنل", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: applogintoreportsCheckBoxValue, onChanged:(bool applogintoreportsvalue){
                             setState(() {
                               applogintoreportsCheckBoxValue = applogintoreportsvalue;
                               if(applogintoreportsCheckBoxValue == true){
@@ -592,6 +603,13 @@ class AccessState extends State<Access> {
                             controlAffinity: ListTileControlAffinity.leading,
                           ),
                         ),
+                      ],),
+                    ),
+                  ),// وسط
+                  new Align(
+                    alignment: Alignment.center,
+                    child: Padding(padding: EdgeInsets.only(right: 850, top: 320),
+                      child: Column(children: [
                         Padding(padding: EdgeInsets.only(right: 0),
                           child: new CheckboxListTile(title: Text("گزارشات دعوت به اپلیکیشن", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: appinvitationtoreportsCheckBoxValue, onChanged:(bool appinvitationtoreportsvalue){
                             setState(() {
@@ -606,21 +624,28 @@ class AccessState extends State<Access> {
                             controlAffinity: ListTileControlAffinity.leading,
                           ),
                         ),
-                      ],),
-                    ),
-                  ),// وسط
-                  new Align(
-                    alignment: Alignment.center,
-                    child: Padding(padding: EdgeInsets.only(right: 1040, top: 320),
-                      child: Column(children: [
                         Padding(padding: EdgeInsets.only(right: 0),
-                          child: CheckboxListTile(title: Text("درباره ما", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: aboutusCheckBoxValue, onChanged:(bool aboutusvalue){
+                          child: new CheckboxListTile(title: Text("کلمات غیر مجاز", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: unauthorizedwordsCheckBoxValue, onChanged:(bool unauthorizedwordsvalue){
                             setState(() {
-                              aboutusCheckBoxValue = aboutusvalue;
-                              if(aboutusCheckBoxValue == true){
-                                aboutus = true;
-                              }else if(aboutusCheckBoxValue == false){
-                                aboutus = false;
+                              unauthorizedwordsCheckBoxValue = unauthorizedwordsvalue;
+                              if(unauthorizedwordsCheckBoxValue == true){
+                                unauthorizedwords = true;
+                              }else if(unauthorizedwordsCheckBoxValue == false){
+                                unauthorizedwords = false;
+                              }
+                            });
+                          },
+                            controlAffinity: ListTileControlAffinity.leading,
+                          ),
+                        ),
+                        Padding(padding: EdgeInsets.only(right: 0),
+                          child: CheckboxListTile(title: Text("فعال/غیرفعال سازی اپلیکیشن", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: appavilabilityCheckBoxValue, onChanged:(bool appavilabilityvalue){
+                            setState(() {
+                              appavilabilityCheckBoxValue = appavilabilityvalue;
+                              if(appavilabilityCheckBoxValue == true){
+                                appavilability = true;
+                              }else if(appavilabilityCheckBoxValue == false){
+                                appavilability = false;
                               }
                             });
                           },
@@ -641,6 +666,12 @@ class AccessState extends State<Access> {
                             controlAffinity: ListTileControlAffinity.leading,
                           ),
                         ),
+                      ],),
+                    ),
+                  ),// سمت چپ
+                  new Align(alignment: Alignment.center,
+                    child: Padding(padding: EdgeInsets.only(right: 1100, top: 320),
+                      child: Column(children: [
                         Padding(padding: EdgeInsets.only(right: 0),
                           child: CheckboxListTile(title: Text("جوایز", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: AwardsCheckBoxValue, onChanged:(bool awardsvalue){
                             setState(() {
@@ -655,12 +686,26 @@ class AccessState extends State<Access> {
                             controlAffinity: ListTileControlAffinity.leading,
                           ),
                         ),
-                      ],),
+                        Padding(padding: EdgeInsets.only(right: 0),
+                          child: CheckboxListTile(title: Text("درباره ما", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: aboutusCheckBoxValue, onChanged:(bool aboutusvalue){
+                            setState(() {
+                              aboutusCheckBoxValue = aboutusvalue;
+                              if(aboutusCheckBoxValue == true){
+                                aboutus = true;
+                              }else if(aboutusCheckBoxValue == false){
+                                aboutus = false;
+                              }
+                            });
+                          },
+                            controlAffinity: ListTileControlAffinity.leading,
+                          ),
+                        ),
+                      ]),
                     ),
                   ),// سمت چپ
                 ]),
               ),
-              Padding(padding: EdgeInsets.only(right: 750, top: 590),
+              Padding(padding: EdgeInsets.only(right: 750, top: 610),
                 child:
                 InkWell(child:
                 Container(
@@ -708,6 +753,7 @@ class AccessState extends State<Access> {
           "AccessLevel":AccessLevelTextBox.text,
           "applicationusers": applicationusers,
           "panelusers": panelusers,
+          "register": register,
           "transactions": transactions,
           "access": access,
           "advertising": advertising,
@@ -719,6 +765,7 @@ class AccessState extends State<Access> {
           "discounts": discounts,
           "applogintoreports": applogintoreports,
           "appinvitationtoreports": appinvitationtoreports,
+          "appavilability": appinvitationtoreports,
           "aboutus": aboutus,
           "inappitems": inappitems,
           "awards": awards,
@@ -742,7 +789,7 @@ class AccessState extends State<Access> {
                 ),
                 onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) =>
-                    new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false),
+                    new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false),
                 color: Color(0xffD3D3D3),
               )
             ],

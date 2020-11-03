@@ -32,84 +32,89 @@ class LoginState extends State<Login> {
       body: Center(
         child: Stack(
             children: [
-              Padding(padding: EdgeInsets.only(right: 580, bottom: 500),
-                child: new Text("JamQ", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 80)),
-              ),// JamQ
-              Row(children: [
-                Padding(padding: EdgeInsets.only(right: 650, top: 150),
-                    child: new Text("ورود", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.deepPurple, fontSize: 30))),// کاربر جدید
-              ]), // نوار بالا
-              Padding(padding: EdgeInsets.only(right: 325, top: 295),
-                child: new Text("نام کاربری", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
-              ),// نام کاربری
-              Padding(padding: EdgeInsets.only(left: 400,right: 410, top: 290),
-                child: Card(
-                  color: Color(0xff9370DB),
-                  child: Container(
-                    width: width,
-                    height: 35,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        new Flexible(
-                            fit: FlexFit.loose,
-                            child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
-                                // ignore: deprecated_member_use
-                                child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(80), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: UserNameTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
-                                  decoration: new InputDecoration(border: InputBorder.none, hintText: "... نام کاربری", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
-                                  keyboardType: TextInputType.multiline,
-                                  autofocus: true,
-                                ))),
-                      ],),
+              new Align(alignment: Alignment.topCenter,
+                child: Column(children: [
+                  new Text("JamQ", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 80)),
+                  new Text("ورود", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.deepPurple, fontSize: 30)),
+                ]),
+              ),// بالا
+              new Align(alignment: Alignment.center,
+                child: Column(children: [
+                  Padding(padding: EdgeInsets.only(left: 630, top: 293),
+                    child: new Text("نام کاربری", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
                   ),
-                ),
-              ), // کادر نام کاربری
-              Padding(padding: EdgeInsets.only(right: 325, top: 350),
-                child: new Text("کلمه عبور", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
-              ),// کلمه عبور
-              Padding(padding: EdgeInsets.only(left: 400,right: 410, top: 350),
-                child: Card(
-                  color: Color(0xff9370DB),
-                  child: Container(
-                    width: width,
-                    height: 35,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        new Flexible(
-                            fit: FlexFit.loose,
-                            child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
-                                // ignore: deprecated_member_use
-                                child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(80), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: PasswordTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
-                                  decoration: new InputDecoration(border: InputBorder.none, hintText: "... کلمه عبور", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
-                                  keyboardType: TextInputType.multiline,
-                                  autofocus: true,
-                                ))),
-                      ],),
-                  ),
-                ),
-              ), // کادر کلمه عبور
-              Row(children: [
-                Padding(padding: EdgeInsets.only(right: 630, top: 410),
-                  child:
-                  InkWell(child:
-                  Container(
-                    width: 100,
-                    height: 30,
-                    child: Padding(padding: EdgeInsets.only(right: 37, top: 1),
-                      child: new Text("ورود", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                  Padding(padding: EdgeInsets.only(left: 630, top: 25),
+                    child: new Text("کلمه عبور", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
+                  ),// کلمه عبور// نام کاربری
+                ]),
+              ),// عناوین
+              new Align(alignment: Alignment.center,
+                child: Column(children: [
+                  Padding(padding: EdgeInsets.only(right: 10, top: 290),
+                    child: Card(
+                      color: Color(0xff9370DB),
+                      child: Container(
+                        width: 550,
+                        height: 35,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Flexible(
+                                fit: FlexFit.loose,
+                                child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
+                                    // ignore: deprecated_member_use
+                                    child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(50), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: UserNameTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
+                                      decoration: new InputDecoration(border: InputBorder.none, hintText: "... نام کاربری", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
+                                      keyboardType: TextInputType.multiline,
+                                      autofocus: true,
+                                    ))),
+                          ],),
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Color(0xff483D8B),
+                  ), // کادر نام کاربری
+                  Padding(padding: EdgeInsets.only(right: 10, top: 15),
+                    child: Card(
+                      color: Color(0xff9370DB),
+                      child: Container(
+                        width: 550,
+                        height: 35,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Flexible(
+                                fit: FlexFit.loose,
+                                child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
+                                    // ignore: deprecated_member_use
+                                    child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(50), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: PasswordTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
+                                      decoration: new InputDecoration(border: InputBorder.none, hintText: "... کلمه عبور", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
+                                      keyboardType: TextInputType.multiline,
+                                      autofocus: true,
+                                    ))),
+                          ],),
+                      ),
                     ),
-                  ),
-                    onTap: (){
-                      Login();
-                    },
-                  ),
-                ),
-              ]),// ورود
+                  ), // کادر کلمه عبور
+                  Padding(padding: EdgeInsets.only(top: 30),
+                    child:
+                    InkWell(child:
+                    Container(
+                      width: 100,
+                      height: 30,
+                      child: Padding(padding: EdgeInsets.only(right: 37, top: 1),
+                        child: new Text("ورود", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Color(0xff483D8B),
+                      ),
+                    ),
+                      onTap: (){
+                        Login();
+                      },
+                    ),
+                  ),// رود
+                ]),
+              ),// ورودی های متن
             ]),
       ),
     ), onWillPop: () => Future(() => false));
@@ -119,17 +124,15 @@ class LoginState extends State<Login> {
       try {
         FormData formData = FormData.fromMap({
           "UserName": UserNameTextBox.text,
+          "Report": 'ورود به پنل',
         });
-        _openLoadingDialog(context);
         Response response = await Dio().post("http://jamq.ir:3000/Mainuser/CreatePanelReportLogin",options: Options(contentType: 'multipart/form-data'),data:formData);
         print(response.data.toString());
         if(response.data.toString() == 'PanelReportLogin Done!') {
-          Navigator.pop(context);
-          print('PanelReportLogin Done!');
+          print('LoginReport Done!');
         }
         else
         {
-          Navigator.pop(context);
           Alert(
             context: context,
             type: AlertType.none,
@@ -149,7 +152,6 @@ class LoginState extends State<Login> {
         }
         return true;
       } catch (e) {
-        Navigator.pop(context);
         Alert(
           context: context,
           type: AlertType.none,
@@ -171,7 +173,6 @@ class LoginState extends State<Login> {
   }
   Login() async {
     if(UserNameTextBox.text == '' || PasswordTextBox.text == ''){
-      Navigator.pop(context);
       Alert(
         context: context,
         type: AlertType.none,
@@ -211,7 +212,7 @@ class LoginState extends State<Login> {
                   style: TextStyle(color: Colors.black, fontSize: 18),
                 ),
                 onPressed: () => Navigator.pop(context),
-                color: Colors.grey,
+                color: Color(0xffD3D3D3),
               )
             ],
           ).show(); // Message
@@ -229,7 +230,7 @@ class LoginState extends State<Login> {
                   style: TextStyle(color: Colors.black, fontSize: 18),
                 ),
                 onPressed: () => Navigator.pop(context),
-                color: Colors.grey,
+                color: Color(0xffD3D3D3),
               )
             ],
           ).show(); // Message
@@ -247,15 +248,16 @@ class LoginState extends State<Login> {
                   style: TextStyle(color: Colors.black, fontSize: 18),
                 ),
                 onPressed: () => Navigator.pop(context),
-                color: Colors.grey,
+                color: Color(0xffD3D3D3),
               )
             ],
           ).show(); // Message
         }else if(response.data.toString() == "User Exist!"){
+          Navigator.pop(context);
           CreatePanelReportLogin();
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) =>
-              new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+              new Directionality(textDirection: TextDirection.rtl, child: Home(UserNameTextBox.text))),(Route<dynamic> route) => false);
         }else{
           Navigator.pop(context);
           Alert(
@@ -270,13 +272,14 @@ class LoginState extends State<Login> {
                   style: TextStyle(color: Colors.black, fontSize: 18),
                 ),
                 onPressed: () => Navigator.pop(context),
-                color: Colors.grey,
+                color: Color(0xffD3D3D3),
               )
             ],
           ).show(); // Message
         }
         return true;
       } catch (e) {
+        Navigator.pop(context);
         Alert(
           context: context,
           type: AlertType.none,
@@ -289,7 +292,7 @@ class LoginState extends State<Login> {
                 style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
               ),
               onPressed: () => Navigator.pop(context),
-              color: Colors.grey,
+              color: Color(0xffD3D3D3),
             )
           ],
         ).show(); // Message

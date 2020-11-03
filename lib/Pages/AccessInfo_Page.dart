@@ -1,11 +1,6 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 import 'package:jaam_q/Pages/AccessList_Page.dart';
-import 'package:jaam_q/Pages/PanelUsersInfo_Page.dart';
-import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,7 +10,7 @@ import 'ApplicationUsers_Page.dart';
 import 'Discount_Page.dart';
 import 'Home_Page.dart';
 import 'InviteLog_Page.dart';
-import 'LoginToAppLog_Page.dart';
+import 'LoginReport_Page.dart';
 import 'Login_Page.dart';
 import 'Register_Page.dart';
 import 'Transactions_Page.dart';
@@ -47,6 +42,7 @@ class AccessInfoState extends State<AccessInfo> {
   Future loadfuture;
   bool applicationusers = false;
   bool panelusers = false;
+  bool register = false;
   bool transactions = false;
   bool access = false;
   bool advertising = false;
@@ -58,13 +54,13 @@ class AccessInfoState extends State<AccessInfo> {
   bool discounts = false;
   bool applogintoreports = false;
   bool appinvitationtoreports = false;
-  //var otherapps = '0';
   bool aboutus = false;
   bool inappitems = false;
   bool awards = false;
 
   bool applicationusersCheckBoxValue = false;
   bool panelusersCheckBoxValue = false;
+  bool registerCheckBoxValue = false;
   bool transactionsCheckBoxValue = false;
   bool accessCheckBoxValue = false;
   bool advertisingCheckBoxValue = false;
@@ -76,7 +72,6 @@ class AccessInfoState extends State<AccessInfo> {
   bool discountsCheckBoxValue = false;
   bool applogintoreportsCheckBoxValue = false;
   bool appinvitationtoreportsCheckBoxValue = false;
-  //bool otherappsCheckBoxValue = false;
   bool aboutusCheckBoxValue = false;
   bool InAppItemsCheckBoxValue = false;
   bool AwardsCheckBoxValue = false;
@@ -130,7 +125,7 @@ class AccessInfoState extends State<AccessInfo> {
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                               },
                             ),
                             Container(
@@ -311,7 +306,7 @@ class AccessInfoState extends State<AccessInfo> {
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: LoginToAppLog())),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: LoginReport())),(Route<dynamic> route) => false);
                               },
                             ),
                             Container(
@@ -668,6 +663,20 @@ class AccessInfoState extends State<AccessInfo> {
                                   controlAffinity: ListTileControlAffinity.leading,
                                 ),
                               ),
+                              Padding(padding: EdgeInsets.only(right: 0),
+                                child: CheckboxListTile(title: Text("ثبت نام کاربر پنل", style: TextStyle(fontFamily: 'IRANSans', fontSize: 12, color: Colors.white)), activeColor: Colors.deepPurple, value: registerCheckBoxValue, onChanged:(bool registervalue){
+                                  setState(() {
+                                    registerCheckBoxValue = registervalue;
+                                    if(registerCheckBoxValue == true){
+                                      register = true;
+                                    }else if(registerCheckBoxValue == false){
+                                      register = false;
+                                    }
+                                  });
+                                },
+                                  controlAffinity: ListTileControlAffinity.leading,
+                                ),
+                              ),
                             ],),
                           ),
                         ),// سمت چپ
@@ -757,9 +766,24 @@ class AccessInfoState extends State<AccessInfo> {
         ).show(); // Message
       }
     } catch (e) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) =>
-          new Directionality(textDirection: TextDirection.rtl, child: AccessList())),(Route<dynamic> route) => false);
+      Alert(
+        context: context,
+        type: AlertType.none,
+        title: "پیغام",
+        desc: "!!!ارتباط با سرور برقرار نیست",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "تایید",
+              style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+            ),
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) =>
+                new Directionality(textDirection: TextDirection.rtl, child: AccessList())),(Route<dynamic> route) => false),
+            color: Color(0xffD3D3D3),
+          )
+        ],
+      ).show(); // Message
       print(e);
     }
   }
@@ -791,6 +815,7 @@ class AccessInfoState extends State<AccessInfo> {
           "AccessLevel":AccessLevelTextBox.text,
           "applicationusers": applicationusers,
           "panelusers": panelusers,
+          "register": register,
           "transactions": transactions,
           "access": access,
           "advertising": advertising,
@@ -882,6 +907,7 @@ class AccessInfoState extends State<AccessInfo> {
       print('ACData = '+ACData.toString());
       applicationusersCheckBoxValue = ACData[0]["Applicationusers"];
       panelusersCheckBoxValue = ACData[1]["Panelusers"];
+      registerCheckBoxValue = ACData[1]["Register"];
       transactionsCheckBoxValue = ACData[2]["Transactions"];
       accessCheckBoxValue = ACData[3]["Access"];
       advertisingCheckBoxValue = ACData[4]["Advertising"];

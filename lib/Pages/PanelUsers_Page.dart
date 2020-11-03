@@ -11,7 +11,7 @@ import 'ApplicationUsers_Page.dart';
 import 'Discount_Page.dart';
 import 'Home_Page.dart';
 import 'InviteLog_Page.dart';
-import 'LoginToAppLog_Page.dart';
+
 import 'Login_Page.dart';
 import 'Register_Page.dart';
 import 'Transactions_Page.dart';
@@ -135,7 +135,7 @@ class PanelUsersState extends State<PanelUsers> {
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                               },
                             ),
                             Container(
@@ -636,7 +636,7 @@ class PanelUsersState extends State<PanelUsers> {
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                               },
                             ),
                             Container(
@@ -1017,7 +1017,7 @@ class PanelUsersState extends State<PanelUsers> {
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                               },
                             ),
                             Container(
@@ -1461,7 +1461,7 @@ class PanelUsersState extends State<PanelUsers> {
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -1481,7 +1481,7 @@ class PanelUsersState extends State<PanelUsers> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) =>
-            new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false),
+            new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],

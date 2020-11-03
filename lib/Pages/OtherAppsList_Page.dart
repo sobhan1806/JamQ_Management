@@ -6,7 +6,7 @@ import 'package:jaam_q/Pages/ApplicationUsers_Page.dart';
 import 'package:jaam_q/Pages/Discount_Page.dart';
 import 'package:jaam_q/Pages/Home_Page.dart';
 import 'package:jaam_q/Pages/InviteLog_Page.dart';
-import 'package:jaam_q/Pages/LoginToAppLog_Page.dart';
+import 'LoginReport_Page.dart';
 import 'package:jaam_q/Pages/Login_Page.dart';
 import 'package:jaam_q/Pages/Transactions_Page.dart';
 import 'package:jaam_q/Pages/Notification_Page.dart';
@@ -118,7 +118,7 @@ class OtherAppsListState extends State<OtherAppsList> {
                         onTap: (){
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) =>
-                              new Directionality(textDirection: TextDirection.rtl, child: Home())),(Route<dynamic> route) => false);
+                              new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
                         },
                       ),
                       Container(
@@ -272,7 +272,7 @@ class OtherAppsListState extends State<OtherAppsList> {
                         onTap: (){
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) =>
-                              new Directionality(textDirection: TextDirection.rtl, child: LoginToAppLog())),(Route<dynamic> route) => false);
+                              new Directionality(textDirection: TextDirection.rtl, child: LoginReport())),(Route<dynamic> route) => false);
                         },
                       ),
                       Container(

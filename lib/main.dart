@@ -29,6 +29,8 @@ import 'package:jaam_q/Pages/Register_Page.dart';
 import 'package:jaam_q/Pages/Tickets_Page.dart';
 import 'package:jaam_q/Pages/TournamentTypes_Page.dart';
 import 'package:jaam_q/Pages/Transactions_Page.dart';
+import 'package:responsive_framework/responsive_wrapper.dart';
+import 'package:responsive_framework/utils/scroll_behavior.dart';
 import 'Pages/AbouteUsList_Page.dart';
 import 'Pages/AbouteUs_Page.dart';
 import 'Pages/AdvertisesInfo_Page.dart';
@@ -43,11 +45,10 @@ import 'Pages/FullTextTicket_Page.dart';
 import 'Pages/Home_Page.dart';
 import 'Pages/LiveQuestions_Page.dart';
 import 'Pages/LiveTournament_Page.dart';
-import 'Pages/LoginToAppLog_Page.dart';
 import 'Pages/Notification_Page.dart';
 import 'Pages/OtherAppsList_Page.dart';
 import 'Pages/OtherApps_Page.dart';
-import 'Pages/PanelReportLogin_Page.dart';
+import 'Pages/LoginReport_Page.dart';
 import 'Pages/PanelUsersInfo_Page.dart';
 import 'Pages/PanelUsers_Page.dart';
 import 'Pages/SendResponseTicket_Page.dart';
@@ -60,23 +61,46 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        builder: (context, widget) => ResponsiveWrapper.builder(
+      BouncingScrollWrapper.builder(context, widget),
+      maxWidth: 4096,
+      minWidth: 720,
+      defaultScale: true,
+      breakpoints: [
+        ResponsiveBreakpoint.resize(1080, name: MOBILE),
+        ResponsiveBreakpoint.autoScale(1024, name: TABLET),
+        ResponsiveBreakpoint.autoScale(1280, name: TABLET),
+        ResponsiveBreakpoint.autoScale(1920, name: TABLET),
+        ResponsiveBreakpoint.autoScale(2560, name: TABLET),
+        ResponsiveBreakpoint.autoScale(800, name: DESKTOP),
+        ResponsiveBreakpoint.autoScale(900, name: DESKTOP),
+        ResponsiveBreakpoint.autoScale(1024, name: DESKTOP),
+        ResponsiveBreakpoint.autoScale(1280, name: DESKTOP),
+        ResponsiveBreakpoint.resize(1366, name: DESKTOP),
+        ResponsiveBreakpoint.resize(1440, name: DESKTOP),
+        ResponsiveBreakpoint.autoScale(1600, name: DESKTOP),
+        ResponsiveBreakpoint.autoScale(1920, name: DESKTOP),
+        ResponsiveBreakpoint.autoScale(2560, name: DESKTOP),
+        ResponsiveBreakpoint.autoScale(4096, name: DESKTOP),
+      ]),
       title: 'جام کیو - پنل مدیریت',
       theme: ThemeData(
         primaryColor: Color(0xff2E0273),
         fontFamily: 'IRANSans',
         primaryIconTheme: IconThemeData(color: Colors.white),
+        // ignore: deprecated_member_use
         primaryTextTheme: TextTheme(title: TextStyle(color: Colors.white)),
       ),
-      initialRoute: "/LiveType_Page",
+      initialRoute: "/CreateLiveMatch_Page",
       routes: {
-        "/Home_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Home()),
+        "/Home_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Home.none()),
         "/Login_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Login()),
         "/Register_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Register()),
         "/ApplicationUsers_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: ApplicationUsers()),
         "/ApplicationUsersInfo_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: ApplicationUsersInfo.none()),
         "/PanelUsers_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: PanelUsers()),
         "/PanelUsersInfo_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: PanelUsersInfo.none()),
-        "/PanelReportLogin_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: PanelReportLogin()),
+        "/LoginReport_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LoginReport()),
         "/Transactions_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Transactions()),
         "/Advertises_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Advertises()),
         "/AdvertisesInfo_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: AdvertisesInfo.none()),
@@ -84,7 +108,6 @@ class MainApp extends StatelessWidget {
         "/FullTextTicket_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: FullTextTicket.none()),
         "/SendResponseTicket_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: SendResponseTicket.none()),
         "/InviteLog_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: InviteLog()),
-        "/LoginToAppLog_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LoginToAppLog()),
         "/Discount_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Discount()),
         "/CreateDiscount_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateDiscount()),
         "/CreateAdvertises_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateAdvertises()),
