@@ -32,7 +32,6 @@ import 'package:jaam_q/Pages/Transactions_Page.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 import 'Pages/AbouteUsList_Page.dart';
-import 'Pages/AbouteUs_Page.dart';
 import 'Pages/AdvertisesInfo_Page.dart';
 import 'Pages/ApplicationUsersInfo_Page.dart';
 import 'Pages/CreateDiscount_Page.dart';
@@ -91,7 +90,7 @@ class MainApp extends StatelessWidget {
         // ignore: deprecated_member_use
         primaryTextTheme: TextTheme(title: TextStyle(color: Colors.white)),
       ),
-      initialRoute: "/CreateLiveMatch_Page",
+      initialRoute: "/Login_Page",
       routes: {
         "/Home_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Home.none()),
         "/Login_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Login()),
@@ -118,27 +117,26 @@ class MainApp extends StatelessWidget {
         "/OtherApps_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: OtherApps()),
         "/OtherAppsList_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: OtherAppsList()),
         "/EditOtherApps_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditOtherApps()),
-        "/AbouteUs_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: AbouteUs()),
-        "/AbouteUsList_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: AbouteUsList()),
+        "/AbouteUsList_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: AbouteUsList.none()),
         "/EditAbouteUs_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditAbouteUs.none()),
-        "/ApplicationAvilability_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: ApplicationAvilability()),
-        "/Access_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Access()),
-        "/AccessList_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: AccessList()),
+        "/ApplicationAvilability_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: ApplicationAvilability.none()),
+        "/Access_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Access.none()),
+        "/AccessList_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: AccessList.none()),
         "/AccessInfo_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: AccessInfo.none()),
         "/Questions_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Questions()),
         "/CreateQuestions_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateQuestion()),
         "/EditQuestion_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditQuestion.none()),
         "/CreateCategory_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateCategory()),
         "/QuestionsTypes_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: QuestionsTypes()),
-        "/TournamentTypes_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: TournamentTypes()),
-        "/OneVsOneTournament_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: OneVsOneTournament()),
+        "/TournamentTypes_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: TournamentTypes.none()),
+        "/OneVsOneTournament_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: OneVsOneTournament.none()),
         "/InAppItems_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: InAppItems()),
         "/Awards_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Awards()),
         "/CreateAward_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateAward()),
         "/EditAward_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditAward.none()),
         "/LiveTournament_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveTournament()),
         "/LiveTournamentActive_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveTournamentActive()),
-        "/LiveType_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveTypes()),
+        "/LiveType_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveTypes.none()),
         "/CreateLiveMatch_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateLiveMatch.none()),
         "/CreateLiveQuestions_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateLiveQuestions.none()),
         "/LiveManagement_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveManagement.none()),

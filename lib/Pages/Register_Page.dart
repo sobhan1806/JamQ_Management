@@ -80,112 +80,118 @@ class RegisterState extends State<Register> {
             body: Center(
               child: Stack(
                   children: [
-                    Padding(padding: EdgeInsets.only(right: 580, bottom: 550),
-                      child: new Text("JamQ", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 80)),
-                    ),// JamQ
-                    Row(children: [
-                      Padding(padding: EdgeInsets.only(right: 640, top: 130),
-                          child: new Text("ثبت نام", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.deepPurple, fontSize: 30))),// کاربر جدید
-                    ]), // نوار بالا
-                    Padding(padding: EdgeInsets.only(right: 325, top: 295),
-                      child: new Text("نام کاربری", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
-                    ),// نام کاربری
-                    Padding(padding: EdgeInsets.only(left: 400,right: 410, top: 290),
-                      child: Card(
-                        color: Color(0xff9370DB),
-                        child: Container(
-                          width: width,
-                          height: 35,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              new Flexible(
-                                  fit: FlexFit.loose,
-                                  child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
-                                      // ignore: deprecated_member_use
-                                      child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(50), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: UserNameTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
-                                        decoration: new InputDecoration(border: InputBorder.none, hintText: "... نام کاربری", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
-                                        keyboardType: TextInputType.multiline,
-                                        autofocus: true,
-                                      ))),
-                            ],),
-                        ),
-                      ),
-                    ), // کادر نام کاربری
-                    Padding(padding: EdgeInsets.only(right: 325, top: 350),
-                      child: new Text("کلمه عبور", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
-                    ),// کلمه عبور
-                    Padding(padding: EdgeInsets.only(left: 400,right: 410, top: 350),
-                      child: Card(
-                        color: Color(0xff9370DB),
-                        child: Container(
-                          width: width,
-                          height: 35,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              new Flexible(
-                                  fit: FlexFit.loose,
-                                  child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
-                                      // ignore: deprecated_member_use
-                                      child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(50), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: PasswordTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
-                                        decoration: new InputDecoration(border: InputBorder.none, hintText: "... کلمه عبور", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
-                                        keyboardType: TextInputType.multiline,
-                                        autofocus: true,
-                                      ))),
-                            ],),
-                        ),
-                      ),
-                    ), // کادر کلمه عبور
-                    Padding(padding: EdgeInsets.only(right: 285, top: 410),
-                      child: new Text("تکرار کلمه عبور", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
-                    ),// تکرار کلمه عبور
-                    Padding(padding: EdgeInsets.only(left: 400,right: 410, top: 410),
-                      child: Card(
-                        color: Color(0xff9370DB),
-                        child: Container(
-                          width: width,
-                          height: 35,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              new Flexible(
-                                  fit: FlexFit.loose,
-                                  child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
-                                      // ignore: deprecated_member_use
-                                      child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(80), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: RePasswordTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
-                                        decoration: new InputDecoration(border: InputBorder.none, hintText: "... تکرار کلمه عبور", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
-                                        keyboardType: TextInputType.multiline,
-                                        autofocus: true,
-                                      ))),
-                            ],),
-                        ),
-                      ),
-                    ), // کادر تکرار کلمه عبور
-                    Padding(padding: EdgeInsets.only(right: 285, top: 473),
-                      child: new Text("سطح دسترسی", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
-                    ),// سطح دسترسی
-                    Padding(padding: EdgeInsets.only(left: 400,right: 410, top: 470),
-                      child: Card(
-                          color: Color(0xff9370DB),
-                          child: Container(
-                          width: width,
-                          height: 35,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                new Flexible(
-                                    fit: FlexFit.loose,
-                                    child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
+                    new Align(alignment: Alignment.topCenter,
+                      child: Column(children: [
+                        new Text("JamQ", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 80)),
+                        new Text("ثبت نام", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.deepPurple, fontSize: 30)),
+                      ]),
+                    ),// بالا
+                    new Align(alignment: Alignment.center,
+                      child: Column(children: [
+                        Padding(padding: EdgeInsets.only(left: 630, top: 212),
+                          child: new Text("نام کاربری", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
+                        ),// نام کاربری
+                        Padding(padding: EdgeInsets.only(left: 630, top: 20),
+                          child: new Text("کلمه عبور", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
+                        ),//  کلمه عبور
+                        Padding(padding: EdgeInsets.only(left: 670, top: 23),
+                          child: new Text("تکرار کلمه عبور", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
+                        ),// تکرار کلمه عبور
+                        Padding(padding: EdgeInsets.only(left: 670, top: 23),
+                          child: new Text("سطح دسترسی", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
+                        ),// سطح دسترسی
+                      ]),
+                    ),// عناوین
+                    new Align(alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          Padding(padding: EdgeInsets.only(right: 10, top: 210),
+                            child: Card(
+                              color: Color(0xff9370DB),
+                              child: Container(
+                                width: 550,
+                                height: 35,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new Flexible(
+                                        fit: FlexFit.loose,
+                                        child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
+                                            // ignore: deprecated_member_use
+                                            child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(50), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: UserNameTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
+                                              decoration: new InputDecoration(border: InputBorder.none, hintText: "... نام کاربری", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
+                                              keyboardType: TextInputType.multiline,
+                                              autofocus: true,
+                                            ))),
+                                  ],),
+                              ),
+                            ),
+                          ), // کادر نام کاربری
+                          Padding(padding: EdgeInsets.only(right: 10, top: 10),
+                            child: Card(
+                              color: Color(0xff9370DB),
+                              child: Container(
+                                width: 550,
+                                height: 35,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new Flexible(
+                                        fit: FlexFit.loose,
+                                        child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
+                                            // ignore: deprecated_member_use
+                                            child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(50), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: PasswordTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
+                                              decoration: new InputDecoration(border: InputBorder.none, hintText: "... کلمه عبور", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
+                                              keyboardType: TextInputType.multiline,
+                                              autofocus: true,
+                                            ))),
+                                  ],),
+                              ),
+                            ),
+                          ), // کادر کلمه عبور
+                          Padding(padding: EdgeInsets.only(right: 10, top: 10),
+                            child: Card(
+                              color: Color(0xff9370DB),
+                              child: Container(
+                                width: 550,
+                                height: 35,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new Flexible(
+                                        fit: FlexFit.loose,
+                                        child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
+                                            // ignore: deprecated_member_use
+                                            child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(80), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: RePasswordTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
+                                              decoration: new InputDecoration(border: InputBorder.none, hintText: "... تکرار کلمه عبور", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
+                                              keyboardType: TextInputType.multiline,
+                                              autofocus: true,
+                                            ))),
+                                  ],),
+                              ),
+                            ),
+                          ), // کادر تکرار کلمه عبور
+                          Padding(padding: EdgeInsets.only(right: 10, top: 10),
+                            child: Card(
+                              color: Color(0xff9370DB),
+                              child: Container(
+                                width: 550,
+                                height: 35,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new Flexible(
+                                      fit: FlexFit.loose,
+                                      child: new Padding(padding: EdgeInsets.fromLTRB(10, 14, 10, 0),
                                         // ignore: deprecated_member_use
                                         child: InkWell(
                                           // ignore: deprecated_member_use
                                           child: TextField(inputFormatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(80), WhitelistingTextInputFormatter(RegExp("[a-zA-Z0-9]")), BlacklistingTextInputFormatter.singleLineFormatter], style: TextStyle(color: Colors.white),controller: AccessLevelTextBox, textAlign: TextAlign.center, cursorColor: Colors.white,
-                                          decoration: new InputDecoration(border: InputBorder.none, hintText: "...سطح دسترسی", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
-                                          keyboardType: TextInputType.multiline,
-                                          autofocus: true,
-                                          enabled: false,
-                                        ),
+                                            decoration: new InputDecoration(border: InputBorder.none, hintText: "...سطح دسترسی", hintStyle: TextStyle(color: Colors.black26, fontWeight: FontWeight.normal, fontFamily: 'IRANSans')),
+                                            keyboardType: TextInputType.multiline,
+                                            autofocus: true,
+                                            enabled: false,
+                                          ),
                                           onTap: (){
                                             showMaterialRadioPicker(
                                               context: context,
@@ -201,55 +207,53 @@ class RegisterState extends State<Register> {
                                             );
                                           },
                                         ),),),
-                              ],),
-                        ),
-                      ),
-                    ), // کادر سطح دسترسی
-                    Row(children: [
-                      Padding(padding: EdgeInsets.only(right: 630, top: 540),
-                        child:
-                        InkWell(child:
-                        Container(
-                          width: 100,
-                          height: 30,
-                          child: Padding(padding: EdgeInsets.only(right: 26, top: 2),
-                            child: new Text("ثبت نام", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Color(0xff483D8B),
-                          ),
-                        ),
-                          onTap: (){
-                            print('Register Press');
-                            Register();
-                          },
-                        ),
-                      ),// ورود
-                    ]),// ثبت نام
-                    Row(children: [
-                      Padding(padding: EdgeInsets.only(right: 630, top: 575),
-                        child:
-                        InkWell(child:
-                        Container(
-                          width: 100,
-                          height: 30,
-                          child: Padding(padding: EdgeInsets.only(right: 36, top: 3),
-                            child: new Text("خانه", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Color(0xff483D8B),
-                          ),
-                        ),
-                          onTap: (){
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(builder: (context) =>
-                                new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
-                          },
-                        ),
-                      ),
-                    ]),// خانه
+                                  ],),
+                              ),
+                            ),
+                          ), // کادر سطح دسترسی
+                          Padding(padding: EdgeInsets.only(top: 40),
+                            child:
+                            InkWell(child:
+                            Container(
+                              width: 100,
+                              height: 30,
+                              child: Padding(padding: EdgeInsets.only(right: 26, top: 2),
+                                child: new Text("ثبت نام", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Color(0xff483D8B),
+                              ),
+                            ),
+                              onTap: (){
+                                print('Register Press');
+                                Register();
+                              },
+                            ),
+                          ),// ورود
+                          Padding(padding: EdgeInsets.only(top: 5),
+                            child:
+                            InkWell(child:
+                            Container(
+                              width: 100,
+                              height: 30,
+                              child: Padding(padding: EdgeInsets.only(right: 36, top: 3),
+                                child: new Text("خانه", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: Color(0xff483D8B),
+                              ),
+                            ),
+                              onTap: (){
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(builder: (context) =>
+                                    new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
+                              },
+                            ),
+                          ),// خانه
+                        ]),
+                    ),// ورودی ها
                   ]),
             ),
           );
@@ -376,7 +380,7 @@ class RegisterState extends State<Register> {
                 onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) =>
                     new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false),
-                color: Colors.grey,
+                color: Color(0xffD3D3D3),
               )
             ],
           ).show(); // Message
@@ -396,7 +400,7 @@ class RegisterState extends State<Register> {
                   style: TextStyle(color: Colors.black, fontSize: 18),
                 ),
                 onPressed: () => Navigator.pop(context),
-                color: Colors.grey,
+                color: Color(0xffD3D3D3),
               )
             ],
           ).show(); // Message
@@ -415,7 +419,7 @@ class RegisterState extends State<Register> {
                 style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
               ),
               onPressed: () => Navigator.pop(context),
-              color: Colors.grey,
+              color: Color(0xffD3D3D3),
             )
           ],
         ).show(); // Message

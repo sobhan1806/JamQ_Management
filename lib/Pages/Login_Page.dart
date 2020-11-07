@@ -42,10 +42,10 @@ class LoginState extends State<Login> {
                 child: Column(children: [
                   Padding(padding: EdgeInsets.only(left: 630, top: 293),
                     child: new Text("نام کاربری", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
-                  ),
+                  ),// نام کاربری
                   Padding(padding: EdgeInsets.only(left: 630, top: 25),
                     child: new Text("کلمه عبور", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),
-                  ),// کلمه عبور// نام کاربری
+                  ),// کلمه عبور
                 ]),
               ),// عناوین
               new Align(alignment: Alignment.center,
@@ -114,7 +114,7 @@ class LoginState extends State<Login> {
                     ),
                   ),// رود
                 ]),
-              ),// ورودی های متن
+              ),// ورودی ها
             ]),
       ),
     ), onWillPop: () => Future(() => false));
@@ -253,7 +253,7 @@ class LoginState extends State<Login> {
             ],
           ).show(); // Message
         }else if(response.data.toString() == "User Exist!"){
-          Navigator.pop(context);
+          //Navigator.pop(context);
           CreatePanelReportLogin();
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (context) =>
