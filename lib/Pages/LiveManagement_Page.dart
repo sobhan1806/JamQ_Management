@@ -71,6 +71,7 @@ class LiveManagementState extends State<LiveManagement>{
 
   List panelInformation, accessinformation, ACData;
   var UserName, AccessLevel;
+  bool PData = false;
 
   @override
   void initState() {
@@ -89,7 +90,7 @@ class LiveManagementState extends State<LiveManagement>{
         double height = MediaQuery.of(context).size.height;
         double width = MediaQuery.of(context).size.width;
 
-        if(playerInformation.length == null){
+        if(PData == false && snapshot.hasData){
           appscaffold = Scaffold(
             body: Center(
               child: Stack(
@@ -844,6 +845,77 @@ class LiveManagementState extends State<LiveManagement>{
                         ),
                       ]),
                     ), // عنوان جدول
+                    Padding(padding: EdgeInsets.only(left: 200,right: 450, top: 200),
+                      child: Container(
+                        width: width,
+                        height: 200,
+                        child: new ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: 1,
+                            itemBuilder: (BuildContext context,int index){
+                              return Padding(padding: EdgeInsets.only(left: 0,right: 0),
+                                child:
+                                Card(
+                                  child:
+                                  Container(
+                                    width: width,
+                                    height: 50,
+                                    color: Color(0xff9370DB),
+                                    child: Row(
+                                      children: [
+                                        Padding(padding:EdgeInsets.only(right: 20),
+                                          child: Container(
+                                            width: 100,
+                                            height: 20,
+                                            child: Center(
+                                              child: new Text('', style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(padding:EdgeInsets.only(right: 40),
+                                          child: Container(
+                                            width: 100,
+                                            height: 20,
+                                            child: Center(
+                                              child: new Text('', style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(padding:EdgeInsets.only(right: 55),
+                                          child: Container(
+                                            width: 80,
+                                            height: 20,
+                                            child: Center(
+                                              child: new Text('', style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(padding:EdgeInsets.only(right: 65),
+                                          child: Container(
+                                            width: 70,
+                                            height: 20,
+                                            child: new Text('', style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                          ),
+                                        ),
+                                        Padding(padding:EdgeInsets.only(right: 55),
+                                          child: Container(
+                                            width: 100,
+                                            height: 20,
+                                            child: Center(
+                                              child: new Text('', style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ); // جدول
+                            }
+                        ),
+                      ),
+                    ), // جدول
                     new Align(alignment: Alignment.bottomRight,
                       child: Padding(padding: EdgeInsets.only(right: 650, bottom: 150),
                         child:InkWell(
@@ -1096,27 +1168,6 @@ class LiveManagementState extends State<LiveManagement>{
                       ), // پایان مسابقه
                     ),// ارسال سوال
                     new Align(alignment: Alignment.bottomLeft,
-                      child: Padding(padding: EdgeInsets.only(left: 280, bottom: 150),
-                        child: InkWell(
-                          child: Container(
-                            width: 200,
-                            height: 30,
-                            child: Padding(
-                              padding: EdgeInsets.only(right: 67, top: 2),
-                              child: new Text("مشاهده بازیکنان", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Color(0xff483D8B),
-                            ),
-                          ),
-                          onTap: (){
-                            GetMatchPlayers();
-                          },
-                        ),
-                      ), // پایان مسابقه
-                    ),// مشاهده بازیکنان
-                    new Align(alignment: Alignment.bottomLeft,
                       child: Padding(padding: EdgeInsets.only(left: 330, bottom: 110),
                         child: InkWell(
                           child: Container(
@@ -1162,6 +1213,29 @@ class LiveManagementState extends State<LiveManagement>{
                       ), // کادر سوال
                     ),// کادر زمان سوال
                     new Align(alignment: Alignment.bottomLeft,
+                      child: Padding(padding: EdgeInsets.only(left: 115, bottom: 110),
+                        child: InkWell(
+                          child: Container(
+                            width: 130,
+                            height: 30,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 18, top: 2),
+                              child: new Text("مشاهده بازیکنان", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color(0xff483D8B),
+                            ),
+                          ),
+                          onTap: (){
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(builder: (context) =>
+                                new Directionality(textDirection: TextDirection.rtl, child: LiveManagement(MatchId, QTimeTextBox.text.toString(), UserName.toString()))),(Route<dynamic> route) => false);
+                          },
+                        ),
+                      ), // پایان مسابقه
+                    ),// مشاهده بازیکنان
+                    new Align(alignment: Alignment.bottomLeft,
                       child: Padding(padding: EdgeInsets.only(left: 330, bottom: 70),
                         child: InkWell(
                           child: Container(
@@ -1189,7 +1263,7 @@ class LiveManagementState extends State<LiveManagement>{
                   ]),
             ),
           );
-        }else{
+        }else if(PData == true && snapshot.hasData){
           appscaffold = Scaffold(
             body: Center(
               child: Stack(
@@ -2333,6 +2407,29 @@ class LiveManagementState extends State<LiveManagement>{
                       ), // کادر سوال
                     ),// کادر زمان سوال
                     new Align(alignment: Alignment.bottomLeft,
+                      child: Padding(padding: EdgeInsets.only(left: 115, bottom: 110),
+                        child: InkWell(
+                          child: Container(
+                            width: 130,
+                            height: 30,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 18, top: 2),
+                              child: new Text("مشاهده بازیکنان", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color(0xff483D8B),
+                            ),
+                          ),
+                          onTap: (){
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(builder: (context) =>
+                                new Directionality(textDirection: TextDirection.rtl, child: LiveManagement(MatchId, QTimeTextBox.text.toString(), UserName.toString()))),(Route<dynamic> route) => false);
+                          },
+                        ),
+                      ), // پایان مسابقه
+                    ),// مشاهده بازیکنان
+                    new Align(alignment: Alignment.bottomLeft,
                       child: Padding(padding: EdgeInsets.only(left: 330, bottom: 70),
                         child: InkWell(
                           child: Container(
@@ -2674,10 +2771,12 @@ class LiveManagementState extends State<LiveManagement>{
       });
       Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/GetMatchPlayers",options: Options(contentType: 'multipart/form-data'),data:formData);
       if(response.data != 'NoPlayer'){
+        PData = true;
         playerInformation = response.data;
         print('GetMatchPlayers = '+playerInformation.toString());
         return playerInformation;
       }else if(response.data == 'NoPlayer'){
+        PData = false;
         Alert(
           context: context,
           type: AlertType.none,
