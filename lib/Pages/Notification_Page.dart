@@ -78,7 +78,7 @@ class NotificationsState extends State<Notifications> {
   var UserName, AccessLevel;
 
   @override
-  void intitState() {
+  void initState() {
     super.initState();
     UserName = widget.UserNameResponse.toString();
     loadfuture =  GetPanelUsersByUserName();
