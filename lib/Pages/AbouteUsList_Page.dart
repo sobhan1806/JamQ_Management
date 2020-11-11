@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:jaam_q/Pages/AccessList_Page.dart';
 import 'package:jaam_q/Pages/EditAbouteUs_Page.dart';
 import 'package:jaam_q/Pages/PanelUsersInfo_Page.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,7 +22,6 @@ import 'Register_Page.dart';
 import 'TournamentTypes_Page.dart';
 import 'Transactions_Page.dart';
 import 'Notification_Page.dart';
-import 'OtherApps_Page.dart';
 import 'PanelUsers_Page.dart';
 import 'Tickets_Page.dart';
 import 'UnauthorizedWords_Page.dart';
@@ -188,7 +188,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(textDirection: TextDirection.rtl,
-                                            child: ApplicationUsers())),
+                                            child: ApplicationUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -226,7 +226,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: PanelUsers())),
+                                            child: PanelUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -264,7 +264,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Register())),
+                                            child: Register(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -302,7 +302,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Access(UserName.toString()))),
+                                            child: AccessList(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -340,7 +340,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Transactions())),
+                                            child: Transactions(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -454,7 +454,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: QuestionsTypes())),
+                                            child: QuestionsTypes(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -492,7 +492,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Notifications())),
+                                            child: Notifications(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -530,7 +530,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Tickets())),
+                                            child: Tickets(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -568,7 +568,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Discount())),
+                                            child: Discount(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -606,7 +606,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: LoginReport())),
+                                            child: LoginReport(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -644,7 +644,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InviteLog())),
+                                            child: InviteLog(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -682,7 +682,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: UnauthorizedWords())),
+                                            child: UnauthorizedWords(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -758,7 +758,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InAppItems())),
+                                            child: InAppItems(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -796,7 +796,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Awards())),
+                                            child: Awards(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -811,33 +811,6 @@ class AbouteUsListState extends State<AbouteUsList> {
                               new ListTile(
                                 leading: Icon(FontAwesomeIcons.listAlt, color: Colors.white, size: 22),
                                 title: new Text("درباره ما",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
-                                onTap: (){
-                                  if(aboutus == false){
-                                    Alert(
-                                      context: context,
-                                      type: AlertType.none,
-                                      title: "پیغام",
-                                      desc: "!!!مجوز دسترسی به درباره ما را ندارید",
-                                      buttons: [
-                                        DialogButton(
-                                          child: Text(
-                                            "تایید",
-                                            style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
-                                          ),
-                                          onPressed: () => Navigator.pop(context),
-                                          color: Color(0xffD3D3D3),
-                                        )
-                                      ],
-                                    ).show();
-                                  }else {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(builder: (context) =>
-                                        new Directionality(
-                                            textDirection: TextDirection.rtl,
-                                            child: AbouteUsList(UserName.toString()))),
-                                            (Route<dynamic> route) => false);
-                                  }
-                                },
                               ),
                               Container(
                                 height: 1,
@@ -975,7 +948,7 @@ class AbouteUsListState extends State<AbouteUsList> {
                                                 ),
                                               ),
                                               onTap: (){
-                                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditAbouteUs(aboutusInformation[index]["AUUrl"].toString()))),(Route<dynamic> route) => false);
+                                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditAbouteUs(aboutusInformation[index]["AUUrl"].toString(), UserName.toString()))),(Route<dynamic> route) => false);
                                               },
                                             ),
                                           ),
@@ -1088,7 +1061,7 @@ class AbouteUsListState extends State<AbouteUsList> {
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -1108,7 +1081,7 @@ class AbouteUsListState extends State<AbouteUsList> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -1142,7 +1115,7 @@ class AbouteUsListState extends State<AbouteUsList> {
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -1162,7 +1135,7 @@ class AbouteUsListState extends State<AbouteUsList> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -1208,7 +1181,7 @@ class AbouteUsListState extends State<AbouteUsList> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:jaam_q/Pages/AbouteUsList_Page.dart';
-import 'Access_Page.dart';
+import 'AccessList_Page.dart';
 import 'AdvertisesInfo_Page.dart';
 import 'ApplicationAvilability_Page.dart';
 import 'Awards_Page.dart';
@@ -11,7 +11,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'Advertises_Page.dart';
 import 'ApplicationUsers_Page.dart';
 import 'Discount_Page.dart';
 import 'Home_Page.dart';
@@ -113,6 +112,13 @@ class AdvertisesState extends State<Advertises> {
                               new ListTile(
                                 leading: Icon(Icons.home, color: Colors.white, size: 26),
                                 title: new Text("خانه",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
+                                onTap: (){
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(builder: (context) =>
+                                      new Directionality(textDirection: TextDirection.rtl,
+                                          child: Home(UserName.toString()))),
+                                          (Route<dynamic> route) => false);
+                                },
                               ),
                               Container(
                                 height: 1,
@@ -146,7 +152,7 @@ class AdvertisesState extends State<Advertises> {
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(textDirection: TextDirection.rtl,
-                                            child: ApplicationUsers())),
+                                            child: ApplicationUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -184,7 +190,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: PanelUsers())),
+                                            child: PanelUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -222,7 +228,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Register())),
+                                            child: Register(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -260,7 +266,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Access(UserName.toString()))),
+                                            child: AccessList(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -298,7 +304,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Transactions())),
+                                            child: Transactions(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -385,7 +391,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: QuestionsTypes())),
+                                            child: QuestionsTypes(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -423,7 +429,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Notifications())),
+                                            child: Notifications(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -461,7 +467,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Tickets())),
+                                            child: Tickets(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -499,7 +505,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Discount())),
+                                            child: Discount(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -537,7 +543,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: LoginReport())),
+                                            child: LoginReport(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -575,7 +581,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InviteLog())),
+                                            child: InviteLog(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -613,7 +619,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: UnauthorizedWords())),
+                                            child: UnauthorizedWords(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -689,7 +695,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InAppItems())),
+                                            child: InAppItems(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -727,7 +733,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Awards())),
+                                            child: Awards(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -865,7 +871,7 @@ class AdvertisesState extends State<Advertises> {
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: CreateAdvertises())),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: CreateAdvertises(UserName.toString()))),(Route<dynamic> route) => false);
                               },
                             ),
                           ), // ایجاد تبلیغ
@@ -1010,7 +1016,7 @@ class AdvertisesState extends State<Advertises> {
                                               ),
                                             ),
                                             onTap: (){
-                                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: AdvertisesInfo(advertisesInformation[index]["_id"].toString(), advertisesInformation[index]["AdName"].toString()))),(Route<dynamic> route) => false);
+                                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: AdvertisesInfo(advertisesInformation[index]["_id"].toString(), advertisesInformation[index]["AdName"].toString(), UserName.toString()))),(Route<dynamic> route) => false);
                                             },
                                           ),
                                         ), // PDF
@@ -1066,6 +1072,13 @@ class AdvertisesState extends State<Advertises> {
                               new ListTile(
                                 leading: Icon(Icons.home, color: Colors.white, size: 26),
                                 title: new Text("خانه",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
+                                onTap: (){
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(builder: (context) =>
+                                      new Directionality(textDirection: TextDirection.rtl,
+                                          child: Home(UserName.toString()))),
+                                          (Route<dynamic> route) => false);
+                                },
                               ),
                               Container(
                                 height: 1,
@@ -1099,7 +1112,7 @@ class AdvertisesState extends State<Advertises> {
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(textDirection: TextDirection.rtl,
-                                            child: ApplicationUsers())),
+                                            child: ApplicationUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1137,7 +1150,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: PanelUsers())),
+                                            child: PanelUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1175,7 +1188,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Register())),
+                                            child: Register(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1213,7 +1226,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Access(UserName.toString()))),
+                                            child: AccessList(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1251,7 +1264,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Transactions())),
+                                            child: Transactions(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1338,7 +1351,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: QuestionsTypes())),
+                                            child: QuestionsTypes(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1376,7 +1389,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Notifications())),
+                                            child: Notifications(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1414,7 +1427,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Tickets())),
+                                            child: Tickets(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1452,7 +1465,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Discount())),
+                                            child: Discount(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1490,7 +1503,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: LoginReport())),
+                                            child: LoginReport(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1528,7 +1541,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InviteLog())),
+                                            child: InviteLog(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1566,7 +1579,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: UnauthorizedWords())),
+                                            child: UnauthorizedWords(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1642,7 +1655,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InAppItems())),
+                                            child: InAppItems(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1680,7 +1693,7 @@ class AdvertisesState extends State<Advertises> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Awards())),
+                                            child: Awards(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1818,7 +1831,7 @@ class AdvertisesState extends State<Advertises> {
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: CreateAdvertises())),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: CreateAdvertises(UserName.toString()))),(Route<dynamic> route) => false);
                               },
                             ),
                           ), // ایجاد تبلیغ
@@ -1963,10 +1976,10 @@ class AdvertisesState extends State<Advertises> {
                                               ),
                                             ),
                                             onTap: (){
-                                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: AdvertisesInfo(advertisesInformation[index]["_id"].toString(), advertisesInformation[index]["AdName"].toString()))),(Route<dynamic> route) => false);
+                                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: AdvertisesInfo(advertisesInformation[index]["_id"].toString(), advertisesInformation[index]["AdName"].toString(), UserName.toString()))),(Route<dynamic> route) => false);
                                             },
                                           ),
-                                        ),
+                                        ), // PDF
                                         Padding(padding:EdgeInsets.only(right: 70),
                                           child: Container(
                                             width: 150,
@@ -2100,6 +2113,7 @@ class AdvertisesState extends State<Advertises> {
           ).show(); // Message
         }
       } catch (e) {
+        Navigator.pop(context);
         Alert(
           context: context,
           type: AlertType.none,
@@ -2111,9 +2125,7 @@ class AdvertisesState extends State<Advertises> {
                 "تایید",
                 style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
               ),
-              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Advertises(UserName.toString()))),(Route<dynamic> route) => false),
+              onPressed: () => Navigator.pop(context),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -2167,7 +2179,7 @@ class AdvertisesState extends State<Advertises> {
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -2187,7 +2199,7 @@ class AdvertisesState extends State<Advertises> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -2221,7 +2233,7 @@ class AdvertisesState extends State<Advertises> {
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -2241,7 +2253,7 @@ class AdvertisesState extends State<Advertises> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -2287,7 +2299,7 @@ class AdvertisesState extends State<Advertises> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],

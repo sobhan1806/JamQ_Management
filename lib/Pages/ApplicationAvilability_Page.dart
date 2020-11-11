@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jaam_q/Pages/AccessList_Page.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'AbouteUsList_Page.dart';
 import 'Access_Page.dart';
@@ -113,6 +114,13 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                               new ListTile(
                                 leading: Icon(Icons.home, color: Colors.white, size: 26),
                                 title: new Text("خانه",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
+                                onTap: (){
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(builder: (context) =>
+                                      new Directionality(textDirection: TextDirection.rtl,
+                                          child: Home(UserName.toString()))),
+                                          (Route<dynamic> route) => false);
+                                },
                               ),
                               Container(
                                 height: 1,
@@ -146,7 +154,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(textDirection: TextDirection.rtl,
-                                            child: ApplicationUsers())),
+                                            child: ApplicationUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -184,7 +192,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: PanelUsers())),
+                                            child: PanelUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -222,7 +230,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Register())),
+                                            child: Register(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -260,7 +268,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Access(UserName.toString()))),
+                                            child: AccessList(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -298,7 +306,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Transactions())),
+                                            child: Transactions(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -412,7 +420,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: QuestionsTypes())),
+                                            child: QuestionsTypes(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -450,7 +458,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Notifications())),
+                                            child: Notifications(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -488,7 +496,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Tickets())),
+                                            child: Tickets(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -526,7 +534,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Discount())),
+                                            child: Discount(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -564,7 +572,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: LoginReport())),
+                                            child: LoginReport(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -602,7 +610,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InviteLog())),
+                                            child: InviteLog(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -640,7 +648,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: UnauthorizedWords())),
+                                            child: UnauthorizedWords(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -689,7 +697,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InAppItems())),
+                                            child: InAppItems(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -727,7 +735,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Awards())),
+                                            child: Awards(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -898,6 +906,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
         Information = response.data;
         print('Information = '+Information.toString());
         FillInfo();
+        GetPanelUsersByUserName();
         return Information;
       }else{
         Navigator.pop(context);
@@ -961,7 +970,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
             context: context,
             type: AlertType.none,
             title: "پیغام",
-            desc: "!!!عملیات با موفقیت انجام شد",
+            desc: ".عملیات با موفقیت انجام شد",
             buttons: [
               DialogButton(
                 child: Text(
@@ -1062,7 +1071,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -1082,7 +1091,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child:  Home(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -1116,7 +1125,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.to))),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child:  Home(UserName.toString()))),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -1136,7 +1145,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child:  Home(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -1182,7 +1191,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child:  Home(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],

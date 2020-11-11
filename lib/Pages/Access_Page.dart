@@ -123,12 +123,13 @@ class AccessState extends State<Access> {
                   width: width,
                   height: 60,
                   color: Color(0xff24026E),
-                  child: Padding(padding: EdgeInsets.only(left: 400, right: 80),
+                  child: Padding(padding: EdgeInsets.only(right: 80, left: 10),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           new Text("JamQ", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 40)),
                           new Text(UserName + ' : نام کاربری', style: new TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 14)),
+                          new Text('')
                         ]),
                   ),
                 ),
@@ -147,8 +148,7 @@ class AccessState extends State<Access> {
                           onTap: (){
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(builder: (context) =>
-                                new Directionality(
-                                    textDirection: TextDirection.rtl,
+                                new Directionality(textDirection: TextDirection.rtl,
                                     child: Home(UserName.toString()))),
                                     (Route<dynamic> route) => false);
                           },
@@ -164,7 +164,7 @@ class AccessState extends State<Access> {
                           leading: Icon(Icons.supervised_user_circle, color: Colors.white, size: 26),
                           title: new Text("کاربران اپلیکیشن",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(applicationusers1 == false){
+                            if(applicationusers == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -185,7 +185,7 @@ class AccessState extends State<Access> {
                               Navigator.of(context).pushAndRemoveUntil(
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(textDirection: TextDirection.rtl,
-                                      child: ApplicationUsers())),
+                                      child: ApplicationUsers(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -201,7 +201,7 @@ class AccessState extends State<Access> {
                           leading: Icon(Icons.supervised_user_circle, color: Colors.white, size: 26),
                           title: new Text("کاربران پنل",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(panelusers1 == false){
+                            if(panelusers == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -223,7 +223,7 @@ class AccessState extends State<Access> {
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(
                                       textDirection: TextDirection.rtl,
-                                      child: PanelUsers())),
+                                      child: PanelUsers(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -239,7 +239,7 @@ class AccessState extends State<Access> {
                           leading: Icon(Icons.person_add, color: Colors.white, size: 26),
                           title: new Text("ثبت نام کاربر پنل",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(register1 == false){
+                            if(register == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -261,7 +261,7 @@ class AccessState extends State<Access> {
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(
                                       textDirection: TextDirection.rtl,
-                                      child: Register())),
+                                      child: Register(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -288,7 +288,7 @@ class AccessState extends State<Access> {
                           leading: Icon(FontAwesomeIcons.funnelDollar, color: Colors.white, size: 24),
                           title: new Text("تراکنش ها",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(transactions1 == false){
+                            if(transactions == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -310,7 +310,7 @@ class AccessState extends State<Access> {
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(
                                       textDirection: TextDirection.rtl,
-                                      child: Transactions())),
+                                      child: Transactions(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -326,7 +326,7 @@ class AccessState extends State<Access> {
                           leading: Icon(Icons.picture_in_picture, color: Colors.white, size: 25),
                           title: new Text("تبلیغات",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(advertising1 == false){
+                            if(advertising == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -348,7 +348,7 @@ class AccessState extends State<Access> {
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(
                                       textDirection: TextDirection.rtl,
-                                      child: Advertises())),
+                                      child: Advertises(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -364,7 +364,7 @@ class AccessState extends State<Access> {
                           leading: Icon(FontAwesomeIcons.medapps, color: Colors.white, size: 26),
                           title: new Text("مسابقات",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(tournaments1 == false){
+                            if(tournaments == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -402,7 +402,7 @@ class AccessState extends State<Access> {
                           leading: Icon(Icons.question_answer, color: Colors.white, size: 26),
                           title: new Text("سوالات",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(questions1 == false){
+                            if(questions == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -424,7 +424,7 @@ class AccessState extends State<Access> {
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(
                                       textDirection: TextDirection.rtl,
-                                      child: QuestionsTypes())),
+                                      child: QuestionsTypes(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -440,7 +440,7 @@ class AccessState extends State<Access> {
                           leading: Icon(Icons.message, color: Colors.white, size: 23),
                           title: new Text("نوتیفیکیشن",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(notification1 == false){
+                            if(notification == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -462,7 +462,7 @@ class AccessState extends State<Access> {
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(
                                       textDirection: TextDirection.rtl,
-                                      child: Notifications())),
+                                      child: Notifications(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -478,7 +478,7 @@ class AccessState extends State<Access> {
                           leading: Icon(Icons.sticky_note_2, color: Colors.white, size: 26),
                           title: new Text("تیکت های پشتیبانی",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(tickets1 == false){
+                            if(tickets == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -500,7 +500,7 @@ class AccessState extends State<Access> {
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(
                                       textDirection: TextDirection.rtl,
-                                      child: Tickets())),
+                                      child: Tickets(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -516,7 +516,7 @@ class AccessState extends State<Access> {
                           leading: Icon(FontAwesomeIcons.percent, color: Colors.white, size: 18),
                           title: new Text("تخفیف ها",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(discounts1 == false){
+                            if(discounts == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -538,7 +538,7 @@ class AccessState extends State<Access> {
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(
                                       textDirection: TextDirection.rtl,
-                                      child: Discount())),
+                                      child: Discount(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -554,7 +554,7 @@ class AccessState extends State<Access> {
                           leading: Icon(Icons.featured_play_list, color: Colors.white, size: 22),
                           title: new Text("گزارشات ورود به پنل",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(applogintoreports1 == false){
+                            if(applogintoreports == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -576,7 +576,7 @@ class AccessState extends State<Access> {
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(
                                       textDirection: TextDirection.rtl,
-                                      child: LoginReport())),
+                                      child: LoginReport(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -592,7 +592,7 @@ class AccessState extends State<Access> {
                           leading: Icon(Icons.featured_play_list, color: Colors.white, size: 22),
                           title: new Text("گزارشات دعوت به اپلیکیشن",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(appinvitationtoreports1 == false){
+                            if(appinvitationtoreports == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -614,7 +614,7 @@ class AccessState extends State<Access> {
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(
                                       textDirection: TextDirection.rtl,
-                                      child: InviteLog())),
+                                      child: InviteLog(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -630,7 +630,7 @@ class AccessState extends State<Access> {
                           leading: Icon(FontAwesomeIcons.fileWord, color: Colors.white, size: 26),
                           title: new Text("کلمات غیر مجاز",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(unauthorizedwords1 == false){
+                            if(unauthorizedwords == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -652,7 +652,7 @@ class AccessState extends State<Access> {
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(
                                       textDirection: TextDirection.rtl,
-                                      child: UnauthorizedWords())),
+                                      child: UnauthorizedWords(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -668,7 +668,7 @@ class AccessState extends State<Access> {
                           leading: Icon(FontAwesomeIcons.toggleOff, color: Colors.white, size: 21),
                           title: new Text("فعال/غیرفعال کردن اپلیکیشن",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(appavilability1 == false){
+                            if(appavilability == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -706,7 +706,7 @@ class AccessState extends State<Access> {
                           leading: Icon(Icons.payment, color: Colors.white, size: 21),
                           title: new Text("پرداخت های درون برنامه",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(inappitems1 == false){
+                            if(inappitems == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -728,7 +728,7 @@ class AccessState extends State<Access> {
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(
                                       textDirection: TextDirection.rtl,
-                                      child: InAppItems())),
+                                      child: InAppItems(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -744,7 +744,7 @@ class AccessState extends State<Access> {
                           leading: Icon(FontAwesomeIcons.award, color: Colors.white, size: 21),
                           title: new Text("جوایز",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(awards1 == false){
+                            if(awards == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -766,7 +766,7 @@ class AccessState extends State<Access> {
                                   MaterialPageRoute(builder: (context) =>
                                   new Directionality(
                                       textDirection: TextDirection.rtl,
-                                      child: Awards())),
+                                      child: Awards(UserName.toString()))),
                                       (Route<dynamic> route) => false);
                             }
                           },
@@ -782,7 +782,7 @@ class AccessState extends State<Access> {
                           leading: Icon(FontAwesomeIcons.listAlt, color: Colors.white, size: 22),
                           title: new Text("درباره ما",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
                           onTap: (){
-                            if(aboutus1 == false){
+                            if(aboutus == false){
                               Alert(
                                 context: context,
                                 type: AlertType.none,
@@ -1151,7 +1151,7 @@ class AccessState extends State<Access> {
                 ),
               ),// دسترسی ها
               new Align(alignment: Alignment.center,
-                child: Padding(padding: EdgeInsets.only(right: 200, top: 590),
+                child: Padding(padding: EdgeInsets.only(right: 150, top: 590),
                   child:
                   InkWell(child:
                   Container(
@@ -1171,6 +1171,32 @@ class AccessState extends State<Access> {
                   ),
                 ),// ایجاد کردن
               ),// ایجاد کردن
+              new Align(alignment: Alignment.center,
+                child: Padding(padding: EdgeInsets.only(right: 360, top: 590),
+                  child:
+                  InkWell(child:
+                  Container(
+                    width: 100,
+                    height: 30,
+                    child: Padding(padding: EdgeInsets.only(right: 27, top: 2),
+                      child: new Text("بازگشت", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Color(0xff483D8B),
+                    ),
+                  ),
+                    onTap: (){
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) =>
+                          new Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: AccessList(UserName.toString()))),
+                              (Route<dynamic> route) => false);
+                    },
+                  ),
+                ),// ایجاد کردن
+              ),// بازگشت
             ]),
       ),
     ), onWillPop: () => Future(() => false));

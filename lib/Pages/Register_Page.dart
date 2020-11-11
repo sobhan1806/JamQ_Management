@@ -8,6 +8,10 @@ import 'package:jaam_q/Pages/Home_Page.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Register extends StatefulWidget {
+  var UserNameResponse;
+  Register(this.UserNameResponse);
+  Register.none();
+
   @override
   State<StatefulWidget> createState() {
     return RegisterState();
@@ -38,7 +42,6 @@ class RegisterState extends State<Register> {
   bool discounts = false;
   bool applogintoreports = false;
   bool appinvitationtoreports = false;
-  //var otherapps = '0';
   bool aboutus = false;
   bool inappitems = false;
   bool awards = false;
@@ -56,14 +59,36 @@ class RegisterState extends State<Register> {
   bool discountsCheckBoxValue = false;
   bool applogintoreportsCheckBoxValue = false;
   bool appinvitationtoreportsCheckBoxValue = false;
-  //bool otherappsCheckBoxValue = false;
   bool aboutusCheckBoxValue = false;
   bool InAppItemsCheckBoxValue = false;
   bool AwardsCheckBoxValue = false;
 
+  bool applicationusers1;
+  bool panelusers1;
+  bool register1;
+  bool transactions1;
+  bool access1;
+  bool advertising1;
+  bool tournaments1;
+  bool unauthorizedwords1;
+  bool questions1;
+  bool notification1;
+  bool tickets1;
+  bool discounts1;
+  bool applogintoreports1;
+  bool appinvitationtoreports1;
+  bool appavilability1;
+  bool inappitems1;
+  bool awards1;
+  bool aboutus1;
+
+  List panelInformation, accessinformationn, ACData;
+  var UserName, AccessLevell;
+
   @override
   void initState() {
     super.initState();
+    UserName = widget.UserNameResponse.toString();
     loadfuture = GetOchart();
   }
 
@@ -238,7 +263,7 @@ class RegisterState extends State<Register> {
                               width: 100,
                               height: 30,
                               child: Padding(padding: EdgeInsets.only(right: 36, top: 3),
-                                child: new Text("خانه", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                                child: new Text("بازگشت", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
                               ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
@@ -248,7 +273,7 @@ class RegisterState extends State<Register> {
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false);
                               },
                             ),
                           ),// خانه
@@ -370,7 +395,7 @@ class RegisterState extends State<Register> {
             context: context,
             type: AlertType.none,
             title: "پیغام",
-            desc: "!عملیات با موفقیت انجام شد",
+            desc: ".عملیات با موفقیت انجام شد",
             buttons: [
               DialogButton(
                 child: Text(
@@ -379,7 +404,7 @@ class RegisterState extends State<Register> {
                 ),
                 onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) =>
-                    new Directionality(textDirection: TextDirection.rtl, child: Home.none())),(Route<dynamic> route) => false),
+                    new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
                 color: Color(0xffD3D3D3),
               )
             ],
@@ -425,6 +450,165 @@ class RegisterState extends State<Register> {
         ).show(); // Message
         print(e);
       }
+    }
+  }
+  GetPanelUsersByUserName() async{
+    print('GetPanelUsersByUserName Run...');
+    UserName = widget.UserNameResponse;
+    print('UserName = '+UserName);
+
+    try {
+      FormData formData = FormData.fromMap({
+        "UserName":UserName,
+      });
+      Response response = await Dio().post("http://jamq.ir:3000/Management/GetPanelUserByUserName",options: Options(contentType: 'multipart/form-data'),data:formData);
+      if(response.data.toString() != 'User Does Not Exist!!!'){
+        panelInformation = response.data;
+        print('GetPanelUsersByUserName = '+panelInformation.toString());
+        AccessLevell = panelInformation[0]["AdmAccessLevel"];
+        print('AccessLevel = '+AccessLevell);
+        GetOChartByAccessLevel();
+        return panelInformation;
+      }else{
+        Alert(
+          context: context,
+          type: AlertType.none,
+          title: "پیغام",
+          desc: "!!!کاربر یافت نشد",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "تایید",
+                style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+              ),
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) =>
+                  new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
+              color: Color(0xffD3D3D3),
+            )
+          ],
+        ).show(); // Message
+      }
+    } catch (e) {
+      Alert(
+        context: context,
+        type: AlertType.none,
+        title: "پیغام",
+        desc: "!!!ارتباط با سرور برقرار نیست",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "تایید",
+              style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+            ),
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) =>
+                new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
+            color: Color(0xffD3D3D3),
+          )
+        ],
+      ).show(); // Message
+      print(e);
+    }
+  }
+  GetOChartByAccessLevel() async{
+    print('GetOChartByAccessLevel Run...');
+
+    try {
+      FormData formData = FormData.fromMap({
+        "AccessLevel":AccessLevel,
+      });
+      Response response = await Dio().post("http://jamq.ir:3000/Management/GetOChartByAccessLevel",options: Options(contentType: 'multipart/form-data'),data:formData);
+      if(response.data.toString() != 'Ochart Does Not Exist!!!'){
+        accessinformationn = response.data;
+        FillInfo(response.data);
+        return accessinformationn;
+      }else{
+        Alert(
+          context: context,
+          type: AlertType.none,
+          title: "پیغام",
+          desc: "!!!برنامه با مشکل مواجه شده است",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "تایید",
+                style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+              ),
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) =>
+                  new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
+              color: Color(0xffD3D3D3),
+            )
+          ],
+        ).show(); // Message
+      }
+    } catch (e) {
+      Alert(
+        context: context,
+        type: AlertType.none,
+        title: "پیغام",
+        desc: "!!!ارتباط با سرور برقرار نیست",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "تایید",
+              style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+            ),
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) =>
+                new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
+            color: Color(0xffD3D3D3),
+          )
+        ],
+      ).show(); // Message
+      print(e);
+    }
+  }
+  FillInfo(var response) async{
+    print('FillInfo Run...');
+    try {
+      ACData = accessinformation[0]["OCAccesses"];
+      print('ACData = '+ACData.toString());
+      applicationusers1 = ACData[0]["Applicationusers"];
+      panelusers1 = ACData[1]["Panelusers"];
+      register1 = ACData[2]["Register"];
+      access1 = ACData[3]["Access"];
+      transactions1 = ACData[4]["Transactions"];
+      advertising1 = ACData[5]["Advertising"];
+      tournaments1 = ACData[6]["Tournaments"];
+      unauthorizedwords1 = ACData[7]["Unauthorizedwords"];
+      questions1 = ACData[8]["Questions"];
+      notification1 = ACData[9]["Notification"];
+      tickets1 = ACData[10]["Tickets"];
+      discounts1 = ACData[11]["Discounts"];
+      applogintoreports1 = ACData[12]["Applogintoreports"];
+      appinvitationtoreports1 = ACData[13]["Appinvitationtoreports"];
+      appavilability1 = ACData[14]["AppAvilability"];
+      inappitems1 = ACData[15]["Inappitems"];
+      awards1 = ACData[16]["Awards"];
+      aboutus1 = ACData[17]["Aboutus"];
+
+    } catch (e) {
+      Alert(
+        context: context,
+        type: AlertType.none,
+        title: "پیغام",
+        desc: "!!!ارتباط با سرور برقرار نیست",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "تایید",
+              style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+            ),
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) =>
+                new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
+            color: Color(0xffD3D3D3),
+          )
+        ],
+      ).show(); // Message
+      print(e);
     }
   }
   void _openLoadingDialog(BuildContext context) {

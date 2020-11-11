@@ -1,23 +1,16 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker_web/image_picker_web.dart';
-import 'package:jaam_q/Pages/CreateCategory_Page.dart';
 import 'package:jaam_q/Pages/CreateLiveMatch_Page.dart';
-import 'package:jaam_q/Pages/CreateQuestion_Page.dart';
 import 'package:jaam_q/Pages/LiveTournamentActive_Page.dart';
 import 'package:jaam_q/Pages/LiveTournament_Page.dart';
-import 'package:jaam_q/Pages/OneVsOneTournament_Page.dart';
-import 'package:jaam_q/Pages/PanelUsersInfo_Page.dart';
-import 'package:jaam_q/Pages/Questions_Page.dart';
-import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jaam_q/Pages/TournamentTypes_Page.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'AbouteUsList_Page.dart';
-import 'Access_Page.dart';
+import 'AccessList_Page.dart';
 import 'Advertises_Page.dart';
 import 'ApplicationAvilability_Page.dart';
 import 'ApplicationUsers_Page.dart';
@@ -30,16 +23,14 @@ import 'LoginReport_Page.dart';
 import 'Login_Page.dart';
 import 'QuestionsTypes_Page.dart';
 import 'Register_Page.dart';
-import 'TournamentTypes_Page.dart';
 import 'Transactions_Page.dart';
 import 'Notification_Page.dart';
 import 'PanelUsers_Page.dart';
 import 'Tickets_Page.dart';
 import 'UnauthorizedWords_Page.dart';
-import 'AbouteUs_Page.dart';
 
 class LiveTypes extends StatefulWidget {
-  var UserNameResponse;
+  var nameResponse, questioncountResponse, playercountResponse, answeringtimeResponse, UserNameResponse;
   LiveTypes(this.UserNameResponse);
   LiveTypes.none();
 
@@ -68,11 +59,11 @@ class LiveTypesState extends State<LiveTypes> {
   bool inappitems;
   bool awards;
   bool aboutus;
-
   var appscaffold;
   Future loadfuture;
   List panelInformation, accessinformation, ACData;
   var UserName, AccessLevel;
+  var MName, QCount, PCount, ATime;
 
   @override
   void initState() {
@@ -93,16 +84,21 @@ class LiveTypesState extends State<LiveTypes> {
             body: Center(
               child: Stack(
                   children: [
-                    Container(
-                      height: 60,
-                      color: Color(0xff24026E),
-                      child: Row(
-                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(padding: EdgeInsets.only(right: 80),
-                              child: new Text("JamQ", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 40)),
-                            ),// JamQ
-                          ]),
+                    new Align(alignment: Alignment.topCenter,
+                      child: Container(
+                        width: width,
+                        height: 60,
+                        color: Color(0xff24026E),
+                        child: Padding(padding: EdgeInsets.only(right: 80),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                new Text("JamQ", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 40)),
+                                new Text(UserName + ' : نام کاربری', style: new TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 14)),
+                                new Text('')
+                              ]),
+                        ),
+                      ),
                     ),// بالا
                     new Align(alignment: Alignment.centerRight,
                       child: Padding(padding: EdgeInsets.only(top: 60),
@@ -155,7 +151,7 @@ class LiveTypesState extends State<LiveTypes> {
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(textDirection: TextDirection.rtl,
-                                            child: ApplicationUsers())),
+                                            child: ApplicationUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -193,7 +189,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: PanelUsers())),
+                                            child: PanelUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -231,7 +227,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Register())),
+                                            child: Register(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -269,7 +265,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Access(UserName.toString()))),
+                                            child: AccessList(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -307,7 +303,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Transactions())),
+                                            child: Transactions(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -345,7 +341,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Advertises())),
+                                            child: Advertises(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -360,33 +356,6 @@ class LiveTypesState extends State<LiveTypes> {
                               new ListTile(
                                 leading: Icon(FontAwesomeIcons.medapps, color: Colors.white, size: 26),
                                 title: new Text("مسابقات",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
-                                onTap: (){
-                                  if(tournaments == false){
-                                    Alert(
-                                      context: context,
-                                      type: AlertType.none,
-                                      title: "پیغام",
-                                      desc: "!!!مجوز دسترسی به مسابقات را ندارید",
-                                      buttons: [
-                                        DialogButton(
-                                          child: Text(
-                                            "تایید",
-                                            style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
-                                          ),
-                                          onPressed: () => Navigator.pop(context),
-                                          color: Color(0xffD3D3D3),
-                                        )
-                                      ],
-                                    ).show();
-                                  }else {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(builder: (context) =>
-                                        new Directionality(
-                                            textDirection: TextDirection.rtl,
-                                            child: TournamentTypes(UserName.toString()))),
-                                            (Route<dynamic> route) => false);
-                                  }
-                                },
                               ),
                               Container(
                                 height: 1,
@@ -421,7 +390,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: QuestionsTypes())),
+                                            child: QuestionsTypes(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -459,7 +428,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Notifications())),
+                                            child: Notifications(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -497,7 +466,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Tickets())),
+                                            child: Tickets(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -535,7 +504,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Discount())),
+                                            child: Discount(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -573,7 +542,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: LoginReport())),
+                                            child: LoginReport(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -611,7 +580,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InviteLog())),
+                                            child: InviteLog(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -649,7 +618,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: UnauthorizedWords())),
+                                            child: UnauthorizedWords(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -725,7 +694,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InAppItems())),
+                                            child: InAppItems(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -763,7 +732,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Awards())),
+                                            child: Awards(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -801,7 +770,7 @@ class LiveTypesState extends State<LiveTypes> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: AbouteUsList())),
+                                            child: AbouteUsList(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -827,8 +796,10 @@ class LiveTypesState extends State<LiveTypes> {
                         ),
                       ),// سمت راست
                     ),// سمت راست
-                    Padding(padding: EdgeInsets.only(right: 740, top: 80),
-                      child: new Text("مسابقات زنده", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                    new Align(alignment: Alignment.topCenter,
+                      child: Padding(padding: EdgeInsets.only(right: 270, top: 80),
+                        child: new Text("مسابقات زنده", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                      ),// عنوان صفحه
                     ),// عنوان صفحه
                     new Align(alignment: Alignment.center,
                       child: Padding(padding: EdgeInsets.only(right: 250, bottom: 100),
@@ -846,9 +817,13 @@ class LiveTypesState extends State<LiveTypes> {
                             ),
                           ),
                           onTap: (){
+                            MName = widget.nameResponse;
+                            QCount = widget.questioncountResponse;
+                            PCount = widget.playercountResponse;
+                            ATime = widget.answeringtimeResponse;
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(builder: (context) =>
-                                new Directionality(textDirection: TextDirection.rtl, child: CreateLiveMatch('', '', '', ''))),(Route<dynamic> route) => false);
+                                new Directionality(textDirection: TextDirection.rtl, child: CreateLiveMatch(MName, QCount, PCount, ATime, UserName.toString()))),(Route<dynamic> route) => false);
                           },
                         ),
                       ), // لیست سوالات
@@ -871,7 +846,7 @@ class LiveTypesState extends State<LiveTypes> {
                           onTap: (){
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(builder: (context) =>
-                                new Directionality(textDirection: TextDirection.rtl, child: LiveTournament())),(Route<dynamic> route) => false);
+                                new Directionality(textDirection: TextDirection.rtl, child: LiveTournament(UserName.toString()))),(Route<dynamic> route) => false);
                           },
                         ),
                       ), // ایجاد سوالات به صورت تکی
@@ -894,11 +869,34 @@ class LiveTypesState extends State<LiveTypes> {
                           onTap: (){
                             Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(builder: (context) =>
-                                new Directionality(textDirection: TextDirection.rtl, child: LiveTournamentActive())),(Route<dynamic> route) => false);
+                                new Directionality(textDirection: TextDirection.rtl, child: LiveTournamentActive(UserName.toString()))),(Route<dynamic> route) => false);
                           },
                         ),
                       ), // ایجاد سوالات به صورت تکی
                     ),// مشاهده مسابقه های ناتمام
+                    new Align(alignment: Alignment.center,
+                      child: Padding(padding: EdgeInsets.only(right: 250, top: 140),
+                        child: InkWell(
+                          child: Container(
+                            width: 230,
+                            height: 30,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 93, top: 2),
+                              child: new Text("بازگشت", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color(0xff483D8B),
+                            ),
+                          ),
+                          onTap: (){
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(builder: (context) =>
+                                new Directionality(textDirection: TextDirection.rtl, child: TournamentTypes(UserName.toString()))),(Route<dynamic> route) => false);
+                          },
+                        ),
+                      ), // ایجاد سوالات به صورت تکی
+                    ),// بازگشت
                   ]),
             ),
           );
@@ -940,7 +938,7 @@ class LiveTypesState extends State<LiveTypes> {
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -960,7 +958,7 @@ class LiveTypesState extends State<LiveTypes> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -994,7 +992,7 @@ class LiveTypesState extends State<LiveTypes> {
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -1014,7 +1012,7 @@ class LiveTypesState extends State<LiveTypes> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -1060,7 +1058,7 @@ class LiveTypesState extends State<LiveTypes> {
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: Home(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],

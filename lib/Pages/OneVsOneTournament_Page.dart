@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:jaam_q/Pages/LiveType_Page.dart';
 import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'AbouteUsList_Page.dart';
-import 'AbouteUs_Page.dart';
-import 'Access_Page.dart';
+import 'AccessList_Page.dart';
 import 'Advertises_Page.dart';
 import 'ApplicationAvilability_Page.dart';
 import 'ApplicationUsers_Page.dart';
@@ -87,17 +87,43 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
             body: Center(
               child: Stack(
                   children: [
+                    Padding(padding: EdgeInsets.only(left: 10),
+                      child: Row(
+                        children: [
+                          Padding(padding: EdgeInsets.only(right: 1230, top: 85),
+                            child: InkWell(
+                              child: Container(
+                                width: 100,
+                                height: 30,
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: 28, top: 2),
+                                  child: new Text("بازگشت", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Color(0xff483D8B),
+                                ),
+                              ),
+                              onTap: (){
+                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: TournamentTypes(UserName.toString()))),(Route<dynamic> route) => false);
+                              },
+                            ),
+                          ), // ازگشت
+                        ],
+                      ),
+                    ),// بازگشت نوار بالا
                     new Align(alignment: Alignment.topCenter,
                       child: Container(
                         width: width,
                         height: 60,
                         color: Color(0xff24026E),
-                        child: Padding(padding: EdgeInsets.only(left: 400, right: 80),
+                        child: Padding(padding: EdgeInsets.only(right: 80, left: 10),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 new Text("JamQ", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 40)),
                                 new Text(UserName + ' : نام کاربری', style: new TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 14)),
+                                new Text('')
                               ]),
                         ),
                       ),
@@ -113,6 +139,13 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                               new ListTile(
                                 leading: Icon(Icons.home, color: Colors.white, size: 26),
                                 title: new Text("خانه",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
+                                onTap: (){
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(builder: (context) =>
+                                      new Directionality(textDirection: TextDirection.rtl,
+                                          child: Home(UserName.toString()))),
+                                          (Route<dynamic> route) => false);
+                                },
                               ),
                               Container(
                                 height: 1,
@@ -146,7 +179,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(textDirection: TextDirection.rtl,
-                                            child: ApplicationUsers())),
+                                            child: ApplicationUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -184,7 +217,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: PanelUsers())),
+                                            child: PanelUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -222,7 +255,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Register())),
+                                            child: Register(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -260,7 +293,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Access(UserName.toString()))),
+                                            child: AccessList(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -298,7 +331,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Transactions())),
+                                            child: Transactions(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -336,7 +369,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Advertises())),
+                                            child: Advertises(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -351,33 +384,6 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                               new ListTile(
                                 leading: Icon(FontAwesomeIcons.medapps, color: Colors.white, size: 26),
                                 title: new Text("مسابقات",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
-                                onTap: (){
-                                  if(tournaments == false){
-                                    Alert(
-                                      context: context,
-                                      type: AlertType.none,
-                                      title: "پیغام",
-                                      desc: "!!!مجوز دسترسی به مسابقات را ندارید",
-                                      buttons: [
-                                        DialogButton(
-                                          child: Text(
-                                            "تایید",
-                                            style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
-                                          ),
-                                          onPressed: () => Navigator.pop(context),
-                                          color: Color(0xffD3D3D3),
-                                        )
-                                      ],
-                                    ).show();
-                                  }else {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(builder: (context) =>
-                                        new Directionality(
-                                            textDirection: TextDirection.rtl,
-                                            child: TournamentTypes(UserName.toString()))),
-                                            (Route<dynamic> route) => false);
-                                  }
-                                },
                               ),
                               Container(
                                 height: 1,
@@ -412,7 +418,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: QuestionsTypes())),
+                                            child: QuestionsTypes(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -450,7 +456,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Notifications())),
+                                            child: Notifications(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -488,7 +494,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Tickets())),
+                                            child: Tickets(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -526,7 +532,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Discount())),
+                                            child: Discount(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -564,7 +570,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: LoginReport())),
+                                            child: LoginReport(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -602,7 +608,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InviteLog())),
+                                            child: InviteLog(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -640,7 +646,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: UnauthorizedWords())),
+                                            child: UnauthorizedWords(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -716,7 +722,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InAppItems())),
+                                            child: InAppItems(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -754,7 +760,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Awards())),
+                                            child: Awards(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -792,7 +798,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: AbouteUsList())),
+                                            child: AbouteUsList(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -822,42 +828,40 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
                       child: Padding(padding: EdgeInsets.only(right: 250, top: 80),
                         child: new Text("مسابقات یک به یک", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
                       ),// عنوان صفحه
-                    ),
-                    new Align(alignment: Alignment.center,
-                      child: Padding(padding: EdgeInsets.only(left: 250, right: 500, top: 200),
-                        child:
-                        ListView(children: [
-                          Card(
-                            child: Container(
-                              width: width,
-                              height: 40,
-                              color: Color(0xff4B0082),
-                              child:
-                              Column(
-                                  children: [
-                                    Row(children: [
-                                      Padding(padding: EdgeInsets.only(right: 30, top: 5),
-                                        child: new Text("شناسه مسابقه", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 15)),
-                                      ),
-                                      Padding(padding: EdgeInsets.only(right: 60, top: 5),
-                                        child: new Text("بازیکن اول", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
-                                      ),
-                                      Padding(padding: EdgeInsets.only(right: 60, top: 5),
-                                        child: new Text("بازیکن دوم", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
-                                      ),
-                                      Padding(padding: EdgeInsets.only(right: 60, top: 5),
-                                        child: new Text("تاریخ", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
-                                      ),
-                                      Padding(padding: EdgeInsets.only(right: 80, top: 5),
-                                        child: new Text("برنده", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
-                                      ),
-                                    ]),
+                    ),// عنوان
+                    Padding(padding: EdgeInsets.only(left: 250, right: 500, top: 200),
+                      child:
+                      ListView(children: [
+                        Card(
+                          child: Container(
+                            width: width,
+                            height: 40,
+                            color: Color(0xff4B0082),
+                            child:
+                            Column(
+                                children: [
+                                  Row(children: [
+                                    Padding(padding: EdgeInsets.only(right: 30, top: 5),
+                                      child: new Text("شناسه مسابقه", style: new TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 15)),
+                                    ),
+                                    Padding(padding: EdgeInsets.only(right: 60, top: 5),
+                                      child: new Text("بازیکن اول", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
+                                    ),
+                                    Padding(padding: EdgeInsets.only(right: 60, top: 5),
+                                      child: new Text("بازیکن دوم", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
+                                    ),
+                                    Padding(padding: EdgeInsets.only(right: 60, top: 5),
+                                      child: new Text("تاریخ", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
+                                    ),
+                                    Padding(padding: EdgeInsets.only(right: 80, top: 5),
+                                      child: new Text("برنده", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
+                                    ),
                                   ]),
-                            ),
+                                ]),
                           ),
-                        ]),
-                      ), // عنوان جدول
-                    ),
+                        ),
+                      ]),
+                    ), // عنوان جدول
                     Padding(padding: EdgeInsets.only(left: 250,right: 500, top: 250),
                       child: Container(
                         width: width,
@@ -1033,7 +1037,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: TournamentTypes(UserName.toString()))),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -1053,7 +1057,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: TournamentTypes(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -1087,7 +1091,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
               ),
               onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                  new Directionality(textDirection: TextDirection.rtl, child: TournamentTypes(UserName.toString()))),(Route<dynamic> route) => false),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -1107,7 +1111,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: TournamentTypes(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -1153,7 +1157,7 @@ class OneVsOneTournamentState extends State<OneVsOneTournament>{
             ),
             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: Login())),(Route<dynamic> route) => false),
+                new Directionality(textDirection: TextDirection.rtl, child: TournamentTypes(UserName.toString()))),(Route<dynamic> route) => false),
             color: Color(0xffD3D3D3),
           )
         ],

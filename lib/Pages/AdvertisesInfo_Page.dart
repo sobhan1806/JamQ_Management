@@ -3,13 +3,13 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker_web/image_picker_web.dart';
-import 'package:jaam_q/Pages/PanelUsersInfo_Page.dart';
 import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'AbouteUsList_Page.dart';
+import 'AccessList_Page.dart';
 import 'Access_Page.dart';
 import 'Advertises_Page.dart';
 import 'ApplicationAvilability_Page.dart';
@@ -26,7 +26,6 @@ import 'Register_Page.dart';
 import 'TournamentTypes_Page.dart';
 import 'Transactions_Page.dart';
 import 'Notification_Page.dart';
-import 'OtherApps_Page.dart';
 import 'PanelUsers_Page.dart';
 import 'Tickets_Page.dart';
 import 'UnauthorizedWords_Page.dart';
@@ -168,7 +167,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                     Navigator.of(context).pushAndRemoveUntil(
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(textDirection: TextDirection.rtl,
-                                            child: ApplicationUsers())),
+                                            child: ApplicationUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -206,7 +205,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: PanelUsers())),
+                                            child: PanelUsers(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -244,7 +243,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Register())),
+                                            child: Register(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -282,7 +281,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Access(UserName.toString()))),
+                                            child: AccessList(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -320,7 +319,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Transactions())),
+                                            child: Transactions(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -335,33 +334,6 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                               new ListTile(
                                 leading: Icon(Icons.picture_in_picture, color: Colors.white, size: 25),
                                 title: new Text("تبلیغات",style: TextStyle(fontFamily: 'IRANSans', fontSize: 16, color: Colors.white)),
-                                onTap: (){
-                                  if(advertising == false){
-                                    Alert(
-                                      context: context,
-                                      type: AlertType.none,
-                                      title: "پیغام",
-                                      desc: "!!!مجوز دسترسی به تبلیغات را ندارید",
-                                      buttons: [
-                                        DialogButton(
-                                          child: Text(
-                                            "تایید",
-                                            style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
-                                          ),
-                                          onPressed: () => Navigator.pop(context),
-                                          color: Color(0xffD3D3D3),
-                                        )
-                                      ],
-                                    ).show();
-                                  }else {
-                                    Navigator.of(context).pushAndRemoveUntil(
-                                        MaterialPageRoute(builder: (context) =>
-                                        new Directionality(
-                                            textDirection: TextDirection.rtl,
-                                            child: Advertises(UserName.toString()))),
-                                            (Route<dynamic> route) => false);
-                                  }
-                                },
                               ),
                               Container(
                                 height: 1,
@@ -434,7 +406,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: QuestionsTypes())),
+                                            child: QuestionsTypes(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -472,7 +444,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Notifications())),
+                                            child: Notifications(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -510,7 +482,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Tickets())),
+                                            child: Tickets(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -548,7 +520,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Discount())),
+                                            child: Discount(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -586,7 +558,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: LoginReport())),
+                                            child: LoginReport(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -624,7 +596,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InviteLog())),
+                                            child: InviteLog(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -662,7 +634,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: UnauthorizedWords())),
+                                            child: UnauthorizedWords(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -738,7 +710,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: InAppItems())),
+                                            child: InAppItems(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -776,7 +748,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
                                         MaterialPageRoute(builder: (context) =>
                                         new Directionality(
                                             textDirection: TextDirection.rtl,
-                                            child: Awards())),
+                                            child: Awards(UserName.toString()))),
                                             (Route<dynamic> route) => false);
                                   }
                                 },
@@ -1099,6 +1071,7 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
         advInformation = response.data;
         print('GetAdvertisesByName = '+advInformation.toString());
         FillInfo();
+        GetPanelUsersByUserName();
         return advInformation;
       }else{
         Alert(
@@ -1376,6 +1349,165 @@ class AdvertisesInfoState extends State<AdvertisesInfo> {
       return "غیرفعال";
     }else{
       return "فعال";
+    }
+  }
+  GetPanelUsersByUserName() async{
+    print('GetPanelUsersByUserName Run...');
+    UserName = widget.UserNameResponse;
+    print('UserName = '+UserName);
+
+    try {
+      FormData formData = FormData.fromMap({
+        "UserName":UserName,
+      });
+      Response response = await Dio().post("http://jamq.ir:3000/Management/GetPanelUserByUserName",options: Options(contentType: 'multipart/form-data'),data:formData);
+      if(response.data.toString() != 'User Does Not Exist!!!'){
+        panelInformation = response.data;
+        print('GetPanelUsersByUserName = '+panelInformation.toString());
+        AccessLevel = panelInformation[0]["AdmAccessLevel"];
+        print('AccessLevel = '+AccessLevel);
+        GetOChartByAccessLevel();
+        return panelInformation;
+      }else{
+        Alert(
+          context: context,
+          type: AlertType.none,
+          title: "پیغام",
+          desc: "!!!کاربر یافت نشد",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "تایید",
+                style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+              ),
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) =>
+                  new Directionality(textDirection: TextDirection.rtl, child: Advertises(UserName.toString()))),(Route<dynamic> route) => false),
+              color: Color(0xffD3D3D3),
+            )
+          ],
+        ).show(); // Message
+      }
+    } catch (e) {
+      Alert(
+        context: context,
+        type: AlertType.none,
+        title: "پیغام",
+        desc: "!!!ارتباط با سرور برقرار نیست",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "تایید",
+              style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+            ),
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) =>
+                new Directionality(textDirection: TextDirection.rtl, child: Advertises(UserName.toString()))),(Route<dynamic> route) => false),
+            color: Color(0xffD3D3D3),
+          )
+        ],
+      ).show(); // Message
+      print(e);
+    }
+  }
+  GetOChartByAccessLevel() async{
+    print('GetOChartByAccessLevel Run...');
+
+    try {
+      FormData formData = FormData.fromMap({
+        "AccessLevel":AccessLevel,
+      });
+      Response response = await Dio().post("http://jamq.ir:3000/Management/GetOChartByAccessLevel",options: Options(contentType: 'multipart/form-data'),data:formData);
+      if(response.data.toString() != 'Ochart Does Not Exist!!!'){
+        accessinformation = response.data;
+        FillInfoo(response.data);
+        return accessinformation;
+      }else{
+        Alert(
+          context: context,
+          type: AlertType.none,
+          title: "پیغام",
+          desc: "!!!برنامه با مشکل مواجه شده است",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "تایید",
+                style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+              ),
+              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) =>
+                  new Directionality(textDirection: TextDirection.rtl, child: Advertises(UserName.toString()))),(Route<dynamic> route) => false),
+              color: Color(0xffD3D3D3),
+            )
+          ],
+        ).show(); // Message
+      }
+    } catch (e) {
+      Alert(
+        context: context,
+        type: AlertType.none,
+        title: "پیغام",
+        desc: "!!!ارتباط با سرور برقرار نیست",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "تایید",
+              style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+            ),
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) =>
+                new Directionality(textDirection: TextDirection.rtl, child: Advertises(UserName.toString()))),(Route<dynamic> route) => false),
+            color: Color(0xffD3D3D3),
+          )
+        ],
+      ).show(); // Message
+      print(e);
+    }
+  }
+  FillInfoo(var response) async{
+    print('FillInfo Run...');
+    try {
+      ACData = accessinformation[0]["OCAccesses"];
+      print('ACData = '+ACData.toString());
+      applicationusers = ACData[0]["Applicationusers"];
+      panelusers = ACData[1]["Panelusers"];
+      register = ACData[2]["Register"];
+      access = ACData[3]["Access"];
+      transactions = ACData[4]["Transactions"];
+      advertising = ACData[5]["Advertising"];
+      tournaments = ACData[6]["Tournaments"];
+      unauthorizedwords = ACData[7]["Unauthorizedwords"];
+      questions = ACData[8]["Questions"];
+      notification = ACData[9]["Notification"];
+      tickets = ACData[10]["Tickets"];
+      discounts = ACData[11]["Discounts"];
+      applogintoreports = ACData[12]["Applogintoreports"];
+      appinvitationtoreports = ACData[13]["Appinvitationtoreports"];
+      appavilability = ACData[14]["AppAvilability"];
+      inappitems = ACData[15]["Inappitems"];
+      awards = ACData[16]["Awards"];
+      aboutus = ACData[17]["Aboutus"];
+
+    } catch (e) {
+      Alert(
+        context: context,
+        type: AlertType.none,
+        title: "پیغام",
+        desc: "!!!ارتباط با سرور برقرار نیست",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "تایید",
+              style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+            ),
+            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) =>
+                new Directionality(textDirection: TextDirection.rtl, child: Advertises(UserName.toString()))),(Route<dynamic> route) => false),
+            color: Color(0xffD3D3D3),
+          )
+        ],
+      ).show(); // Message
+      print(e);
     }
   }
   void _openLoadingDialog(BuildContext context) {
