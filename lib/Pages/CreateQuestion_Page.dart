@@ -1,20 +1,14 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_material_pickers/helpers/show_radio_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
-import 'package:jaam_q/Pages/PanelUsersInfo_Page.dart';
 import 'package:jaam_q/Pages/QuestionsTypes_Page.dart';
 import 'package:jaam_q/Pages/Questions_Page.dart';
-import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'AbouteUsList_Page.dart';
 import 'AccessList_Page.dart';
-import 'Access_Page.dart';
 import 'Advertises_Page.dart';
 import 'ApplicationAvilability_Page.dart';
 import 'ApplicationUsers_Page.dart';
@@ -828,8 +822,8 @@ class CreateQuestionState extends State<CreateQuestion> {
                         ),
                       ),// سمت راست
                     ),// سمت راست
-                    Padding(padding: EdgeInsets.only(right: 750, top: 80),
-                      child: new Text("ایجاد سوال", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                    Padding(padding: EdgeInsets.only(right: 700, top: 80),
+                      child: new Text("ایجاد سوال چهار گزینه ای", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
                     ),// عنوان صفحه
                     Padding(padding: EdgeInsets.only(right: 417, top: 153),
                       child: new Text("متن", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 20)),

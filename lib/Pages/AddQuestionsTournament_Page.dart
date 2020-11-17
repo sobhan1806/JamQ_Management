@@ -1,44 +1,44 @@
 import 'package:dio/dio.dart';
-import 'package:jaam_q/Pages/LiveManagement_Page.dart';
-import 'package:jaam_q/Pages/LiveQuestions_Page.dart';
-import 'AbouteUsList_Page.dart';
-import 'AccessList_Page.dart';
-import 'ApplicationAvilability_Page.dart';
-import 'ApplicationUsers_Page.dart';
-import 'Awards_Page.dart';
+import 'package:jaam_q/Pages/LiveType_Page.dart';
 import 'package:jalali_date/jalali_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:slide_popup_dialog/slide_popup_dialog.dart';
+import 'AbouteUsList_Page.dart';
+import 'AccessList_Page.dart';
 import 'Advertises_Page.dart';
+import 'ApplicationAvilability_Page.dart';
+import 'ApplicationUsers_Page.dart';
+import 'Awards_Page.dart';
 import 'Discount_Page.dart';
 import 'Home_Page.dart';
 import 'InAppItems.dart';
 import 'InviteLog_Page.dart';
-import 'LiveType_Page.dart';
 import 'LoginReport_Page.dart';
 import 'Login_Page.dart';
-import 'QuestionsTypes_Page.dart';
-import 'Register_Page.dart';
-import 'Transactions_Page.dart';
 import 'Notification_Page.dart';
 import 'PanelUsers_Page.dart';
+import 'QuestionsTypes_Page.dart';
+import 'Register_Page.dart';
 import 'Tickets_Page.dart';
+import 'Transactions_Page.dart';
 import 'UnauthorizedWords_Page.dart';
 
-class LiveTournamentActive extends StatefulWidget {
+class AddQuestionsTournament extends StatefulWidget{
   var UserNameResponse;
-  LiveTournamentActive(this.UserNameResponse);
-  LiveTournamentActive.none();
+  AddQuestionsTournament(this.UserNameResponse);
+  AddQuestionsTournament.none();
 
   @override
   State<StatefulWidget> createState() {
-    return LiveTournamentActiveState();
+    // TODO: implement createState
+    return AddQuestionsTournamentState();
   }
-}
 
-class LiveTournamentActiveState extends State<LiveTournamentActive> {
+}
+class AddQuestionsTournamentState extends State<AddQuestionsTournament>{
   var appscaffold;
   Future loadfuture;
   List livematchInformation;
@@ -63,15 +63,17 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
   bool awards;
   bool aboutus;
 
-  List panelInformation, accessinformation, ACData;
+  List panelInformation, accessinformation, ACData, WinInfo;
   var UserName, AccessLevel;
+  var win, MatchId;
 
   @override
   void initState() {
     super.initState();
     UserName = widget.UserNameResponse.toString();
-    loadfuture = GetLiveMatchActive();
+    loadfuture =  GetLiveMatchByState();
   }
+  @override
   Widget build(BuildContext context) {
 
     return WillPopScope(child: FutureBuilder(
@@ -824,7 +826,7 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
                       ),// سمت راست
                     ),// سمت راست
                     Padding(padding: EdgeInsets.only(right: 690, top: 80),
-                      child: new Text("مسابقات زنده ناتمام", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                      child: new Text("اضافه کردن سوالات تورنمنت", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
                     ),// عنوان صفحه
                     Padding(padding: EdgeInsets.only(left: 26, right: 295, top: 230),
                       child:
@@ -857,10 +859,10 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
                                       child: new Text("تعداد سوالات", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
                                     ),
                                     Padding(padding: EdgeInsets.only(right: 60, top: 5),
-                                      child: new Text("سوالات", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
+                                      child: new Text("برندگان", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
                                     ),
-                                    Padding(padding: EdgeInsets.only(right: 78, top: 5),
-                                      child: new Text("مشاهده", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
+                                    Padding(padding: EdgeInsets.only(right: 95, top: 5),
+                                      child: new Text("سوالات", style: new TextStyle(color: Colors.white, fontFamily: 'IRANSans', fontWeight: FontWeight.normal, fontSize: 15)),
                                     ),
                                   ]),
                                 ]),
@@ -928,7 +930,7 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
                                             width: 75,
                                             height: 20,
                                             child: Center(
-                                              child: Text(Def(livematchInformation[index]["LmEndDate"]).toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                              child: Text(PersianDate.fromGregorianString(Convertdate(livematchInformation[index]["LmEndDate"])).toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
                                             ),
                                           ),
                                         ),
@@ -943,43 +945,18 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
                                         ),
                                         Padding(padding: EdgeInsets.only(right: 50),
                                           child: InkWell(
-                                            child: Container(
-                                              width: 100,
-                                              height: 30,
-                                              child: Padding(
-                                                padding: EdgeInsets.only(right: 32, top: 4),
-                                                child: new Text("سوالات", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 13)),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(5),
-                                                color: Color(0xff483D8B),
-                                              ),
-                                            ),
+                                            child: Icon(Icons.add_circle, color: Colors.green, size: 26),
                                             onTap: (){
-                                              Type = true;
-                                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveQuestions(livematchInformation[index]["_id"].toString(), Type, UserName.toString()))),(Route<dynamic> route) => false);
                                             },
                                           ),
-                                        ),
-                                        Padding(padding: EdgeInsets.only(right: 27),
+                                        ),// Add Question
+                                        Padding(padding: EdgeInsets.only(right: 30),
                                           child: InkWell(
-                                            child: Container(
-                                              width: 100,
-                                              height: 30,
-                                              child: Padding(
-                                                padding: EdgeInsets.only(right: 30, top: 4),
-                                                child: new Text("مشاهده", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 13)),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(5),
-                                                color: Color(0xff483D8B),
-                                              ),
-                                            ),
+                                            child: Icon(Icons.cancel, color: Colors.red, size: 26),
                                             onTap: (){
-                                              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveManagement(livematchInformation[index]["_id"].toString(), livematchInformation[index]["LmAnsweringTime"].toString(), UserName.toString()))),(Route<dynamic> route) => false);
                                             },
                                           ),
-                                        ),
+                                        ),// Delete Question
                                       ],
                                     ),
                                   ),
@@ -999,13 +976,13 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
       },
     ), onWillPop: () => Future(() => false));
   }
-  GetLiveMatchActive() async{
-    print('GetLiveMatchActive Run...');
+  GetLiveMatchByState() async{
+    print('GetLiveMatchByState Run...');
     try {
-      Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/GetLiveMatchActive");
+      Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/GetLiveMatchByState");
       if(response.data.toString() != 'LiveMatch Does Not Exist!!!'){
         livematchInformation = response.data;
-        print('GetLiveMatchActive = '+livematchInformation.toString());
+        print('GetLiveMatchByState = '+livematchInformation.toString());
         GetPanelUsersByUserName();
         return livematchInformation;
       }else{
@@ -1013,7 +990,7 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
           context: context,
           type: AlertType.none,
           title: "پیغام",
-          desc: "!!!مسابقه ای در حال اجرا نیست",
+          desc: "!!!مسابقه ای به اتمام نرسیده است",
           buttons: [
             DialogButton(
               child: Text(
@@ -1028,7 +1005,6 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
           ],
         ).show(); // Message
       }
-
     } catch (e) {
       Alert(
         context: context,
@@ -1057,11 +1033,6 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
     //print('DADD');
     //print(DateForConvert);
     return DateForConvert;
-  }
-  Def(var state){
-    if(state == "Def"){
-      return "ناتمام";
-    }
   }
   GetPanelUsersByUserName() async{
     print('GetPanelUsersByUserName Run...');
@@ -1222,5 +1193,118 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
       print(e);
     }
   }
+  GetWinnersData(MatchId) async{
+    print('GetWinnersData Run...');
+    try {
+      FormData formData = FormData.fromMap({
+        "MatchID":MatchId,
+      });
+      Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/GetWinnersData",options: Options(contentType: 'multipart/form-data'),data:formData);
+      if(response.data.toString() != 'NoWinner'){
+        WinnersPopup(context,response.data);
+        return response.data;
+      }else{
+        Alert(
+          context: context,
+          type: AlertType.none,
+          title: "پیغام",
+          desc: "!!!برنده ای وجود ندارد",
+          buttons: [
+            DialogButton(
+              child: Text(
+                "تایید",
+                style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+              ),
+              onPressed: () => Navigator.pop(context),
+              color: Color(0xffD3D3D3),
+            )
+          ],
+        ).show(); // Message
+      }
+    } catch (e) {
+      Alert(
+        context: context,
+        type: AlertType.none,
+        title: "پیغام",
+        desc: "!!!ارتباط با سرور برقرار نیست",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "تایید",
+              style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
+            ),
+            onPressed: () => Navigator.pop(context),
+            color: Color(0xffD3D3D3),
+          )
+        ],
+      ).show(); // Message
+      print(e);
+    }
+  }
+  void WinnersPopup(BuildContext context,List WinInfo) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
 
+    showSlideDialog(
+      context: context,
+      child: Align(alignment: Alignment.bottomCenter,
+        child: Stack(children: [
+          new Align(alignment: Alignment.topRight,
+            child: Padding(padding: EdgeInsets.only(right: 660),
+              child: new Text("برندگان", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 18)),
+            ),// عنوان صفحه
+          ),// عنوان
+          new Align(alignment: Alignment.bottomCenter,
+            child: Padding(padding: EdgeInsets.only(left: 500,right: 500, top: 50),
+              child: Container(
+                width: width,
+                height: 250,
+                child: new ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: WinInfo.length,
+                    itemBuilder: (BuildContext context,int index){
+                      return Card(
+                        child:
+                        Container(
+                          width: width,
+                          height: 50,
+                          color: Color(0xff9370DB),
+                          child: Row(
+                            children: [
+                              Padding(padding:EdgeInsets.only(left: 0),
+                                child: Container(
+                                  width: 100,
+                                  height: 20,
+                                  child: new Directionality(textDirection: TextDirection.rtl,
+                                    child: Text(WinInfo[index]["LM_Place"].toString() + " " + "جایگاه", style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                  ),
+                                ),
+                              ),// جایگاه
+                              Padding(padding:EdgeInsets.only(left: 100),
+                                child: Container(
+                                  width: 100,
+                                  height: 20,
+                                  child: new Directionality(textDirection: TextDirection.rtl,
+                                    child: Text(WinInfo[index]["LM_PlayerId"].toString(), style: new TextStyle(color: Color(0xff2E0273), fontFamily: 'IRANSans', fontWeight: FontWeight.bold, fontSize: 13)),
+                                  ),
+                                ),
+                              ),// بازیکن
+
+                            ],
+                          ),
+                        ),
+                      );// جدول
+                    }
+                ),
+              ),
+            ), // جدول
+          ),// جدول
+        ]),
+      ),
+      barrierColor: Colors.white.withOpacity(0.7),
+      pillColor: Color(0xff2E0273),
+      backgroundColor: Colors.white,
+    );
+  }
 }

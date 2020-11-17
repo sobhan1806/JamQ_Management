@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jaam_q/Pages/AccessInfo_Page.dart';
 import 'package:jaam_q/Pages/AccessList_Page.dart';
 import 'package:jaam_q/Pages/Access_Page.dart';
@@ -11,9 +10,12 @@ import 'package:jaam_q/Pages/CreateAdvertises_Page.dart';
 import 'package:jaam_q/Pages/CreateAward_Page.dart';
 import 'package:jaam_q/Pages/CreateCategory_Page.dart';
 import 'package:jaam_q/Pages/CreateLiveQuestions_Page.dart';
+import 'package:jaam_q/Pages/CreateQuestion3_Page.dart';
 import 'package:jaam_q/Pages/CreateQuestion_Page.dart';
+import 'package:jaam_q/Pages/CreateTournamentQuestions_Page.dart';
 import 'package:jaam_q/Pages/EditAward_Page.dart';
 import 'package:jaam_q/Pages/EditLiveQuestion_Page.dart';
+import 'package:jaam_q/Pages/EditQuestion3_Page.dart';
 import 'package:jaam_q/Pages/EditQuestion_Page.dart';
 import 'package:jaam_q/Pages/InAppItems.dart';
 import 'package:jaam_q/Pages/InviteLog_Page.dart';
@@ -22,23 +24,29 @@ import 'package:jaam_q/Pages/LiveTournamentActive_Page.dart';
 import 'package:jaam_q/Pages/LiveType_Page.dart';
 import 'package:jaam_q/Pages/Login_Page.dart';
 import 'package:jaam_q/Pages/OneVsOneTournament_Page.dart';
+import 'package:jaam_q/Pages/Questions3_Page.dart';
 import 'package:jaam_q/Pages/QuestionsTypes_Page.dart';
 import 'package:jaam_q/Pages/Questions_Page.dart';
 import 'package:jaam_q/Pages/Register_Page.dart';
 import 'package:jaam_q/Pages/Tickets_Page.dart';
+import 'package:jaam_q/Pages/TournamentManagement_Page.dart';
 import 'package:jaam_q/Pages/TournamentTypes_Page.dart';
 import 'package:jaam_q/Pages/Transactions_Page.dart';
+import 'package:jaam_q/Pages/UnfinishedTournament_Page.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 import 'Pages/AbouteUsList_Page.dart';
+import 'Pages/AddQuestionsTournament_Page.dart';
 import 'Pages/AdvertisesInfo_Page.dart';
 import 'Pages/ApplicationUsersInfo_Page.dart';
 import 'Pages/CreateDiscount_Page.dart';
 import 'Pages/CreateLiveMatch_Page.dart';
+import 'Pages/CreateTournamentMatch_Page.dart';
 import 'Pages/CreateUnauthorizedWords_Page.dart';
 import 'Pages/Discount_Page.dart';
 import 'Pages/EditAbouteUs_Page.dart';
 import 'Pages/EditDiscount_Page.dart';
+import 'Pages/FinishTournament_Page.dart';
 import 'Pages/FullTextTicket_Page.dart';
 import 'Pages/Home_Page.dart';
 import 'Pages/LiveQuestions_Page.dart';
@@ -48,6 +56,7 @@ import 'Pages/LoginReport_Page.dart';
 import 'Pages/PanelUsersInfo_Page.dart';
 import 'Pages/PanelUsers_Page.dart';
 import 'Pages/SendResponseTicket_Page.dart';
+import 'Pages/TourType_Page.dart';
 import 'Pages/UnauthorizedWords_Page.dart';
 
 void main() => runApp(MainApp());
@@ -137,6 +146,16 @@ class MainApp extends StatelessWidget {
         "/LiveManagement_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveManagement.none()),
         "/LiveQuestions_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: LiveQuestions.none()),
         "/EditLiveQuestions_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditLiveQuestions.none()),
+        "/TourTypes_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: TourTypes.none()),
+        "/TournamentManagement_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: TournamentManagement.none()),
+        "/CreateTournamentMatch_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateTournamentMatch.none()),
+        "/CreateTournamentQuestions_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateTournamentQuestions.none()),
+        "/FinishTournaments_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: FinishTournaments.none()),
+        "/UnfinishedTournaments_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: UnfinishedTournaments.none()),
+        "/CreateQuestion3_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: CreateQuestion3.none()),
+        "/AddQuestionsTournament_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: AddQuestionsTournament.none()),
+        "/Questions3_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: Questions3.none()),
+        "/EditQuestion3_Page" : (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditQuestion3.none()),
       },
       debugShowCheckedModeBanner: false,
     );

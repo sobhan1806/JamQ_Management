@@ -1,7 +1,6 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:jaam_q/Pages/CreateCategory_Page.dart';
+import 'package:jaam_q/Pages/CreateQuestion3_Page.dart';
 import 'package:jaam_q/Pages/CreateQuestion_Page.dart';
 import 'package:jaam_q/Pages/Questions_Page.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,7 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'AbouteUsList_Page.dart';
 import 'AccessList_Page.dart';
-import 'Access_Page.dart';
 import 'Advertises_Page.dart';
 import 'ApplicationAvilability_Page.dart';
 import 'ApplicationUsers_Page.dart';
@@ -21,6 +19,7 @@ import 'InAppItems.dart';
 import 'InviteLog_Page.dart';
 import 'LoginReport_Page.dart';
 import 'Login_Page.dart';
+import 'Questions3_Page.dart';
 import 'Register_Page.dart';
 import 'TournamentTypes_Page.dart';
 import 'Transactions_Page.dart';
@@ -795,18 +794,20 @@ class QuestionsTypesState extends State<QuestionsTypes> {
                         ),
                       ),// سمت راست
                     ),// سمت راست
-                    Padding(padding: EdgeInsets.only(right: 750, top: 80),
-                      child: new Text("انواع سوالات", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                    new Align(alignment: Alignment.topCenter,
+                      child: Padding(padding: EdgeInsets.only(right: 250, top: 80),
+                        child: new Text("انواع سوالات", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                      ),// عنوان صفحه
                     ),// عنوان صفحه
                     new Align(alignment: Alignment.center,
-                      child: Padding(padding: EdgeInsets.only(right: 250, bottom: 100),
+                      child: Padding(padding: EdgeInsets.only(right: 250, bottom: 180),
                         child: InkWell(
                           child: Container(
                             width: 200,
                             height: 30,
                             child: Padding(
-                              padding: EdgeInsets.only(right: 55, top: 2),
-                              child: new Text("لیست سوالات", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                              padding: EdgeInsets.only(right: 15, top: 2),
+                              child: new Text("لیست سوالات چهار گزینه ای", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
@@ -820,7 +821,30 @@ class QuestionsTypesState extends State<QuestionsTypes> {
                           },
                         ),
                       ), // لیست سوالات
-                    ),// لیست سوالات
+                    ),// لیست سوالات چهار گزینه ای
+                    new Align(alignment: Alignment.center,
+                      child: Padding(padding: EdgeInsets.only(right: 250, bottom: 100),
+                        child: InkWell(
+                          child: Container(
+                            width: 200,
+                            height: 30,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 20, top: 2),
+                              child: new Text("لیست سوالات سه گزینه ای", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color(0xff483D8B),
+                            ),
+                          ),
+                          onTap: (){
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(builder: (context) =>
+                                new Directionality(textDirection: TextDirection.rtl, child: Questions3(UserName.toString()))),(Route<dynamic> route) => false);
+                          },
+                        ),
+                      ), // لیست سوالات
+                    ),// لیست سوالات سه گزینه ای
                     new Align(alignment: Alignment.center,
                       child: Padding(padding: EdgeInsets.only(right: 250, bottom: 20),
                         child: InkWell(
@@ -829,7 +853,7 @@ class QuestionsTypesState extends State<QuestionsTypes> {
                             height: 30,
                             child: Padding(
                               padding: EdgeInsets.only(right: 25, top: 2),
-                              child: new Text("ایجاد سوال به صورت تکی", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                              child: new Text("ایجاد سوال چهار گزینه ای", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
                             ),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
@@ -843,9 +867,32 @@ class QuestionsTypesState extends State<QuestionsTypes> {
                           },
                         ),
                       ), // ایجاد سوالات به صورت تکی
-                    ),// ایجاد سوال به صورت تکی
+                    ),// ایجاد سوال چهار گزینه ای
                     new Align(alignment: Alignment.center,
                       child: Padding(padding: EdgeInsets.only(right: 250, top: 60),
+                        child: InkWell(
+                          child: Container(
+                            width: 200,
+                            height: 30,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 28, top: 2),
+                              child: new Text("ایجاد سوال سه گزینه ای", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color(0xff483D8B),
+                            ),
+                          ),
+                          onTap: (){
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(builder: (context) =>
+                                new Directionality(textDirection: TextDirection.rtl, child: CreateQuestion3(UserName.toString()))),(Route<dynamic> route) => false);
+                          },
+                        ),
+                      ), // ایجاد سوالات به صورت تکی
+                    ),// ایجاد سوال سه گزینه ای
+                    new Align(alignment: Alignment.center,
+                      child: Padding(padding: EdgeInsets.only(right: 250, top: 139),
                         child: InkWell(
                           child: Container(
                             width: 200,
@@ -865,7 +912,7 @@ class QuestionsTypesState extends State<QuestionsTypes> {
                       ), // ایجاد سوالات به صورت تکی
                     ),// ایجاد سوال به صورت Excel
                     new Align(alignment: Alignment.center,
-                      child: Padding(padding: EdgeInsets.only(right: 250, top: 140),
+                      child: Padding(padding: EdgeInsets.only(right: 250, top: 218),
                         child: InkWell(
                           child: Container(
                             width: 200,

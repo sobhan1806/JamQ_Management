@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jaam_q/Pages/AccessList_Page.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'AbouteUsList_Page.dart';
-import 'Access_Page.dart';
 import 'Advertises_Page.dart';
 import 'ApplicationUsers_Page.dart';
 import 'Awards_Page.dart';
@@ -82,6 +81,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         double height = MediaQuery.of(context).size.height;
         double width = MediaQuery.of(context).size.width;
+        double pwidth = MediaQuery.of(context).size.width * 0.45;
 
         if(snapshot.hasData){
           appscaffold = Scaffold(
@@ -93,12 +93,13 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                         width: width,
                         height: 60,
                         color: Color(0xff24026E),
-                        child: Padding(padding: EdgeInsets.only(left: 400, right: 80),
+                        child: Padding(padding: EdgeInsets.only(right: 80),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 new Text("JamQ", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 40)),
                                 new Text(UserName + ' : نام کاربری', style: new TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 14)),
+                                new Text('')
                               ]),
                         ),
                       ),
@@ -800,22 +801,17 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                       ),// سمت راست
                     ),// سمت راست
                     new Align(alignment: Alignment.topCenter,
-                      child: Padding(padding: EdgeInsets.only(right: 240, top: 70),
+                      child: Padding(padding: EdgeInsets.only(right: 280, top: 70),
                         child: new Text("فعال/غیر فعال کردن اپلیکیشن", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
                       ), // عنوان صفحه
                     ),// عنوان صفحه
                     new Align(alignment: Alignment.center,
-                      child: Padding(padding: EdgeInsets.only(left: 450, bottom: 200),
-                        child: new Text("متن", style: new TextStyle(color: Colors.deepPurple, fontFamily: 'IRANSans', fontSize: 20)),
-                      ),// متن
-                    ),
-                    new Align(alignment: Alignment.center,
                       child: Column(children: [
-                        Padding(padding: EdgeInsets.only(right: 190, top: 200),
+                        Padding(padding: EdgeInsets.only(right: 280, top: 200),
                           child: Card(
                             color: Color(0xff9370DB),
                             child: Container(
-                              width: 600,
+                              width: pwidth,
                               height: 100,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -835,11 +831,11 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                             ),
                           ),
                         ), // کادر متن
-                        Padding(padding: EdgeInsets.only(right: 190),
+                        Padding(padding: EdgeInsets.only(right: 280),
                           child: Card(
                             color: Color(0xff9370DB),
                             child: Container(
-                              width: 600,
+                              width: pwidth,
                               height: 40,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -863,7 +859,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                             ),
                           ),
                         ), // کادر Switch
-                        Padding(padding: EdgeInsets.only(right: 200, top: 50),
+                        Padding(padding: EdgeInsets.only(right: 260, top: 50),
                           child:
                           InkWell(
                             child: Container(
@@ -887,7 +883,7 @@ class ApplicationAvilabilityState extends State<ApplicationAvilability> {
                           ),
                         ), // تایید
                       ]),
-                    ),// متن
+                    ),// Switch
                   ]),
             ),
           );

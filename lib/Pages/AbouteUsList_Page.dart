@@ -80,59 +80,25 @@ class AbouteUsListState extends State<AbouteUsList> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         double height = MediaQuery.of(context).size.height;
         double width = MediaQuery.of(context).size.width;
+        double pwidth = MediaQuery.of(context).size.width * 0.45;
 
         if(snapshot.hasData){
           appscaffold = Scaffold(
             body: Center(
               child: Stack(
                   children: [
-                    Padding(padding: EdgeInsets.only(left: 10),
-                      child: Row(
-                        children: [
-                          Padding(padding: EdgeInsets.only(right: 1125, top: 85),
-                            child:
-                            Container(
-                              width: 100,
-                              height: 30,
-                              child: Padding(
-                                padding: EdgeInsets.only(right: 38, top: 4),
-                                child: new Text("PDF", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Color(0xff483D8B),
-                              ),
-                            ),
-                          ), // PDF
-                          Padding(padding: EdgeInsets.only(right: 10, top: 85),
-                            child:
-                            Container(
-                              width: 100,
-                              height: 30,
-                              child: Padding(
-                                padding: EdgeInsets.only(right: 32, top: 4),
-                                child: new Text("Excel", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Color(0xff483D8B),
-                              ),
-                            ),
-                          ), // Excel
-                        ],
-                      ),
-                    ),// Excel & PDF
                     new Align(alignment: Alignment.topCenter,
                       child: Container(
                         width: width,
                         height: 60,
                         color: Color(0xff24026E),
-                        child: Padding(padding: EdgeInsets.only(left: 400, right: 80),
+                        child: Padding(padding: EdgeInsets.only(right: 80),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 new Text("JamQ", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 40)),
                                 new Text(UserName + ' : نام کاربری', style: new TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontFamily: 'IRANSans', fontSize: 14)),
+                                new Text('')
                               ]),
                         ),
                       ),
@@ -833,8 +799,42 @@ class AbouteUsListState extends State<AbouteUsList> {
                         ),
                       ),// سمت راست
                     ),// سمت راست
-                    Padding(padding: EdgeInsets.only(right: 745, top: 80),
-                      child: new Text("درباره ما", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                    new Align(alignment: Alignment.topCenter,
+                      child: Row(children: [
+                        new Padding(padding: EdgeInsets.only(right: 300, top: 80),
+                          child: new Text("درباره ما", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                        ),// عنوان صفحه
+                        new Padding(padding: EdgeInsets.only(right: 0, top: 80),
+                          child:
+                          Container(
+                            width: 100,
+                            height: 30,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 38, top: 4),
+                              child: new Text("PDF", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color(0xff483D8B),
+                            ),
+                          ),
+                        ), // PDF
+                        new Padding(padding: EdgeInsets.only(left: 0, top: 80),
+                          child:
+                          Container(
+                            width: 100,
+                            height: 30,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 32, top: 4),
+                              child: new Text("Excel", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color(0xff483D8B),
+                            ),
+                          ),
+                        ), // Excel
+                      ]),
                     ),// عنوان صفحه
                     Padding(padding: EdgeInsets.only(left: 26, right: 295, top: 230),
                       child:

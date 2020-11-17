@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
+import 'package:jaam_q/Pages/EditQuestion3_Page.dart';
 import 'package:jaam_q/Pages/EditQuestion_Page.dart';
 import 'package:jaam_q/Pages/QuestionsTypes_Page.dart';
 import 'package:jalali_date/jalali_date.dart';
@@ -28,19 +29,19 @@ import 'TournamentTypes_Page.dart';
 import 'Transactions_Page.dart';
 import 'UnauthorizedWords_Page.dart';
 
-class Questions extends StatefulWidget{
+class Questions3 extends StatefulWidget{
   var UserNameResponse;
-  Questions(this.UserNameResponse);
-  Questions.none();
+  Questions3(this.UserNameResponse);
+  Questions3.none();
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return QuestionsState();
+    return Questions3State();
   }
 
 }
-class QuestionsState extends State<Questions>{
+class Questions3State extends State<Questions3>{
   final SearchTextBox = TextEditingController();
   var appscaffold;
   Future loadfuture;
@@ -130,7 +131,7 @@ class QuestionsState extends State<Questions>{
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: Questions(UserName.toString()))),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: Questions3(UserName.toString()))),(Route<dynamic> route) => false);
                               },
                             ),
                           ), // بارگذاری مجدد
@@ -880,7 +881,7 @@ class QuestionsState extends State<Questions>{
                       ),// سمت راست
                     ),// سمت راست
                     Padding(padding: EdgeInsets.only(right: 630, top: 80),
-                      child: new Text("سوالات چهار گزینه ای", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                      child: new Text("سوالات سه گزینه ای", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
                     ),// عنوان صفحه
                     Padding(padding: EdgeInsets.only(right: 300, top: 160),
                       child: InkWell(
@@ -1063,7 +1064,7 @@ class QuestionsState extends State<Questions>{
                                                 ),
                                               ),
                                               onTap: (){
-                                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditQuestion(questionsInformation[index]["_id"].toString(), UserName.toString()))),(Route<dynamic> route) => false);
+                                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditQuestion3(questionsInformation[index]["_id"].toString(), UserName.toString()))),(Route<dynamic> route) => false);
                                               },
                                             ),
                                           ),
@@ -1126,7 +1127,7 @@ class QuestionsState extends State<Questions>{
                               onTap: (){
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(builder: (context) =>
-                                    new Directionality(textDirection: TextDirection.rtl, child: Questions(UserName.toString()))),(Route<dynamic> route) => false);
+                                    new Directionality(textDirection: TextDirection.rtl, child: Questions3(UserName.toString()))),(Route<dynamic> route) => false);
                               },
                             ),
                           ), // بارگذاری مجدد
@@ -1869,7 +1870,7 @@ class QuestionsState extends State<Questions>{
                       ),// سمت راست
                     ),// سمت راست
                     Padding(padding: EdgeInsets.only(right: 630, top: 80),
-                      child: new Text("سوالات چهار گزینه ای", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                      child: new Text("سوالات سه گزینه ای", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
                     ),// عنوان صفحه
                     Padding(padding: EdgeInsets.only(right: 300, top: 160),
                       child: InkWell(
@@ -2052,7 +2053,7 @@ class QuestionsState extends State<Questions>{
                                                 ),
                                               ),
                                               onTap: (){
-                                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditQuestion(questionsInformation[index]["_id"].toString(), UserName.toString()))),(Route<dynamic> route) => false);
+                                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>new Directionality(textDirection: TextDirection.rtl, child: EditQuestion3(questionsInformation[index]["_id"].toString(), UserName.toString()))),(Route<dynamic> route) => false);
                                               },
                                             ),
                                           ),

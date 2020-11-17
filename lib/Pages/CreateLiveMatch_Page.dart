@@ -818,7 +818,7 @@ class CreateLiveMatchState extends State<CreateLiveMatch> {
                       ),// سمت راست
                     ),// سمت راست
                     new Align(alignment: Alignment.topCenter,
-                      child: Padding(padding: EdgeInsets.only(right: 200, top: 80),
+                      child: Padding(padding: EdgeInsets.only(right: 250, top: 80),
                         child: new Text("ایجاد مسابقه زنده", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
                       ),// عنوان صفحه
                     ),// عنوان صفحه

@@ -6,6 +6,7 @@ import 'package:jaam_q/Pages/OneVsOneTournament_Page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jaam_q/Pages/TourType_Page.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'AbouteUsList_Page.dart';
 import 'AccessList_Page.dart';
@@ -799,7 +800,7 @@ class TournamentTypesState extends State<TournamentTypes> {
                     ),// سمت راست
                     new Align(alignment: Alignment.topCenter,
                       child: Padding(padding: EdgeInsets.only(right: 250, top: 80),
-                        child: new Text("انواع مسابقات", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                        child: new Text("مسابقات", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
                       ),
                     ),// عنوان صفحه
                     new Align(alignment: Alignment.center,
@@ -863,7 +864,30 @@ class TournamentTypesState extends State<TournamentTypes> {
                           },
                         ),
                       ), // ایجاد سوالات به صورت تکی
-                    ),// مسابقه LIVE
+                    ),// مسابقه زنده
+                    new Align(alignment: Alignment.center,
+                      child: Padding(padding: EdgeInsets.only(right: 250, top: 140),
+                        child: InkWell(
+                          child: Container(
+                            width: 170,
+                            height: 30,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 62, top: 2),
+                              child: new Text("تورنمنت", style: new TextStyle(fontFamily: 'IRANSans', color: Colors.white, fontSize: 15)),
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color(0xff483D8B),
+                            ),
+                          ),
+                          onTap: (){
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(builder: (context) =>
+                                new Directionality(textDirection: TextDirection.rtl, child: TourTypes(UserName.toString()))),(Route<dynamic> route) => false);
+                          },
+                        ),
+                      ), // ایجاد سوالات به صورت تکی
+                    ),// تورنمنت
                   ]),
             ),
           );

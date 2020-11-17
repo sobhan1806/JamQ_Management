@@ -959,7 +959,13 @@ class LiveTournamentState extends State<LiveTournament>{
                                               ),
                                             ),
                                             onTap: (){
-                                              WinnersPopup(context);
+                                              setState(() {
+                                              var MatchId = livematchInformation[index]["_id"].toString();
+                                                print('MatchIIID');
+                                                print(MatchId);
+                                               GetWinnersData(MatchId);
+
+                                              });
                                             },
                                           ),
                                         ),
@@ -1010,7 +1016,6 @@ class LiveTournamentState extends State<LiveTournament>{
         livematchInformation = response.data;
         print('GetLiveMatchByState = '+livematchInformation.toString());
         GetPanelUsersByUserName();
-        GetWinnersData();
         return livematchInformation;
       }else{
         Alert(
@@ -1220,33 +1225,29 @@ class LiveTournamentState extends State<LiveTournament>{
       print(e);
     }
   }
-  GetWinnersData() async{
+  GetWinnersData(MatchId) async{
     print('GetWinnersData Run...');
-    MatchId = livematchInformation[0]["_id"].toString();
     try {
       FormData formData = FormData.fromMap({
         "MatchID":MatchId,
       });
       Response response = await Dio().post("http://jamq.ir:3000/LiveMatch/GetWinnersData",options: Options(contentType: 'multipart/form-data'),data:formData);
       if(response.data.toString() != 'NoWinner'){
-        WinInfo = response.data;
-        print('GetWinnersData = '+WinInfo.toString());
-        return WinInfo;
+        WinnersPopup(context,response.data);
+        return response.data;
       }else{
         Alert(
           context: context,
           type: AlertType.none,
           title: "پیغام",
-          desc: "!!!برنامه با مشکل مواجه شده است",
+          desc: "!!!برنده ای وجود ندارد",
           buttons: [
             DialogButton(
               child: Text(
                 "تایید",
                 style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
               ),
-              onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) =>
-                  new Directionality(textDirection: TextDirection.rtl, child: LiveTypes(UserName.toString()))),(Route<dynamic> route) => false),
+              onPressed: () => Navigator.pop(context),
               color: Color(0xffD3D3D3),
             )
           ],
@@ -1264,9 +1265,7 @@ class LiveTournamentState extends State<LiveTournament>{
               "تایید",
               style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'IRANSans'),
             ),
-            onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) =>
-                new Directionality(textDirection: TextDirection.rtl, child: LiveTypes(UserName.toString()))),(Route<dynamic> route) => false),
+            onPressed: () => Navigator.pop(context),
             color: Color(0xffD3D3D3),
           )
         ],
@@ -1274,7 +1273,7 @@ class LiveTournamentState extends State<LiveTournament>{
       print(e);
     }
   }
-  void WinnersPopup(BuildContext context) {
+  void WinnersPopup(BuildContext context,List WinInfo) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 

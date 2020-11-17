@@ -27,18 +27,18 @@ import 'PanelUsers_Page.dart';
 import 'Tickets_Page.dart';
 import 'UnauthorizedWords_Page.dart';
 
-class LiveTournamentActive extends StatefulWidget {
+class UnfinishedTournaments extends StatefulWidget {
   var UserNameResponse;
-  LiveTournamentActive(this.UserNameResponse);
-  LiveTournamentActive.none();
+  UnfinishedTournaments(this.UserNameResponse);
+  UnfinishedTournaments.none();
 
   @override
   State<StatefulWidget> createState() {
-    return LiveTournamentActiveState();
+    return UnfinishedTournamentsState();
   }
 }
 
-class LiveTournamentActiveState extends State<LiveTournamentActive> {
+class UnfinishedTournamentsState extends State<UnfinishedTournaments> {
   var appscaffold;
   Future loadfuture;
   List livematchInformation;
@@ -824,7 +824,7 @@ class LiveTournamentActiveState extends State<LiveTournamentActive> {
                       ),// سمت راست
                     ),// سمت راست
                     Padding(padding: EdgeInsets.only(right: 690, top: 80),
-                      child: new Text("مسابقات زنده ناتمام", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
+                      child: new Text("تورنمنت های ناتمام", style: new TextStyle(color: Colors.deepPurple, fontWeight: FontWeight.bold, fontFamily: 'IRANSans', fontSize: 25)),
                     ),// عنوان صفحه
                     Padding(padding: EdgeInsets.only(left: 26, right: 295, top: 230),
                       child:
